@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockBonBerger", "StockBonBerger\StockBonBerger.csproj", "{BEFDE5DD-2F6F-400F-A515-F8AA79253F78}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockBonBerger_Data", "StockBonBerger_Data\StockBonBerger_Data.csproj", "{655714F1-095B-4EED-B467-A41CAC56C324}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BEFDE5DD-2F6F-400F-A515-F8AA79253F78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEFDE5DD-2F6F-400F-A515-F8AA79253F78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEFDE5DD-2F6F-400F-A515-F8AA79253F78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEFDE5DD-2F6F-400F-A515-F8AA79253F78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{655714F1-095B-4EED-B467-A41CAC56C324}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{655714F1-095B-4EED-B467-A41CAC56C324}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{655714F1-095B-4EED-B467-A41CAC56C324}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{655714F1-095B-4EED-B467-A41CAC56C324}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
