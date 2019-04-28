@@ -406,6 +406,7 @@ CREATE PROCEDURE sp_merge_detail_vente
 )
 AS
 	DECLARE @stock INT;
+	DECLARE @current_quantite INT;
     DECLARE @current_code UNIQUEIDENTIFIER;
 	DECLARE @code_guid_vente UNIQUEIDENTIFIER;
 	DECLARE @code_guid_piece UNIQUEIDENTIFIER;
@@ -414,10 +415,11 @@ AS
 	SELECT @code_guid_piece = code_guid FROM tPiece WHERE id = @code_piece;
     SELECT @current_code = code_guid FROM tVente WHERE id = @code;
 	SELECT @stock = en_stock FROM tPiece WHERE code_guid = @code_guid_piece;
+	SELECT @current_quantite = quantite FROM tDetailVente WHERE id = @code;
 BEGIN
     IF (@action = 1)
     BEGIN
-        IF (@stock != 0 AND @stock > @quantite)
+        IF (@stock != 0 AND @stock >= @quantite)
 		BEGIN
 			INSERT INTO tDetailVente(code_guid, code_vente, code_piece, quantite, prix) 
 			VALUES (NEWID(), @code_guid_vente, @code_guid_piece, @quantite, @prix);
@@ -428,13 +430,13 @@ BEGIN
 
     ELSE IF (@action = 2)       
     BEGIN
-		IF (@stock != 0 AND @stock > @quantite)
+		IF (@stock != 0 AND @stock >= @quantite)
 		BEGIN
 			UPDATE tDetailVente SET code_vente = @code_guid_vente,
 			code_piece = @code_guid_piece, quantite = @quantite,
 			prix = @prix WHERE code_guid = @current_code;
 
-			UPDATE tPiece SET en_stock = @stock - @quantite  WHERE code_guid = @code_guid_piece;
+			UPDATE tPiece SET en_stock = (@stock + @current_quantite) - @quantite WHERE code_guid = @code_guid_piece;
 		END
     END
 
@@ -488,26 +490,32 @@ CREATE PROCEDURE sp_merge_detail_approv
 )
 AS
 	DECLARE @stock INT;
+	DECLARE @current_quantite INT;
     DECLARE @current_code UNIQUEIDENTIFIER;
 	DECLARE @code_guid_approv UNIQUEIDENTIFIER;
 	DECLARE @code_guid_piece UNIQUEIDENTIFIER;
 	
 	SELECT @code_guid_approv = code_guid FROM tApprov WHERE id = @code_approv;
 	SELECT @code_guid_piece = code_guid FROM tPiece WHERE id = @code_piece;
-    SELECT @current_code = code_guid FROM tVente WHERE id = @code;
+    SELECT @current_code = code_guid FROM tDetailApprov WHERE id = @code;
 	SELECT @stock = en_stock FROM tPiece WHERE code_guid = @code_guid_piece;
+	SELECT @current_quantite = quantite FROM tDetailApprov WHERE id = @code;
 BEGIN
     IF (@action = 1)
     BEGIN
         INSERT INTO tDetailApprov(code_guid, code_approv, code_piece, quantite, prix) 
-			VALUES (NEWID(), @code_guid_approv, @code_guid_piece, @quantite + @stock, @prix)
+			VALUES (NEWID(), @code_guid_approv, @code_guid_piece, @quantite, @prix);
+
+		UPDATE tPiece SET en_stock = @quantite + @stock WHERE code_guid = @code_guid_piece;
     END
 
     ELSE IF (@action = 2)       
     BEGIN
 		UPDATE tDetailApprov SET code_approv = @code_guid_approv,
-			code_piece = @code_guid_piece, quantite = @quantite + @stock,
-			prix = @prix WHERE code_guid = @current_code
+			code_piece = @code_guid_piece, quantite = @quantite,
+			prix = @prix WHERE code_guid = @current_code;
+
+		UPDATE tPiece SET en_stock = (@stock - @current_quantite) + @quantite WHERE code_guid = @code_guid_piece;
     END
 
     ELSE IF (@action = 3)
@@ -555,3 +563,34 @@ BEGIN
 END
 GO
 
+--- TRIGGERS ---
+
+CREATE TRIGGER tg_retreive_stock_delete_approv ON tDetailApprov AFTER DELETE
+AS
+	DECLARE @current_stock INT;
+	DECLARE @quantity_deleted INT;
+	DECLARE @current_piece_code UNIQUEIDENTIFIER;
+
+	SELECT @current_piece_code = code_piece FROM deleted;
+	SELECT @quantity_deleted = quantite FROM deleted;
+	SELECT @current_stock = en_stock FROM tPiece WHERE code_guid = @current_piece_code;
+BEGIN
+	UPDATE tPiece SET en_stock = @current_stock - @quantity_deleted WHERE code_guid = @current_piece_code;
+END
+GO
+
+CREATE TRIGGER tg_retreive_stock_delete_vente ON tDetailVente AFTER DELETE
+AS
+	DECLARE @current_stock INT;
+	DECLARE @quantity_deleted INT;
+	DECLARE @current_piece_code UNIQUEIDENTIFIER;
+
+	SELECT @current_piece_code = code_piece FROM deleted;
+	SELECT @quantity_deleted = quantite FROM deleted;
+	SELECT @current_stock = en_stock FROM tPiece WHERE code_guid = @current_piece_code;
+BEGIN
+	UPDATE tPiece SET en_stock = @current_stock + @quantity_deleted WHERE code_guid = @current_piece_code;
+END
+GO
+
+--- FONCTIONS ---
