@@ -105,9 +105,12 @@ CREATE TABLE tCommande
 	code_guid UNIQUEIDENTIFIER PRIMARY KEY, 
 	date_cmd DATETIME DEFAULT GETDATE(),
 	code_client UNIQUEIDENTIFIER NOT NULL,
+	etat NVARCHAR(10) DEFAULT 'false',
+	date_livraison DATETIME NOT NULL,
 	agent NVARCHAR(20) NOT NULL,
 		CONSTRAINT fk_cmd_client FOREIGN KEY (code_client)
-			REFERENCES tClient(code_guid)
+			REFERENCES tClient(code_guid),
+		CONSTRAINT chk_date_livraison CHECK (date_livraison >= GETDATE())
 )
 GO
 
@@ -563,6 +566,92 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE sp_merge_cmd
+(
+    @code BIGINT,
+    @code_client BIGINT,
+	@agent NVARCHAR(100),
+	@etat NVARCHAR(10),
+	@date_livraison DATETIME,
+    @action INT
+)
+AS
+    DECLARE @current_code UNIQUEIDENTIFIER;
+	DECLARE @code_guid_client UNIQUEIDENTIFIER;
+	SELECT @code_guid_client = code_guid FROM tClient WHERE id = @code_client;
+    SELECT @current_code = code_guid FROM tVente WHERE id = @code;
+BEGIN
+    IF (@action = 1)
+    BEGIN
+        INSERT INTO tCommande (code_guid, date_cmd, code_client, agent, etat, date_livraison) 
+			VALUES (NEWID(), GETDATE() ,@code_guid_client, @agent, @etat, @date_livraison)
+    END
+
+    ELSE IF (@action = 2)       
+    BEGIN
+		UPDATE tCommande SET code_client = @code_guid_client, etat = @etat, date_livraison = @date_livraison,
+			agent = @agent, date_cmd = GETDATE() WHERE code_guid = @current_code
+    END
+
+    ELSE IF (@action = 3)
+    BEGIN
+		DELETE FROM tCommande WHERE code_guid = @current_code
+    END
+END
+GO
+
+CREATE PROCEDURE sp_merge_detail_cmd
+(
+    @code BIGINT,
+    @code_cmd BIGINT,
+	@code_piece BIGINT,
+	@quantite INT,
+	@prix FLOAT,
+    @action INT
+)
+AS
+	DECLARE @stock INT;
+	DECLARE @current_quantite INT;
+    DECLARE @current_code UNIQUEIDENTIFIER;
+	DECLARE @code_guid_cmd UNIQUEIDENTIFIER;
+	DECLARE @code_guid_piece UNIQUEIDENTIFIER;
+
+	SELECT @code_guid_cmd = code_guid FROM tVente WHERE id = @code_cmd;
+	SELECT @code_guid_piece = code_guid FROM tPiece WHERE id = @code_piece;
+    SELECT @current_code = code_guid FROM tVente WHERE id = @code;
+	SELECT @stock = en_stock FROM tPiece WHERE code_guid = @code_guid_piece;
+	SELECT @current_quantite = quantite FROM tDetailCommande WHERE id = @code;
+BEGIN
+    IF (@action = 1)
+    BEGIN
+        IF (@stock != 0 AND @stock >= @quantite)
+		BEGIN
+			INSERT INTO tDetailCommande(code_guid, code_cmd, code_piece, quantite, prix) 
+			VALUES (NEWID(), @code_guid_cmd, @code_guid_piece, @quantite, @prix);
+
+			UPDATE tPiece SET en_stock = @stock - @quantite WHERE code_guid = @code_guid_piece;
+		END
+    END
+
+    ELSE IF (@action = 2)       
+    BEGIN
+		IF (@stock != 0 AND @stock >= @quantite)
+		BEGIN
+			UPDATE tDetailCommande SET code_cmd = @code_guid_cmd,
+			code_piece = @code_guid_piece, quantite = @quantite,
+			prix = @prix WHERE code_guid = @current_code;
+
+			UPDATE tPiece SET en_stock = (@stock + @current_quantite) - @quantite WHERE code_guid = @code_guid_piece;
+		END
+    END
+
+    ELSE IF (@action = 3)
+    BEGIN
+		DELETE FROM tDetailCommande WHERE code_guid = @current_code
+    END
+END
+GO
+
 --- TRIGGERS ---
 
 CREATE TRIGGER tg_retreive_stock_delete_approv ON tDetailApprov AFTER DELETE
@@ -594,3 +683,87 @@ END
 GO
 
 --- FONCTIONS ---
+
+--CREATE FUNCTION func_get_code_guid(@table NVARCHAR(20), @id INT) RETURNS UNIQUEIDENTIFIER
+--AS
+--BEGIN
+--	DECLARE @my_table 
+--	DECLARE @code UNIQUEIDENTIFIER
+--	SELECT @code = 'code_guid' FROM  WHERE @id = @code
+--	RETURN @code
+--END
+--GO
+
+--- VIEWS ---
+
+CREATE VIEW v_list_clients AS
+SELECT tClient.code_guid as code_client, noms, designation as categorie, phone, email, adresse FROM tClient
+INNER JOIN tCategClient ON tCategClient.code_guid = tClient.code_categorie
+GO
+
+CREATE VIEW v_list_pieces AS
+SELECT tPiece.code_guid, tPiece.designation, tCategPiece.designation as categorie, numero_serie, lieu_fabrication, usage, en_stock as quantite FROM tPiece
+INNER JOIN tCategPiece ON tCategPiece.code_guid = tPiece.code_categorie
+GO
+
+CREATE VIEW v_detail_paiement AS
+SELECT code_vente, tPaiement.code_guid as numero_recu, noms, montant_paye, tModePaiement.designation as mode_paiement, tPaiement.agent 
+	FROM tPaiement
+INNER JOIN tVente ON tVente.code_guid = tPaiement.code_vente
+INNER JOIN tModePaiement ON tModePaiement.code_guid = tPaiement.code_mode_pmt
+INNER JOIN tClient ON tClient.code_guid = tVente.code_client
+GO
+
+CREATE VIEW v_amount_to_pay AS
+SELECT tVente.code_guid, SUM(prix * quantite) AS dette FROM tVente
+INNER JOIN tDetailVente on tDetailVente.code_vente = tVente.code_guid
+GROUP BY tVente.code_guid
+GO
+
+CREATE VIEW v_amout_paid AS
+SELECT tVente.code_guid, sum(montant_paye) as total_paye from tPaiement
+INNER JOIN tVente on tVente.code_guid = tPaiement.code_vente
+GROUP BY tVente.code_guid
+GO
+
+--- TEST ---
+
+select numero_recu,v_detail_paiement.code_vente as codeVente,noms,montant_paye,
+mode_paiement,agent,total_paye,dette,(dette-total_paye) as reste from v_detail_paiement
+inner join v_amout_paid on v_amout_paid.code_guid=v_detail_paiement.code_vente
+inner join v_amount_to_pay on v_amount_to_pay.code_guid=v_detail_paiement.code_vente
+
+
+
+EXEC sp_merge_piece 2, 'Filtre à huile', 9, 'KLD08324', 'chine', 'piece de rechange', 2
+SELECT * FROM tPiece
+
+EXEC sp_merge_approv 2, 1, Pauline, 3
+SELECT * FROM tPiece
+SELECT * FROM tApprov
+
+EXEC sp_merge_detail_approv 1, 2, 4, 40, 50, 1
+
+SELECT * FROM tApprov
+SELECT * FROM tPiece
+SELECT * FROM tDetailApprov
+
+TRUNCATE TABLE tDetailApprov
+
+EXEC sp_merge_paiement 0,1,1,6, 'PAULINE', 1
+SELECT * FROM tPaiement
+SELECT * FROm tClient
+
+EXEC sp_merge_vente 0, 1, 'DEVOTE',1
+SELECT * FROM tVente
+EXEC sp_merge_detail_vente 7, 3,1, 5, 20, 2
+SELECT * FROM tDetailVente
+SELECT * FROM tPiece
+
+SELECT sum(quantite) FROM tDetailApprov WHERE code_approv = 'B50D10A3-4CA4-4362-B782-FF163854ADB9'
+
+
+
+
+
+
