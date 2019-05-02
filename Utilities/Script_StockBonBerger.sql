@@ -180,6 +180,45 @@ CREATE TABLE tPaiement
 )
 GO
 
+--- Table Historique ---
+
+CREATE TABLE tHistoriqueVente
+(
+	code_guid UNIQUEIDENTIFIER,
+	date_vente DATETIME,
+	code_client UNIQUEIDENTIFIER,
+	agent NVARCHAR(20),
+	utilisateur NVARCHAR(20),
+	operation NVARCHAR(20),
+	date_operation DATETIME DEFAULT GETDATE()
+)
+GO
+
+CREATE TABLE tHistoriqueVenteDetail
+(
+	code_guid UNIQUEIDENTIFIER,
+	code_vente UNIQUEIDENTIFIER,
+	code_piece UNIQUEIDENTIFIER,
+	quantite INT,
+	prix FLOAT,
+	utilisateur NVARCHAR(20),
+	operation NVARCHAR(20),
+	date_operation DATETIME DEFAULT GETDATE()
+)
+GO
+
+CREATE TABLE tHistoriquePaiement
+(
+	code_guid UNIQUEIDENTIFIER,
+	code_vente UNIQUEIDENTIFIER,
+	montant_paye FLOAT,
+	code_mode_pmt UNIQUEIDENTIFIER,
+	agent NVARCHAR(20),
+	utilisateur NVARCHAR(20),
+	operation NVARCHAR(20),
+	date_operation DATETIME DEFAULT GETDATE()
+)
+GO
 
 --- PRECEDURES ---
 
@@ -681,6 +720,7 @@ BEGIN
 	UPDATE tPiece SET en_stock = @current_stock + @quantity_deleted WHERE code_guid = @current_piece_code;
 END
 GO
+
 
 --- FONCTIONS ---
 
