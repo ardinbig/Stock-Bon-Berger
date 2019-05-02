@@ -1,4 +1,11 @@
 
+USE master
+GO
+
+IF EXISTS(SELECT * FROM sys.databases where name='StockBonBerger_DB')
+	DROP DATABASE StockBonBerger_DB
+GO
+
 CREATE DATABASE StockBonBerger_DB
 GO
 
@@ -721,6 +728,53 @@ BEGIN
 END
 GO
 
+CREATE TRIGGER tg_historique_paiement_delete ON tPaiement AFTER DELETE
+AS
+BEGIN
+	INSERT INTO tHistoriquePaiement (code_guid, code_vente, montant_paye, code_mode_pmt, agent, utilisateur, operation)
+		(SELECT code_guid, code_vente, montant_paye, code_mode_pmt, agent, (SELECT SYSTEM_USER), 'DELETE' FROM deleted)
+END
+GO
+
+CREATE TRIGGER tg_historique_paiement_update ON tPaiement AFTER UPDATE
+AS
+BEGIN
+	INSERT INTO tHistoriquePaiement (code_guid, code_vente, montant_paye, code_mode_pmt, agent, utilisateur, operation)
+		(SELECT code_guid, code_vente, montant_paye, code_mode_pmt, agent, (SELECT SYSTEM_USER), 'UPDATE' FROM deleted)
+END
+GO
+
+CREATE TRIGGER tg_historique_vente_delete ON tVente AFTER DELETE
+AS
+BEGIN
+	INSERT INTO tHistoriqueVente(code_guid, date_vente, code_client, agent, utilisateur, operation)
+		(SELECT code_guid, date_vente, code_client, agent, (SELECT SYSTEM_USER), 'DELETE' FROM deleted)
+END
+GO
+
+CREATE TRIGGER tg_historique_vente_update ON tVente AFTER UPDATE
+AS
+BEGIN
+	INSERT INTO tHistoriqueVente(code_guid, date_vente, code_client, agent, utilisateur, operation)
+		(SELECT code_guid, date_vente, code_client, agent, (SELECT SYSTEM_USER), 'UPDATE' FROM deleted)
+END
+GO
+
+CREATE TRIGGER tg_historique_vente_detail_delete ON tDetailVente AFTER DELETE
+AS
+BEGIN
+	INSERT INTO tHistoriqueVenteDetail(code_guid, code_vente, code_piece, quantite, prix, utilisateur, operation)
+		(SELECT code_guid, code_vente, code_piece, quantite, prix, (SELECT SYSTEM_USER), 'DELETE' FROM deleted)
+END
+GO
+
+CREATE TRIGGER tg_historique_vente_detail_update ON tDetailVente AFTER UPDATE
+AS
+BEGIN
+	INSERT INTO tHistoriqueVenteDetail(code_guid, code_vente, code_piece, quantite, prix, utilisateur, operation)
+		(SELECT code_guid, code_vente, code_piece, quantite, prix, (SELECT SYSTEM_USER), 'UPDATE' FROM deleted)
+END
+GO
 
 --- FONCTIONS ---
 
@@ -804,6 +858,7 @@ SELECT sum(quantite) FROM tDetailApprov WHERE code_approv = 'B50D10A3-4CA4-4362-
 
 
 
-
+USE master
+SELECT SYSTEM_USER
 
 
