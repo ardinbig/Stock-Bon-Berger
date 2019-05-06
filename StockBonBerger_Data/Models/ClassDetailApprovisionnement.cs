@@ -5,7 +5,7 @@ using System.Text;
 
 namespace StockBonBerger_Data.Models
 {
-    class DetailApprovisionnement
+    class DetailApprovisionnement : Base
     {
         public string CodeApprov { get; set; }
 
