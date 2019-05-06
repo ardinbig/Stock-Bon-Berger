@@ -4,7 +4,7 @@ using System.ComponentModel;
 
 namespace StockBonBerger_Data
 {
-    class Connexion : INotifyPropertyChanged, IDataErrorInfo
+    public class Connexion : INotifyPropertyChanged, IDataErrorInfo
     {
         private string _server = "";
         private string _database = "";

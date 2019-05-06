@@ -41,10 +41,34 @@
   <ItemGroup>
     <Compile Include="ClassConnexion.cs" />
     <Compile Include="ClassGlossaire.cs" />
+    <Compile Include="Models\ClassApprovisionnement.cs" />
+    <Compile Include="Models\ClassBase.cs" />
+    <Compile Include="Models\ClassCategorieClient.cs" />
+    <Compile Include="Models\ClassCategoriePiece.cs" />
+    <Compile Include="Models\ClassClient.cs" />
+    <Compile Include="Models\ClassCommande.cs" />
+    <Compile Include="Models\ClassDetailApprovisionnement.cs" />
+    <Compile Include="Models\ClassDetailCommande.cs" />
+    <Compile Include="Models\ClassDetailVente.cs" />
+    <Compile Include="Models\ClassFournisseur.cs" />
+    <Compile Include="Models\ClassModePaiement.cs" />
+    <Compile Include="Models\ClassPaiement.cs" />
+    <Compile Include="Models\ClassPiece.cs" />
+    <Compile Include="Models\ClassUtilisateur.cs" />
+    <Compile Include="Models\ClassVente.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
