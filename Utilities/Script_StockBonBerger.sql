@@ -85,7 +85,7 @@ CREATE TABLE tApprov
 	code_guid UNIQUEIDENTIFIER PRIMARY KEY, 
 	date_approv DATETIME DEFAULT GETDATE(),
 	code_fss UNIQUEIDENTIFIER NOT NULL,
-	agent NVARCHAR(20) NOT NULL,
+	agent NVARCHAR(40) NOT NULL,
 		CONSTRAINT fk_approv_fss FOREIGN KEY (code_fss)
 			REFERENCES tFournisseur(code_guid)
 )
@@ -114,7 +114,7 @@ CREATE TABLE tCommande
 	code_client UNIQUEIDENTIFIER NOT NULL,
 	etat NVARCHAR(10) DEFAULT 'false',
 	date_livraison DATETIME NOT NULL,
-	agent NVARCHAR(20) NOT NULL,
+	agent NVARCHAR(40) NOT NULL,
 		CONSTRAINT fk_cmd_client FOREIGN KEY (code_client)
 			REFERENCES tClient(code_guid),
 		CONSTRAINT chk_date_livraison CHECK (date_livraison >= GETDATE())
@@ -142,7 +142,7 @@ CREATE TABLE tVente
 	code_guid UNIQUEIDENTIFIER PRIMARY KEY, 
 	date_vente DATETIME DEFAULT GETDATE(),
 	code_client UNIQUEIDENTIFIER NOT NULL,
-	agent NVARCHAR(20) NOT NULL,
+	agent NVARCHAR(40) NOT NULL,
 		CONSTRAINT fk_vente_client FOREIGN KEY (code_client)
 			REFERENCES tClient(code_guid)
 )
@@ -179,7 +179,7 @@ CREATE TABLE tPaiement
 	code_vente UNIQUEIDENTIFIER NOT NULL,
 	montant_paye FLOAT DEFAULT 0.0,
 	code_mode_pmt UNIQUEIDENTIFIER NOT NULL,
-	agent NVARCHAR(20) NOT NULL,
+	agent NVARCHAR(40) NOT NULL,
 		CONSTRAINT fk_pmt_mode_pmt FOREIGN KEY (code_mode_pmt)
 			REFERENCES tModePaiement(code_guid),
 		CONSTRAINT fk_pmt_vente FOREIGN KEY (code_vente)
@@ -194,9 +194,9 @@ CREATE TABLE tHistoriqueVente
 	code_guid UNIQUEIDENTIFIER,
 	date_vente DATETIME,
 	code_client UNIQUEIDENTIFIER,
-	agent NVARCHAR(20),
-	utilisateur NVARCHAR(20),
-	operation NVARCHAR(20),
+	agent NVARCHAR(40),
+	utilisateur NVARCHAR(40),
+	operation NVARCHAR(40),
 	date_operation DATETIME DEFAULT GETDATE()
 )
 GO
@@ -208,8 +208,8 @@ CREATE TABLE tHistoriqueVenteDetail
 	code_piece UNIQUEIDENTIFIER,
 	quantite INT,
 	prix FLOAT,
-	utilisateur NVARCHAR(20),
-	operation NVARCHAR(20),
+	utilisateur NVARCHAR(40),
+	operation NVARCHAR(40),
 	date_operation DATETIME DEFAULT GETDATE()
 )
 GO
@@ -220,9 +220,9 @@ CREATE TABLE tHistoriquePaiement
 	code_vente UNIQUEIDENTIFIER,
 	montant_paye FLOAT,
 	code_mode_pmt UNIQUEIDENTIFIER,
-	agent NVARCHAR(20),
-	utilisateur NVARCHAR(20),
-	operation NVARCHAR(20),
+	agent NVARCHAR(40),
+	utilisateur NVARCHAR(40),
+	operation NVARCHAR(40),
 	date_operation DATETIME DEFAULT GETDATE()
 )
 GO
@@ -778,7 +778,7 @@ GO
 
 --- FONCTIONS ---
 
---CREATE FUNCTION func_get_code_guid(@table NVARCHAR(20), @id INT) RETURNS UNIQUEIDENTIFIER
+--CREATE FUNCTION func_get_code_guid(@table NVARCHAR(40), @id INT) RETURNS UNIQUEIDENTIFIER
 --AS
 --BEGIN
 --	DECLARE @my_table 
@@ -820,6 +820,65 @@ INNER JOIN tVente on tVente.code_guid = tPaiement.code_vente
 GROUP BY tVente.code_guid
 GO
 
+--- GESTION DES UTILISATEURS ---
+
+CREATE TABLE tUtilisateur
+(
+	id BIGINT IDENTITY(1,1),
+	code_guid UNIQUEIDENTIFIER PRIMARY KEY,
+	noms_agent NVARCHAR(40) NOT NULL,
+	nom_utilisateur NVARCHAR(40) NOT NULL,
+	mot_de_passe NVARCHAR(1000) NOT NULL,
+	droits NVARCHAR(300) DEFAULT 'Aucun',
+	schema_utilisateur NVARCHAR(40),
+	actif BIT,
+		CONSTRAINT unique_user UNIQUE (noms_agent, nom_utilisateur)
+)
+GO
+
+CREATE PROCEDURE sp_merge_utilisateur
+(
+	@code BIGINT,
+	@noms_agent NVARCHAR(40),
+	@nom_utilisateur  NVARCHAR(40),
+	@mot_de_passe  NVARCHAR(1000),
+	@droits  NVARCHAR(300),
+	@schema_utilisateur NVARCHAR(40),
+	@actif BIT,
+	@action INT
+)
+AS
+	DECLARE @current_code UNIQUEIDENTIFIER;
+	SELECT @current_code = code_guid FROM tUtilisateur WHERE id = @code;
+BEGIN
+	IF (@action = 1)
+	BEGIN
+		INSERT INTO tUtilisateur (code_guid, noms_agent, nom_utilisateur, mot_de_passe, droits, schema_utilisateur, actif) VALUES
+			(NEWID(), @noms_agent, @nom_utilisateur, @mot_de_passe, @droits, @schema_utilisateur, @actif)
+	END
+		
+	ELSE IF (@action = 2)
+	BEGIN
+		UPDATE tUtilisateur SET noms_agent = @noms_agent, nom_utilisateur = @nom_utilisateur, mot_de_passe = @mot_de_passe, droits = @droits,
+			schema_utilisateur = @schema_utilisateur, actif = @actif WHERE code_guid = @current_code
+	END
+
+	ELSE IF(@action = 3)
+	BEGIN
+		DELETE FROM tUtilisateur WHERE code_guid = @current_code
+	END
+END	
+GO
+
+
+
+
+
+
+
+
+
+
 --- TEST ---
 
 select numero_recu,v_detail_paiement.code_vente as codeVente,noms,montant_paye,
@@ -827,7 +886,7 @@ mode_paiement,agent,total_paye,dette,(dette-total_paye) as reste from v_detail_p
 inner join v_amout_paid on v_amout_paid.code_guid=v_detail_paiement.code_vente
 inner join v_amount_to_pay on v_amount_to_pay.code_guid=v_detail_paiement.code_vente
 
-
+HASHBYTES('sha2_512', @motDePasse)
 
 EXEC sp_merge_piece 2, 'Filtre à huile', 9, 'KLD08324', 'chine', 'piece de rechange', 2
 SELECT * FROM tPiece
@@ -850,7 +909,7 @@ SELECT * FROm tClient
 
 EXEC sp_merge_vente 0, 1, 'DEVOTE',1
 SELECT * FROM tVente
-EXEC sp_merge_detail_vente 7, 3,1, 5, 20, 2
+EXEC sp_merge_detail_vente 7, 3,1, 5, 40, 2
 SELECT * FROM tDetailVente
 SELECT * FROM tPiece
 
@@ -860,5 +919,4 @@ SELECT sum(quantite) FROM tDetailApprov WHERE code_approv = 'B50D10A3-4CA4-4362-
 
 USE master
 SELECT SYSTEM_USER
-
 
