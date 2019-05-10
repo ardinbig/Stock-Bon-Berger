@@ -776,6 +776,11 @@ BEGIN
 END
 GO
 
+--- AUTRES PROCEDURES ---
+
+SELECT name FROM sys.tables
+
+
 --- FONCTIONS ---
 
 --CREATE FUNCTION func_get_code_guid(@table NVARCHAR(40), @id INT) RETURNS UNIQUEIDENTIFIER
@@ -830,7 +835,6 @@ CREATE TABLE tUtilisateur
 	nom_utilisateur NVARCHAR(40) NOT NULL,
 	mot_de_passe NVARCHAR(1000) NOT NULL,
 	droits NVARCHAR(300) DEFAULT 'Aucun',
-	schema_utilisateur NVARCHAR(40),
 	actif BIT,
 		CONSTRAINT unique_user UNIQUE (noms_agent, nom_utilisateur)
 )
@@ -843,7 +847,6 @@ CREATE PROCEDURE sp_merge_utilisateur
 	@nom_utilisateur  NVARCHAR(40),
 	@mot_de_passe  NVARCHAR(1000),
 	@droits  NVARCHAR(300),
-	@schema_utilisateur NVARCHAR(40),
 	@actif BIT,
 	@action INT
 )
@@ -853,14 +856,14 @@ AS
 BEGIN
 	IF (@action = 1)
 	BEGIN
-		INSERT INTO tUtilisateur (code_guid, noms_agent, nom_utilisateur, mot_de_passe, droits, schema_utilisateur, actif) VALUES
-			(NEWID(), @noms_agent, @nom_utilisateur, @mot_de_passe, @droits, @schema_utilisateur, @actif)
+		INSERT INTO tUtilisateur (code_guid, noms_agent, nom_utilisateur, mot_de_passe, droits, actif) VALUES
+			(NEWID(), @noms_agent, @nom_utilisateur, @mot_de_passe, @droits, @actif)
 	END
 		
 	ELSE IF (@action = 2)
 	BEGIN
 		UPDATE tUtilisateur SET noms_agent = @noms_agent, nom_utilisateur = @nom_utilisateur, mot_de_passe = @mot_de_passe, droits = @droits,
-			schema_utilisateur = @schema_utilisateur, actif = @actif WHERE code_guid = @current_code
+			actif = @actif WHERE code_guid = @current_code
 	END
 
 	ELSE IF(@action = 3)

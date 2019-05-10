@@ -114,7 +114,7 @@ namespace StockBonBerger_Data
 
                 using (IDbCommand cmd = sqlCon.CreateCommand())
                 {
-                    cmd.CommandText = string.Format("SELECT name FROM sysdatabases WHERE name!='master' ORDER BY name");
+                    cmd.CommandText = string.Format("SELECT name FROM sysdatabases WHERE name != 'master' ORDER BY name");
                     using (IDataReader dr = cmd.ExecuteReader())
                     {
                         while (dr.Read())
@@ -164,6 +164,201 @@ namespace StockBonBerger_Data
             return bd;
         }
 
+        #endregion
+
+        #region Gestion des droits d'accès sur les tables
+
+        public List<int> GetDroitsUser(int idUser)
+        {
+            List<int> droits = new List<int>();
+
+            try
+            {
+                if (sqlCon.State != ConnectionState.Open) sqlCon.Open();
+
+                using (IDbCommand cmd = sqlCon.CreateCommand())
+                {
+                    cmd.CommandText = string.Format("SELECT droits FROM " + Constants.Table.UTILISATEUR + " WHERE id =" + idUser);
+                    using (IDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            string[] temp = dr["droits"].ToString().Split(',');
+                            int taille = temp.Length;
+
+                            foreach (string str in temp)
+                            {
+                                if (str.ToString().Equals("SysAdmin")) droits.Add(0);
+                                else if (str.Equals("Admin")) droits.Add(1);
+                                else if (str.Equals("User")) droits.Add(2);
+                            }
+                        }
+                    }
+                }
+                sqlCon.Close();
+            }
+            catch (Exception exc)
+            {
+                sqlCon.Close();
+                string MasterDirectory = ImplementUtilities.Instance.MasterDirectoryConfiguration;
+                ImplementLog.Instance.PutLogMessage(MasterDirectory, DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "Attribution de droits de manipulation sur les tables : " + exc.Message, DirectoryLog, MasterDirectory + "LogFile.txt");
+                throw new Exception(exc.Message);
+            }
+            return droits;
+        }
+
+        public void GrantPermission(List<int> permission, string loginName, string username)
+        {
+            try
+            {
+                if (sqlCon.State != ConnectionState.Open) sqlCon.Open();
+ 
+                foreach (int droit in permission)
+                {
+                    if (droit == 0)
+                    {
+                        // Les droits pour le super administrateur de la base des données
+
+                        string query = @"EXEC sp_addsrvrolemember '" + loginName + @"','SysAdmin' 
+                            EXEC sp_addsrvrolemember '" + loginName + @"','Admin' 
+                            EXEC sp_addrolemember 'db_owner','" + username + @"'
+                            EXEC sp_addrolemember 'db_accessadmin','" + username + @"'";
+
+                        using (IDbCommand cmd = sqlCon.CreateCommand())
+                        {
+                            cmd.CommandText = string.Format(query);
+                            cmd.ExecuteNonQuery();
+                        }                       
+                    }
+                    else if (droit == 1)
+                    {
+                        // Les droits pour l'administrateur (Il ne peut pas effectuer la suppression sur le table)
+
+                        string query = @"GRANT SELECT, INSERT, UPDATE ON " + Constants.Table.APPROVISIONNEMENT + " TO " + username + @" 
+                            GRANT SELECT, INSERT, UPDATE ON " + Constants.Table.CATEGORIE_CLIENT + " TO " + username + @" 
+                            GRANT SELECT, INSERT, UPDATE ON " + Constants.Table.CATEGORIE_PIECE + " TO " + username + @" 
+                            GRANT SELECT, INSERT, UPDATE ON " + Constants.Table.CLIENT + " TO " + username + @" 
+                            GRANT SELECT, INSERT, UPDATE ON " + Constants.Table.COMMANDE + " TO " + username + @" 
+                            GRANT SELECT, INSERT, UPDATE ON " + Constants.Table.DETAIL_APPROVISIONNEMENT + " TO " + username + @" 
+                            GRANT SELECT, INSERT, UPDATE ON " + Constants.Table.DETAIL_COMMANDE + " TO " + username + @" 
+                            GRANT SELECT, INSERT, UPDATE ON " + Constants.Table.DETAIL_VENTE + " TO " + username + @" 
+                            GRANT SELECT, INSERT, UPDATE ON " + Constants.Table.FOURNISSEUR + " TO " + username + @" 
+                            GRANT SELECT, INSERT, UPDATE ON " + Constants.Table.MODE_PAIEMENT + " TO " + username + @" 
+                            GRANT SELECT, INSERT, UPDATE ON " + Constants.Table.PAIEMENT + "" + username + @" 
+                            GRANT SELECT, INSERT, UPDATE ON " + Constants.Table.UTILISATEUR + " TO " + username + @" 
+                            GRANT SELECT, INSERT, UPDATE ON " + Constants.Table.VENTE + " TO " + username;
+
+                        using (IDbCommand cmd1 = sqlCon.CreateCommand())
+                        {
+                            cmd1.CommandText = string.Format(query);
+                            cmd1.ExecuteNonQuery();
+                        }
+                    }
+                    else if (droit == 2)
+                    {
+                        // Les droits pour les utilisateurs simple de l'application
+
+                        string query = @"GRANT SELECT, INSERT, UPDATE ON " + Constants.Table.APPROVISIONNEMENT + " TO " + username + @" 
+                            GRANT SELECT, INSERT, UPDATE ON " + Constants.Table.CATEGORIE_CLIENT + " TO " + username + @" 
+                            GRANT SELECT, INSERT, UPDATE ON " + Constants.Table.CATEGORIE_PIECE + " TO " + username + @" 
+                            GRANT SELECT, INSERT, UPDATE ON " + Constants.Table.CLIENT + " TO " + username + @" 
+                            GRANT SELECT, INSERT, UPDATE ON " + Constants.Table.COMMANDE + " TO " + username + @" 
+                            GRANT SELECT, INSERT, UPDATE ON " + Constants.Table.DETAIL_APPROVISIONNEMENT + " TO " + username + @" 
+                            GRANT SELECT, INSERT, UPDATE ON " + Constants.Table.DETAIL_COMMANDE + " TO " + username + @" 
+                            GRANT SELECT, INSERT, UPDATE ON " + Constants.Table.DETAIL_VENTE + " TO " + username + @" 
+                            GRANT SELECT, INSERT, UPDATE ON " + Constants.Table.FOURNISSEUR + " TO " + username + @" 
+                            GRANT SELECT ON " + Constants.Table.MODE_PAIEMENT + " TO " + username + @" 
+                            GRANT SELECT, INSERT, UPDATE ON " + Constants.Table.PAIEMENT + "" + username + @" 
+                            GRANT SELECT ON " + Constants.Table.UTILISATEUR + " TO " + username + @" 
+                            GRANT SELECT, INSERT, UPDATE ON " + Constants.Table.VENTE + " TO " + username;
+
+                        using (IDbCommand cmd2 = sqlCon.CreateCommand())
+                        {
+                            cmd2.CommandText = string.Format(query);
+                            cmd2.ExecuteNonQuery();
+                        }
+                    }
+                }
+                sqlCon.Close();
+            }
+            catch (Exception exc)
+            {
+                sqlCon.Close();
+                string MasterDirectory = ImplementUtilities.Instance.MasterDirectoryConfiguration;
+                ImplementLog.Instance.PutLogMessage(MasterDirectory, DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + " : Echec d'attribution des droits à l'utilisateur, veuillez réessayez ultérieurement : " + exc.Message, DirectoryLog, MasterDirectory + "LogFile.txt");
+                throw new Exception(exc.Message);
+            }
+        }
+
+        public void RevokePermission(List<int> permission, string loginName, string username)
+        {
+            try
+            {
+                if (sqlCon.State != ConnectionState.Open) sqlCon.Open();
+
+                foreach (int droit in permission)
+                {
+                    if (droit == 0)
+                    {
+                        throw new Exception("Les droits de l'administrateur ne peuvent pas être retirés à ce niveau, reportez vous au moteur de SGBD");
+                    }
+                    else if (droit == 1)
+                    {
+                        // Suppression des droits pour l'administrateur (Il ne peut pas effectuer la suppression sur le table)
+
+                        string query = @"GRANT SELECT, INSERT, UPDATE ON " + Constants.Table.APPROVISIONNEMENT + " TO " + username + @" 
+                            REVOKE SELECT, INSERT, UPDATE ON " + Constants.Table.CATEGORIE_CLIENT + " TO " + username + @" 
+                            REVOKE SELECT, INSERT, UPDATE ON " + Constants.Table.CATEGORIE_PIECE + " TO " + username + @" 
+                            REVOKE SELECT, INSERT, UPDATE ON " + Constants.Table.CLIENT + " TO " + username + @" 
+                            REVOKE SELECT, INSERT, UPDATE ON " + Constants.Table.COMMANDE + " TO " + username + @" 
+                            REVOKE SELECT, INSERT, UPDATE ON " + Constants.Table.DETAIL_APPROVISIONNEMENT + " TO " + username + @" 
+                            REVOKE SELECT, INSERT, UPDATE ON " + Constants.Table.DETAIL_COMMANDE + " TO " + username + @" 
+                            REVOKE SELECT, INSERT, UPDATE ON " + Constants.Table.DETAIL_VENTE + " TO " + username + @" 
+                            REVOKE SELECT, INSERT, UPDATE ON " + Constants.Table.FOURNISSEUR + " TO " + username + @" 
+                            REVOKE SELECT, INSERT, UPDATE ON " + Constants.Table.MODE_PAIEMENT + " TO " + username + @" 
+                            REVOKE SELECT, INSERT, UPDATE ON " + Constants.Table.PAIEMENT + "" + username + @" 
+                            REVOKE SELECT, INSERT, UPDATE ON " + Constants.Table.UTILISATEUR + " TO " + username + @" 
+                            REVOKE SELECT, INSERT, UPDATE ON " + Constants.Table.VENTE + " TO " + username;
+
+                        using (IDbCommand cmd1 = sqlCon.CreateCommand())
+                        {
+                            cmd1.CommandText = string.Format(query);
+                            cmd1.ExecuteNonQuery();
+                        }
+                    }
+                    else if (droit == 2)
+                    {
+                        string query = @"REVOKE SELECT, INSERT, UPDATE ON " + Constants.Table.APPROVISIONNEMENT + " TO " + username + @" 
+                            REVOKE SELECT, INSERT, UPDATE ON " + Constants.Table.CATEGORIE_CLIENT + " TO " + username + @" 
+                            REVOKE SELECT, INSERT, UPDATE ON " + Constants.Table.CATEGORIE_PIECE + " TO " + username + @" 
+                            REVOKE SELECT, INSERT, UPDATE ON " + Constants.Table.CLIENT + " TO " + username + @" 
+                            REVOKE SELECT, INSERT, UPDATE ON " + Constants.Table.COMMANDE + " TO " + username + @" 
+                            REVOKE SELECT, INSERT, UPDATE ON " + Constants.Table.DETAIL_APPROVISIONNEMENT + " TO " + username + @" 
+                            REVOKE SELECT, INSERT, UPDATE ON " + Constants.Table.DETAIL_COMMANDE + " TO " + username + @" 
+                            REVOKE SELECT, INSERT, UPDATE ON " + Constants.Table.DETAIL_VENTE + " TO " + username + @" 
+                            REVOKE SELECT, INSERT, UPDATE ON " + Constants.Table.FOURNISSEUR + " TO " + username + @" 
+                            REVOKE SELECT ON " + Constants.Table.MODE_PAIEMENT + " TO " + username + @" 
+                            REVOKE SELECT, INSERT, UPDATE ON " + Constants.Table.PAIEMENT + "" + username + @" 
+                            REVOKE SELECT ON " + Constants.Table.UTILISATEUR + " TO " + username + @" 
+                            REVOKE SELECT, INSERT, UPDATE ON " + Constants.Table.VENTE + " TO " + username;
+
+                        using (IDbCommand cmd2 = sqlCon.CreateCommand())
+                        {
+                            cmd2.CommandText = string.Format(query);
+                            cmd2.ExecuteNonQuery();
+                        }
+                    }
+                }
+                sqlCon.Close();
+            }
+            catch (Exception exc)
+            {
+                sqlCon.Close();
+                string MasterDirectory = ImplementUtilities.Instance.MasterDirectoryConfiguration;
+                ImplementLog.Instance.PutLogMessage(MasterDirectory, DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + " : Echec retrait des droits à l'utilisateur, veuillez réessayez ultérieurement : " + exc.Message, DirectoryLog, MasterDirectory + "LogFile.txt");
+                throw new Exception(exc.Message);
+            }
+        }
         #endregion
     }
 }
