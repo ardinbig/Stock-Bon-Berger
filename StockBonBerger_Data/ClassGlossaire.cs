@@ -518,7 +518,7 @@ namespace StockBonBerger_Data
                 cmd.CommandText = "sp_merge_piece";
                 cmd.CommandType = CommandType.StoredProcedure;
 
-                SetParameter(cmd, "@code", DbType.Int32, 4, piece.CodeCategoriePiece);
+                SetParameter(cmd, "@code_categ", DbType.Int32, 4, piece.CodeCategoriePiece);
                 SetParameter(cmd, "@code", DbType.Int32, 4, piece.Code);
                 SetParameter(cmd, "@designation", DbType.String, 100, piece.Designation);
                 SetParameter(cmd, "@numero", DbType.String, 100, piece.NumeroSerie);
@@ -529,7 +529,49 @@ namespace StockBonBerger_Data
                 cmd.ExecuteNonQuery();
             }
         }
-        
+
+        #endregion
+
+        #region Approvisionnement
+
+        public void ControleApprov(Approvisionnement approv, int action)
+        {
+            InitializeConnexion();
+
+            using (IDbCommand cmd = ImplementeConnexion.Instance.Con.CreateCommand())
+            {
+                cmd.CommandText = "sp_merge_approv";
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                SetParameter(cmd, "@code_categ", DbType.Int32, 4, approv.CodeFournisseur);
+                SetParameter(cmd, "@code", DbType.Int32, 4, approv.Code);
+                SetParameter(cmd, "@agent", DbType.String, 100, approv.Agent);
+                SetParameter(cmd, "@action", DbType.Int32, 4, action);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void ControleApprovDetail(DetailApprovisionnement approv, int action)
+        {
+            InitializeConnexion();
+
+            using (IDbCommand cmd = ImplementeConnexion.Instance.Con.CreateCommand())
+            {
+                cmd.CommandText = "sp_merge_detail_approv";
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                SetParameter(cmd, "@code_approv", DbType.Int32, 4, approv.CodeApprov);
+                SetParameter(cmd, "@code", DbType.Int32, 4, approv.Code);
+                SetParameter(cmd, "@code_piece", DbType.Int32, 4, approv.CodePiece);
+                SetParameter(cmd, "@quantite", DbType.Int32, 4, approv.Quantite);
+                SetParameter(cmd, "@code", DbType.Double, 8, approv.Prix);
+                SetParameter(cmd, "@action", DbType.Int32, 4, action);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
         #endregion
     }
 }
