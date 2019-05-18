@@ -45,7 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClassConnexion.cs" />
+    <Compile Include="ClassConnection.cs" />
     <Compile Include="ClassConstants.cs" />
     <Compile Include="ClassGlossaire.cs" />
     <Compile Include="ImplementeConnexion.cs" />

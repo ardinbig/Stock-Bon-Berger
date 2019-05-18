@@ -430,7 +430,7 @@
             this.MinimumSize = new System.Drawing.Size(950, 600);
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "BON BERGER";
+            this.Text = "Bon Berger";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.MenuStrip.ResumeLayout(false);

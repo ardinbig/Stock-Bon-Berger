@@ -59,7 +59,7 @@ namespace StockBonBerger_Data
             return param;
         }
 
-        public void Initilize(Connexion con)
+        public void Initilize(Connection con)
         {
             _host = con.Server;
             _db = con.Database;

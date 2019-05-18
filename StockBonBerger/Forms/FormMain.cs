@@ -12,6 +12,7 @@ namespace StockBonBerger.Forms
     public partial class FormMain : Form
     {
         private int childFormNumber = 0;
+        private Form form = null;
 
         public FormMain()
         {
@@ -61,7 +62,8 @@ namespace StockBonBerger.Forms
 
         private void FormMain_Load(object sender, EventArgs e)
         {
-
+            form = new FormConnection();
+            form.ShowDialog();
         }
 
         private void SmCloseAll_Click(object sender, EventArgs e)

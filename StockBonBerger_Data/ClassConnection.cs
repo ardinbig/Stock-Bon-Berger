@@ -4,24 +4,25 @@ using System.ComponentModel;
 
 namespace StockBonBerger_Data
 {
-    public class Connexion : INotifyPropertyChanged, IDataErrorInfo
+    public class Connection
+        : INotifyPropertyChanged, IDataErrorInfo
     {
         private string _server = "";
         private string _database = "";
         private string _user = "";
         private string _password = "";
 
-        private List<Connexion> listDatabase = new List<Connexion>();
+        private List<Connection> listDatabase = new List<Connection>();
         private Dictionary<string, string> _errorInfo;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public Connexion()
+        public Connection()
         {
             _errorInfo = new Dictionary<string, string>();
         }
 
-        public Connexion(string server, string db, string user, string pwd)
+        public Connection(string server, string db, string user, string pwd)
         {
             _errorInfo = _errorInfo = new Dictionary<string, string>();
             this._server = server;
@@ -29,10 +30,6 @@ namespace StockBonBerger_Data
             this._user = user;
             this._password = pwd;
         }
-
-        public string this[string columnName] => throw new NotImplementedException();
-
-        public string Error => throw new NotImplementedException();
 
         private void ValidateProperty(string propertyName, object value)
         {
@@ -107,6 +104,22 @@ namespace StockBonBerger_Data
                     _server = value;
                     RaisePropertyChanged("Server", value);
                 }
+            }
+        }
+
+        public string Error
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public string this[string columnName]
+        {
+            get
+            {
+                throw new NotImplementedException();
             }
         }
     }

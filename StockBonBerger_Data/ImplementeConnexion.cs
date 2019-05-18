@@ -44,7 +44,7 @@ namespace StockBonBerger_Data
             }
         }
 
-        public IDbConnection Initialise(Connexion connexion, ConnexionType connexionType)
+        public IDbConnection Initialise(Connection connexion, ConnexionType connexionType)
         {
             switch (connexionType)
             {
