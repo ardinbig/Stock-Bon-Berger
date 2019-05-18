@@ -443,5 +443,43 @@ namespace StockBonBerger_Data
         }
 
         #endregion
+
+        #region Categories
+
+        public void ControleCategorieClient(CategorieClient categ, int action = 1)
+        {
+            InitializeConnexion();
+
+            using (IDbCommand cmd = ImplementeConnexion.Instance.Con.CreateCommand())
+            {
+                cmd.CommandText = "sp_merge_categorie_client";
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                SetParameter(cmd, "@code", DbType.Int32, 4, categ.Code);
+                SetParameter(cmd, "@noms", DbType.String, 100, categ.Designation);
+                SetParameter(cmd, "@action", DbType.Int32, 4, action);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void ControleCategoriePiece(CategoriePiece categ, int action = 1)
+        {
+            InitializeConnexion();
+
+            using (IDbCommand cmd = ImplementeConnexion.Instance.Con.CreateCommand())
+            {
+                cmd.CommandText = "sp_merge_categorie_piece";
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                SetParameter(cmd, "@code", DbType.Int32, 4, categ.Code);
+                SetParameter(cmd, "@noms", DbType.String, 100, categ.Designation);
+                SetParameter(cmd, "@action", DbType.Int32, 4, action);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        #endregion
     }
 }

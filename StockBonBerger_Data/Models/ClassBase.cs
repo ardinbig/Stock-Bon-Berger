@@ -1,7 +1,7 @@
 ﻿
 namespace StockBonBerger_Data.Models
 {
-    class Base
+    public abstract class Base
     {
         public int Id { get; set; }
 
