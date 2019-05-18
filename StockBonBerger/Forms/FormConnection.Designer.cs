@@ -65,7 +65,7 @@
             this.TxtDatabase.Location = new System.Drawing.Point(154, 53);
             this.TxtDatabase.Name = "TxtDatabase";
             this.TxtDatabase.Size = new System.Drawing.Size(249, 22);
-            this.TxtDatabase.TabIndex = 10;
+            this.TxtDatabase.TabIndex = 2;
             this.TxtDatabase.Text = "StockBonBerger_DB";
             // 
             // label5
@@ -85,7 +85,7 @@
             this.TxtPassword.Name = "TxtPassword";
             this.TxtPassword.PasswordChar = '*';
             this.TxtPassword.Size = new System.Drawing.Size(249, 22);
-            this.TxtPassword.TabIndex = 13;
+            this.TxtPassword.TabIndex = 4;
             // 
             // label4
             // 
@@ -103,7 +103,7 @@
             this.TxtUser.Location = new System.Drawing.Point(154, 80);
             this.TxtUser.Name = "TxtUser";
             this.TxtUser.Size = new System.Drawing.Size(249, 22);
-            this.TxtUser.TabIndex = 12;
+            this.TxtUser.TabIndex = 3;
             this.TxtUser.Text = "Ardin";
             // 
             // label3
@@ -122,7 +122,7 @@
             this.TxtServer.Location = new System.Drawing.Point(154, 26);
             this.TxtServer.Name = "TxtServer";
             this.TxtServer.Size = new System.Drawing.Size(249, 22);
-            this.TxtServer.TabIndex = 9;
+            this.TxtServer.TabIndex = 1;
             this.TxtServer.Text = "ARDINBIG-PC";
             // 
             // label2
@@ -143,7 +143,7 @@
             this.BtnConnection.Location = new System.Drawing.Point(46, 171);
             this.BtnConnection.Name = "BtnConnection";
             this.BtnConnection.Size = new System.Drawing.Size(149, 35);
-            this.BtnConnection.TabIndex = 17;
+            this.BtnConnection.TabIndex = 5;
             this.BtnConnection.Text = "Connexion";
             this.BtnConnection.Click += new System.EventHandler(this.BtnConnection_Click);
             // 
@@ -155,7 +155,7 @@
             this.BtnAnnuler.Location = new System.Drawing.Point(240, 171);
             this.BtnAnnuler.Name = "BtnAnnuler";
             this.BtnAnnuler.Size = new System.Drawing.Size(149, 35);
-            this.BtnAnnuler.TabIndex = 18;
+            this.BtnAnnuler.TabIndex = 6;
             this.BtnAnnuler.Text = "Annuler";
             this.BtnAnnuler.Click += new System.EventHandler(this.BtnAnnuler_Click);
             // 

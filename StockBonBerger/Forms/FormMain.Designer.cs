@@ -33,7 +33,6 @@
             this.MenuStrip = new System.Windows.Forms.MenuStrip();
             this.MenuFichier = new System.Windows.Forms.ToolStripMenuItem();
             this.SmConnection = new System.Windows.Forms.ToolStripMenuItem();
-            this.SmDisconnection = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.SmCloseAll = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
@@ -43,12 +42,12 @@
             this.statusBarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuForm = new System.Windows.Forms.ToolStripMenuItem();
             this.enregistrementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pièceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.clientToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fournisseurToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.approvisionnementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.commandeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.venteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SmPiece = new System.Windows.Forms.ToolStripMenuItem();
+            this.SmClient = new System.Windows.Forms.ToolStripMenuItem();
+            this.SmFss = new System.Windows.Forms.ToolStripMenuItem();
+            this.SmApprov = new System.Windows.Forms.ToolStripMenuItem();
+            this.SmCmd = new System.Windows.Forms.ToolStripMenuItem();
+            this.SmVente = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuWindow = new System.Windows.Forms.ToolStripMenuItem();
             this.cascadeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tileVerticalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -73,6 +72,7 @@
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.TabbedMdiManager = new DevExpress.XtraTabbedMdi.XtraTabbedMdiManager(this.components);
+            this.SmDisconnection = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
@@ -116,15 +116,7 @@
             this.SmConnection.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.L)));
             this.SmConnection.Size = new System.Drawing.Size(185, 22);
             this.SmConnection.Text = "&Connexion";
-            // 
-            // SmDisconnection
-            // 
-            this.SmDisconnection.Image = ((System.Drawing.Image)(resources.GetObject("SmDisconnection.Image")));
-            this.SmDisconnection.ImageTransparentColor = System.Drawing.Color.Black;
-            this.SmDisconnection.Name = "SmDisconnection";
-            this.SmDisconnection.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D)));
-            this.SmDisconnection.Size = new System.Drawing.Size(185, 22);
-            this.SmDisconnection.Text = "&Déconnexion";
+            this.SmConnection.Click += new System.EventHandler(this.SmConnection_Click);
             // 
             // toolStripSeparator4
             // 
@@ -164,7 +156,7 @@
             this.toolBarToolStripMenuItem.CheckOnClick = true;
             this.toolBarToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.toolBarToolStripMenuItem.Name = "toolBarToolStripMenuItem";
-            this.toolBarToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.toolBarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.toolBarToolStripMenuItem.Text = "&Bar d\'outils";
             this.toolBarToolStripMenuItem.Click += new System.EventHandler(this.ToolBarToolStripMenuItem_Click);
             // 
@@ -174,7 +166,7 @@
             this.statusBarToolStripMenuItem.CheckOnClick = true;
             this.statusBarToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.statusBarToolStripMenuItem.Name = "statusBarToolStripMenuItem";
-            this.statusBarToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.statusBarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.statusBarToolStripMenuItem.Text = "&Bar de status";
             this.statusBarToolStripMenuItem.Click += new System.EventHandler(this.StatusBarToolStripMenuItem_Click);
             // 
@@ -182,9 +174,9 @@
             // 
             this.MenuForm.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.enregistrementToolStripMenuItem,
-            this.approvisionnementToolStripMenuItem,
-            this.commandeToolStripMenuItem,
-            this.venteToolStripMenuItem});
+            this.SmApprov,
+            this.SmCmd,
+            this.SmVente});
             this.MenuForm.Name = "MenuForm";
             this.MenuForm.Size = new System.Drawing.Size(76, 20);
             this.MenuForm.Text = "&Formulaire";
@@ -192,48 +184,49 @@
             // enregistrementToolStripMenuItem
             // 
             this.enregistrementToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.pièceToolStripMenuItem,
-            this.clientToolStripMenuItem,
-            this.fournisseurToolStripMenuItem});
+            this.SmPiece,
+            this.SmClient,
+            this.SmFss});
             this.enregistrementToolStripMenuItem.Name = "enregistrementToolStripMenuItem";
             this.enregistrementToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.enregistrementToolStripMenuItem.Text = "&Enregistrement";
             // 
-            // pièceToolStripMenuItem
+            // SmPiece
             // 
-            this.pièceToolStripMenuItem.Name = "pièceToolStripMenuItem";
-            this.pièceToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
-            this.pièceToolStripMenuItem.Text = "&Pièce";
+            this.SmPiece.Name = "SmPiece";
+            this.SmPiece.Size = new System.Drawing.Size(152, 22);
+            this.SmPiece.Text = "&Pièce";
+            this.SmPiece.Click += new System.EventHandler(this.SmPiece_Click);
             // 
-            // clientToolStripMenuItem
+            // SmClient
             // 
-            this.clientToolStripMenuItem.Name = "clientToolStripMenuItem";
-            this.clientToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
-            this.clientToolStripMenuItem.Text = "&Client";
+            this.SmClient.Name = "SmClient";
+            this.SmClient.Size = new System.Drawing.Size(152, 22);
+            this.SmClient.Text = "&Client";
             // 
-            // fournisseurToolStripMenuItem
+            // SmFss
             // 
-            this.fournisseurToolStripMenuItem.Name = "fournisseurToolStripMenuItem";
-            this.fournisseurToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
-            this.fournisseurToolStripMenuItem.Text = "&Fournisseur";
+            this.SmFss.Name = "SmFss";
+            this.SmFss.Size = new System.Drawing.Size(152, 22);
+            this.SmFss.Text = "&Fournisseur";
             // 
-            // approvisionnementToolStripMenuItem
+            // SmApprov
             // 
-            this.approvisionnementToolStripMenuItem.Name = "approvisionnementToolStripMenuItem";
-            this.approvisionnementToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
-            this.approvisionnementToolStripMenuItem.Text = "&Approvisionnement";
+            this.SmApprov.Name = "SmApprov";
+            this.SmApprov.Size = new System.Drawing.Size(179, 22);
+            this.SmApprov.Text = "&Approvisionnement";
             // 
-            // commandeToolStripMenuItem
+            // SmCmd
             // 
-            this.commandeToolStripMenuItem.Name = "commandeToolStripMenuItem";
-            this.commandeToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
-            this.commandeToolStripMenuItem.Text = "&Commande";
+            this.SmCmd.Name = "SmCmd";
+            this.SmCmd.Size = new System.Drawing.Size(179, 22);
+            this.SmCmd.Text = "&Commande";
             // 
-            // venteToolStripMenuItem
+            // SmVente
             // 
-            this.venteToolStripMenuItem.Name = "venteToolStripMenuItem";
-            this.venteToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
-            this.venteToolStripMenuItem.Text = "&Vente";
+            this.SmVente.Name = "SmVente";
+            this.SmVente.Size = new System.Drawing.Size(179, 22);
+            this.SmVente.Text = "&Vente";
             // 
             // MenuWindow
             // 
@@ -249,28 +242,28 @@
             // cascadeToolStripMenuItem
             // 
             this.cascadeToolStripMenuItem.Name = "cascadeToolStripMenuItem";
-            this.cascadeToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.cascadeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.cascadeToolStripMenuItem.Text = "&Cascade";
             this.cascadeToolStripMenuItem.Click += new System.EventHandler(this.CascadeToolStripMenuItem_Click);
             // 
             // tileVerticalToolStripMenuItem
             // 
             this.tileVerticalToolStripMenuItem.Name = "tileVerticalToolStripMenuItem";
-            this.tileVerticalToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.tileVerticalToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.tileVerticalToolStripMenuItem.Text = "Tile &Vertical";
             this.tileVerticalToolStripMenuItem.Click += new System.EventHandler(this.TileVerticalToolStripMenuItem_Click);
             // 
             // tileHorizontalToolStripMenuItem
             // 
             this.tileHorizontalToolStripMenuItem.Name = "tileHorizontalToolStripMenuItem";
-            this.tileHorizontalToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.tileHorizontalToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.tileHorizontalToolStripMenuItem.Text = "Tile &Horizontal";
             this.tileHorizontalToolStripMenuItem.Click += new System.EventHandler(this.TileHorizontalToolStripMenuItem_Click);
             // 
             // arrangeIconsToolStripMenuItem
             // 
             this.arrangeIconsToolStripMenuItem.Name = "arrangeIconsToolStripMenuItem";
-            this.arrangeIconsToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.arrangeIconsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.arrangeIconsToolStripMenuItem.Text = "&Arrange Icons";
             this.arrangeIconsToolStripMenuItem.Click += new System.EventHandler(this.ArrangeIconsToolStripMenuItem_Click);
             // 
@@ -285,7 +278,7 @@
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.optionsToolStripMenuItem.Text = "&Options";
             // 
             // MenuHelp
@@ -417,6 +410,14 @@
             // 
             this.TabbedMdiManager.MdiParent = this;
             // 
+            // SmDisconnection
+            // 
+            this.SmDisconnection.ImageTransparentColor = System.Drawing.Color.Black;
+            this.SmDisconnection.Name = "SmDisconnection";
+            this.SmDisconnection.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D)));
+            this.SmDisconnection.Size = new System.Drawing.Size(185, 22);
+            this.SmDisconnection.Text = "&Déconnexion";
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -461,7 +462,6 @@
         private System.Windows.Forms.ToolStripMenuItem tileHorizontalToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem MenuFichier;
         private System.Windows.Forms.ToolStripMenuItem SmConnection;
-        private System.Windows.Forms.ToolStripMenuItem SmDisconnection;
         private System.Windows.Forms.ToolStripMenuItem SmExit;
         private System.Windows.Forms.ToolStripMenuItem viewMenu;
         private System.Windows.Forms.ToolStripMenuItem toolBarToolStripMenuItem;
@@ -483,13 +483,14 @@
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.ToolStripMenuItem MenuForm;
         private System.Windows.Forms.ToolStripMenuItem enregistrementToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem pièceToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem clientToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem fournisseurToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem approvisionnementToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem commandeToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem venteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem SmPiece;
+        private System.Windows.Forms.ToolStripMenuItem SmClient;
+        private System.Windows.Forms.ToolStripMenuItem SmFss;
+        private System.Windows.Forms.ToolStripMenuItem SmApprov;
+        private System.Windows.Forms.ToolStripMenuItem SmCmd;
+        private System.Windows.Forms.ToolStripMenuItem SmVente;
         private DevExpress.XtraTabbedMdi.XtraTabbedMdiManager TabbedMdiManager;
+        private System.Windows.Forms.ToolStripMenuItem SmDisconnection;
     }
 }
 

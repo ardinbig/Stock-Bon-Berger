@@ -63,6 +63,7 @@ namespace StockBonBerger.Forms
         private void FormMain_Load(object sender, EventArgs e)
         {
             form = new FormConnection();
+            form.Icon = this.Icon;
             form.ShowDialog();
         }
 
@@ -72,6 +73,20 @@ namespace StockBonBerger.Forms
             {
                 childForm.Close();
             }
+        }
+
+        private void SmConnection_Click(object sender, EventArgs e)
+        {
+            form = new FormConnection();
+            form.Icon = this.Icon;
+            form.ShowDialog();
+        }
+
+        private void SmPiece_Click(object sender, EventArgs e)
+        {
+            form = new FormPiece();
+            form.Icon = this.Icon;
+            form.ShowDialog();
         }
     }
 }
