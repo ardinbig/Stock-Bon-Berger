@@ -481,5 +481,55 @@ namespace StockBonBerger_Data
         }
 
         #endregion
+
+        #region Client
+
+        public void ControleClient(Client client, int action)
+        {
+            InitializeConnexion();
+
+            using (IDbCommand cmd = ImplementeConnexion.Instance.Con.CreateCommand())
+            {
+                cmd.CommandText = "sp_merge_client";
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                SetParameter(cmd, "@code", DbType.Int32, 4, client.CodeCategorieClient);
+                SetParameter(cmd, "@code", DbType.Int32, 4, client.Code);
+                SetParameter(cmd, "@noms", DbType.String, 100, client.Noms);
+                SetParameter(cmd, "@phone", DbType.String, 100, client.Phone);
+                SetParameter(cmd, "@email", DbType.String, 100, client.Email);
+                SetParameter(cmd, "@adresse", DbType.String, 100, client.Adresse);
+                SetParameter(cmd, "@action", DbType.Int32, 4, action);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        #endregion
+
+        #region Piece
+
+        public void ControlePiece(Piece piece, int action)
+        {
+            InitializeConnexion();
+
+            using (IDbCommand cmd = ImplementeConnexion.Instance.Con.CreateCommand())
+            {
+                cmd.CommandText = "sp_merge_piece";
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                SetParameter(cmd, "@code", DbType.Int32, 4, piece.CodeCategoriePiece);
+                SetParameter(cmd, "@code", DbType.Int32, 4, piece.Code);
+                SetParameter(cmd, "@designation", DbType.String, 100, piece.Designation);
+                SetParameter(cmd, "@numero", DbType.String, 100, piece.NumeroSerie);
+                SetParameter(cmd, "@lieu", DbType.String, 100, piece.LieuFabrication);
+                SetParameter(cmd, "@usage", DbType.String, 100, piece.Usage);
+                SetParameter(cmd, "@action", DbType.Int32, 4, action);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+        
+        #endregion
     }
 }
