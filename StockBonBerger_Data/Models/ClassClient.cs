@@ -5,7 +5,7 @@ using System.Text;
 
 namespace StockBonBerger_Data.Models
 {
-    class Client : Base
+    public class Client : Base
     {
         public string CodeCategorieClient { get; set; }
 
