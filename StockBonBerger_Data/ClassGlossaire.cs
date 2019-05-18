@@ -4,10 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
 
-namespace StockBonBerger_Data    
+namespace StockBonBerger_Data
 {
     public class Glossaire
     {
@@ -616,6 +614,27 @@ namespace StockBonBerger_Data
 
         #endregion
 
+        #region Mode de Paiement
 
+        public void ControleModePaiement(ModePaiement mode, int action)
+        {
+            InitializeConnexion();
+
+            using (IDbCommand cmd = ImplementeConnexion.Instance.Con.CreateCommand())
+            {
+                cmd.CommandText = "sp_merge_mode_pmt";
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                SetParameter(cmd, "@code", DbType.Int32, 4, mode.Code);
+                SetParameter(cmd, "@designation", DbType.String, 100, mode.Designation);
+                SetParameter(cmd, "@action", DbType.Int32, 4, action);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        #endregion
+
+        // TODO: Créer la region COMMANDE
     }
 }

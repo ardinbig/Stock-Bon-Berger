@@ -646,6 +646,8 @@ BEGIN
 END
 GO
 
+-- TODO: Analyser le traitement
+
 CREATE PROCEDURE sp_merge_detail_cmd
 (
     @code BIGINT,
