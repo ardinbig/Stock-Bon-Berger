@@ -1,4 +1,5 @@
 ﻿using ManageUtilities;
+using StockBonBerger_Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -6,7 +7,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 
-namespace StockBonBerger_Data
+namespace StockBonBerger_Data    
 {
     public class Glossaire
     {
@@ -28,7 +29,7 @@ namespace StockBonBerger_Data
             return glos;
         }
 
-        private static void SetParameter(SqlCommand cmd, string name, DbType type, int length, object paramValue)
+        private static void SetParameter(IDbCommand cmd, string name, DbType type, int length, object paramValue)
         {
 
             IDbDataParameter a = cmd.CreateParameter();
@@ -370,6 +371,77 @@ namespace StockBonBerger_Data
         }
         #endregion
 
-        
+        #region Common
+
+        public void Delete(int id, string procedure)
+        {
+            InitializeConnexion();
+
+            using (IDbCommand cmd = ImplementeConnexion.Instance.Con.CreateCommand())
+            {
+                cmd.CommandText = procedure;
+                cmd.CommandType = CommandType.StoredProcedure;
+
+
+                SetParameter(cmd, "@id", DbType.Int32, 4, id);
+
+                int record = cmd.ExecuteNonQuery();
+
+                if (record == 0)
+                    throw new InvalidOperationException("That id does not exist !!!");
+            }
+        }
+
+        public int Nouveau(string table)
+        {
+            int id = 0;
+
+            InitializeConnexion();
+
+            using (IDbCommand cmd = ImplementeConnexion.Instance.Con.CreateCommand())
+            {
+                cmd.CommandText = "SELECT MAX(id) as lastId FROM " + table;
+
+                IDataReader rd = cmd.ExecuteReader();
+
+                if (rd.Read())
+                {
+                    if (rd["lastId"] == DBNull.Value)
+                        id = 1;
+                    else
+                        id = Convert.ToInt32(rd["lastId"].ToString()) + 1;
+                }
+
+                rd.Dispose();
+            }
+
+            return id;
+        }
+
+        #endregion
+
+        #region Fournisseur
+
+        public void ControleFournisseur(Fournisseur fss, int action = 1)
+        {
+            InitializeConnexion();
+
+            using (IDbCommand cmd = ImplementeConnexion.Instance.Con.CreateCommand())
+            {
+                cmd.CommandText = "sp_merge_fss";
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                SetParameter(cmd, "@code", DbType.Int32, 4, fss.Code);
+                SetParameter(cmd, "@noms", DbType.String, 100, fss.Noms);
+                SetParameter(cmd, "@phone", DbType.String, 30, fss.Phone);
+                SetParameter(cmd, "@email", DbType.String, 30, fss.Email);
+                SetParameter(cmd, "@code", DbType.String, 100, fss.Adresse);
+                SetParameter(cmd, "@action", DbType.Int32, 4, action);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        #endregion
     }
 }
