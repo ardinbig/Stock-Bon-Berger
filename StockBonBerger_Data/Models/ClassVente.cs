@@ -5,7 +5,7 @@ using System.Text;
 
 namespace StockBonBerger_Data.Models
 {
-    class Vente : Base
+    public class Vente : Base
     {
         public DateTime DateVente { get; set; }
 

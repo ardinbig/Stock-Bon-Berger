@@ -565,7 +565,7 @@ namespace StockBonBerger_Data
                 SetParameter(cmd, "@code", DbType.Int32, 4, approv.Code);
                 SetParameter(cmd, "@code_piece", DbType.Int32, 4, approv.CodePiece);
                 SetParameter(cmd, "@quantite", DbType.Int32, 4, approv.Quantite);
-                SetParameter(cmd, "@code", DbType.Double, 8, approv.Prix);
+                SetParameter(cmd, "@prix", DbType.Double, 8, approv.Prix);
                 SetParameter(cmd, "@action", DbType.Int32, 4, action);
 
                 cmd.ExecuteNonQuery();
@@ -573,5 +573,49 @@ namespace StockBonBerger_Data
         }
 
         #endregion
+
+        #region Vente
+
+        public void ControleVente(Vente vente, int action)
+        {
+            InitializeConnexion();
+
+            using (IDbCommand cmd = ImplementeConnexion.Instance.Con.CreateCommand())
+            {
+                cmd.CommandText = "sp_merge_vente";
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                SetParameter(cmd, "@code_client", DbType.Int32, 4, vente.CodeClient);
+                SetParameter(cmd, "@code", DbType.Int32, 4, vente.Code);
+                SetParameter(cmd, "@agent", DbType.String, 100, vente.Agent);
+                SetParameter(cmd, "@action", DbType.Int32, 4, action);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void ControleVenteDetail(DetailVente vente, int action)
+        {
+            InitializeConnexion();
+
+            using (IDbCommand cmd = ImplementeConnexion.Instance.Con.CreateCommand())
+            {
+                cmd.CommandText = "sp_merge_detail_vente";
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                SetParameter(cmd, "@code_vente", DbType.Int32, 4, vente.CodeVente);
+                SetParameter(cmd, "@code", DbType.Int32, 4, vente.Code);
+                SetParameter(cmd, "@code_piece", DbType.Int32, 4, vente.CodePiece);
+                SetParameter(cmd, "@quantite", DbType.Int32, 4, vente.Quantite);
+                SetParameter(cmd, "@prix", DbType.Double, 8, vente.Prix);
+                SetParameter(cmd, "@action", DbType.Int32, 4, action);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        #endregion
+
+
     }
 }
