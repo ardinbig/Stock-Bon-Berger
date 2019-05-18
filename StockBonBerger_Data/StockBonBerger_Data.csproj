@@ -30,6 +30,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ManageConnexion">
+      <HintPath>.\ManageConnexion.dll</HintPath>
+    </Reference>
+    <Reference Include="ManageUtilities">
+      <HintPath>.\ManageUtilities.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,7 +46,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClassConnexion.cs" />
+    <Compile Include="ClassConstants.cs" />
     <Compile Include="ClassGlossaire.cs" />
+    <Compile Include="ImplementeConnexion.cs" />
     <Compile Include="Models\ClassApprovisionnement.cs" />
     <Compile Include="Models\ClassBase.cs" />
     <Compile Include="Models\ClassCategorieClient.cs" />

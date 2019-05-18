@@ -13,6 +13,7 @@ namespace StockBonBerger_Data
         const string DirectoryLog = "Log";
         private static string _connectionString, _host, _db, _user, _pwd;
         private static Glossaire glos;
+        private IDataAdapter dt; 
         private SqlConnection sqlCon;
         public static string currentDB;
 
@@ -110,9 +111,9 @@ namespace StockBonBerger_Data
 
             try
             {
-                if (sqlCon.State != ConnectionState.Open) sqlCon.Open();
+                InitializeConnexion();
 
-                using (IDbCommand cmd = sqlCon.CreateCommand())
+                using (IDbCommand cmd = ImplementeConnexion.Instance.Con.CreateCommand())
                 {
                     cmd.CommandText = string.Format("SELECT name FROM sysdatabases WHERE name != 'master' ORDER BY name");
                     using (IDataReader dr = cmd.ExecuteReader())
@@ -120,12 +121,10 @@ namespace StockBonBerger_Data
                         while (dr.Read())
                             lst.Add(dr["name"].ToString());
                     }
-                    sqlCon.Close();
                 }
             }
             catch (Exception exc)
             {
-                sqlCon.Close();
                 string MasterDirectory = ImplementUtilities.Instance.MasterDirectoryConfiguration;
                 ImplementLog.Instance.PutLogMessage(MasterDirectory, DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + " : Récupération de toutes les bases de Données SQLServer : " + exc.Message, DirectoryLog, MasterDirectory + "LogFile.txt");
                 throw new Exception(exc.Message);
@@ -139,9 +138,9 @@ namespace StockBonBerger_Data
 
             try
             {
-                if (sqlCon.State != ConnectionState.Open) sqlCon.Open();
+                InitializeConnexion();
 
-                using (IDbCommand cmd = sqlCon.CreateCommand())
+                using (IDbCommand cmd = ImplementeConnexion.Instance.Con.CreateCommand())
                 {
                     cmd.CommandText = string.Format("SELECT DB_NAME() AS bd_encours");
                     using (IDataReader dr = cmd.ExecuteReader())
@@ -156,13 +155,29 @@ namespace StockBonBerger_Data
             }
             catch (Exception exc)
             {
-                sqlCon.Close();
                 string MasterDirectory = ImplementUtilities.Instance.MasterDirectoryConfiguration;
                 ImplementLog.Instance.PutLogMessage(MasterDirectory, DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + " : Récupération de toutes les bases de Données SQLServer : " + exc.Message, DirectoryLog, MasterDirectory + "LogFile.txt");
                 throw new Exception(exc.Message);
             }
             return bd;
         }
+
+        #endregion
+
+        #region Loadings
+
+        public void InitializeConnexion()
+        {
+            try
+            {
+                if (ImplementeConnexion.Instance.Con.State == ConnectionState.Closed)
+                    ImplementeConnexion.Instance.Con.Open();
+            }
+            catch (Exception)
+            {
+                
+            }
+        }                                                              
 
         #endregion
 
@@ -174,9 +189,9 @@ namespace StockBonBerger_Data
 
             try
             {
-                if (sqlCon.State != ConnectionState.Open) sqlCon.Open();
+                InitializeConnexion();
 
-                using (IDbCommand cmd = sqlCon.CreateCommand())
+                using (IDbCommand cmd = ImplementeConnexion.Instance.Con.CreateCommand())
                 {
                     cmd.CommandText = string.Format("SELECT droits FROM " + Constants.Table.UTILISATEUR + " WHERE id =" + idUser);
                     using (IDataReader dr = cmd.ExecuteReader())
@@ -195,11 +210,9 @@ namespace StockBonBerger_Data
                         }
                     }
                 }
-                sqlCon.Close();
             }
             catch (Exception exc)
             {
-                sqlCon.Close();
                 string MasterDirectory = ImplementUtilities.Instance.MasterDirectoryConfiguration;
                 ImplementLog.Instance.PutLogMessage(MasterDirectory, DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + "Attribution de droits de manipulation sur les tables : " + exc.Message, DirectoryLog, MasterDirectory + "LogFile.txt");
                 throw new Exception(exc.Message);
@@ -211,7 +224,7 @@ namespace StockBonBerger_Data
         {
             try
             {
-                if (sqlCon.State != ConnectionState.Open) sqlCon.Open();
+                InitializeConnexion();
  
                 foreach (int droit in permission)
                 {
@@ -224,7 +237,7 @@ namespace StockBonBerger_Data
                             EXEC sp_addrolemember 'db_owner','" + username + @"'
                             EXEC sp_addrolemember 'db_accessadmin','" + username + @"'";
 
-                        using (IDbCommand cmd = sqlCon.CreateCommand())
+                        using (IDbCommand cmd = ImplementeConnexion.Instance.Con.CreateCommand())
                         {
                             cmd.CommandText = string.Format(query);
                             cmd.ExecuteNonQuery();
@@ -248,7 +261,7 @@ namespace StockBonBerger_Data
                             GRANT SELECT, INSERT, UPDATE ON " + Constants.Table.UTILISATEUR + " TO " + username + @" 
                             GRANT SELECT, INSERT, UPDATE ON " + Constants.Table.VENTE + " TO " + username;
 
-                        using (IDbCommand cmd1 = sqlCon.CreateCommand())
+                        using (IDbCommand cmd1 = ImplementeConnexion.Instance.Con.CreateCommand())
                         {
                             cmd1.CommandText = string.Format(query);
                             cmd1.ExecuteNonQuery();
@@ -272,18 +285,16 @@ namespace StockBonBerger_Data
                             GRANT SELECT ON " + Constants.Table.UTILISATEUR + " TO " + username + @" 
                             GRANT SELECT, INSERT, UPDATE ON " + Constants.Table.VENTE + " TO " + username;
 
-                        using (IDbCommand cmd2 = sqlCon.CreateCommand())
+                        using (IDbCommand cmd2 = ImplementeConnexion.Instance.Con.CreateCommand())
                         {
                             cmd2.CommandText = string.Format(query);
                             cmd2.ExecuteNonQuery();
                         }
                     }
                 }
-                sqlCon.Close();
             }
             catch (Exception exc)
             {
-                sqlCon.Close();
                 string MasterDirectory = ImplementUtilities.Instance.MasterDirectoryConfiguration;
                 ImplementLog.Instance.PutLogMessage(MasterDirectory, DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + " : Echec d'attribution des droits à l'utilisateur, veuillez réessayez ultérieurement : " + exc.Message, DirectoryLog, MasterDirectory + "LogFile.txt");
                 throw new Exception(exc.Message);
@@ -294,7 +305,7 @@ namespace StockBonBerger_Data
         {
             try
             {
-                if (sqlCon.State != ConnectionState.Open) sqlCon.Open();
+                InitializeConnexion();
 
                 foreach (int droit in permission)
                 {
@@ -320,7 +331,7 @@ namespace StockBonBerger_Data
                             REVOKE SELECT, INSERT, UPDATE ON " + Constants.Table.UTILISATEUR + " TO " + username + @" 
                             REVOKE SELECT, INSERT, UPDATE ON " + Constants.Table.VENTE + " TO " + username;
 
-                        using (IDbCommand cmd1 = sqlCon.CreateCommand())
+                        using (IDbCommand cmd1 = ImplementeConnexion.Instance.Con.CreateCommand())
                         {
                             cmd1.CommandText = string.Format(query);
                             cmd1.ExecuteNonQuery();
@@ -342,23 +353,23 @@ namespace StockBonBerger_Data
                             REVOKE SELECT ON " + Constants.Table.UTILISATEUR + " TO " + username + @" 
                             REVOKE SELECT, INSERT, UPDATE ON " + Constants.Table.VENTE + " TO " + username;
 
-                        using (IDbCommand cmd2 = sqlCon.CreateCommand())
+                        using (IDbCommand cmd2 = ImplementeConnexion.Instance.Con.CreateCommand())
                         {
                             cmd2.CommandText = string.Format(query);
                             cmd2.ExecuteNonQuery();
                         }
                     }
                 }
-                sqlCon.Close();
             }
             catch (Exception exc)
             {
-                sqlCon.Close();
                 string MasterDirectory = ImplementUtilities.Instance.MasterDirectoryConfiguration;
                 ImplementLog.Instance.PutLogMessage(MasterDirectory, DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString() + " : Echec retrait des droits à l'utilisateur, veuillez réessayez ultérieurement : " + exc.Message, DirectoryLog, MasterDirectory + "LogFile.txt");
                 throw new Exception(exc.Message);
             }
         }
         #endregion
+
+        
     }
 }
