@@ -228,13 +228,13 @@ namespace StockBonBerger_Data
             return id;
         }
 
-        public DataTable LoadGrid(string table)
+        public DataTable LoadGrid(string table, string orderBy)
         {
             InitializeConnexion();
 
             using (IDbCommand cmd = ImplementeConnexion.Instance.Con.CreateCommand())
             {
-                cmd.CommandText = "SELECT * FROM " + table + " ORDER BY id DESC";
+                cmd.CommandText = "SELECT * FROM " + table + " ORDER BY " + orderBy + " DESC";
                 DataTable dt = new DataTable();
                 adapter = new SqlDataAdapter((SqlCommand)cmd);               
                 adapter.Fill(dt);
@@ -581,8 +581,8 @@ namespace StockBonBerger_Data
                 cmd.CommandText = "sp_merge_piece";
                 cmd.CommandType = CommandType.StoredProcedure;
 
-                SetParameter(cmd, "@code_categ", DbType.Int32, 4, piece.CodeCategoriePiece);
-                SetParameter(cmd, "@code", DbType.Int32, 4, piece.Code);
+                SetParameter(cmd, "@code_categ", DbType.Int32, 4, Convert.ToInt32(piece.CodeCategoriePiece));
+                SetParameter(cmd, "@code", DbType.Int32, 4, Convert.ToInt32(piece.Code));
                 SetParameter(cmd, "@designation", DbType.String, 100, piece.Designation);
                 SetParameter(cmd, "@numero", DbType.String, 100, piece.NumeroSerie);
                 SetParameter(cmd, "@lieu", DbType.String, 100, piece.LieuFabrication);

@@ -16,6 +16,7 @@ namespace StockBonBerger
         private Piece piece = null;
         private CategoriePiece categPiece= null;
         private int _idCategPiece = 0;
+        private bool _initCmbState = false;
 
         public FormPiece()
         {
@@ -25,59 +26,68 @@ namespace StockBonBerger
         #region Common
 
         private void FormPiece_Load(object sender, EventArgs e)
-        {
+        {            
             BtnDeleteCategP.Enabled = false;
+            BtnDeletePiece.Enabled = false;
             LoadCombo();
             LoadGridControle();
+            _initCmbState = true;
         }
 
         private void CmbCateggPiece_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (true)
+            if (_initCmbState)
             {
-                _idCategPiece = Glossaire.Instance.SelectId(Constants.Table.CATEGORIE_PIECE, CmbCateggPiece.Text);
+                _idCategPiece = Glossaire.Instance.SelectId(Constants.Table.CATEGORIE_PIECE, CmbCategPiece.Text);
+            }
+            else
+            {
+                CmbCategPiece.SelectedIndex = -1;
             }
         }
 
         private void LoadCombo()
         {
-            CmbCateggPiece.DataSource = Glossaire.Instance.LoadString("designation", Constants.Table.CATEGORIE_PIECE);
+            CmbCategPiece.DataSource = Glossaire.Instance.LoadString("designation", Constants.Table.CATEGORIE_PIECE);
         }
 
         private void LoadGridControle(int rank = 0)
         {
             if (rank == 1)
             {
-                GcCategPiece.DataSource = Glossaire.Instance.LoadGrid(Constants.Table.CATEGORIE_PIECE);
+                GcCategPiece.DataSource = Glossaire.Instance.LoadGrid(Constants.Table.CATEGORIE_PIECE, "id");
             }
             else if (rank == 2)
             {
-                GcPiece.DataSource = Glossaire.Instance.LoadGrid(Constants.Table.PIECE);
+                GcPiece.DataSource = Glossaire.Instance.LoadGrid(Constants.View.LIST_PIECES, "idPiece");
             }
             else
             {
-                GcPiece.DataSource = Glossaire.Instance.LoadGrid(Constants.Table.PIECE);
-                GcCategPiece.DataSource = Glossaire.Instance.LoadGrid(Constants.Table.CATEGORIE_PIECE);
+                GcPiece.DataSource = Glossaire.Instance.LoadGrid(Constants.View.LIST_PIECES, "idPiece");
+                GcCategPiece.DataSource = Glossaire.Instance.LoadGrid(Constants.Table.CATEGORIE_PIECE, "id");
             }
         }
 
         private void ClearFields(int rank)
         {
-            TxtCodeCategPiece.Clear();
-            TxtCodePiece.Clear();
-            TxtDesignCategPiece.Clear();
-            TxtDesignPiece.Clear();
-            TxtLieuFab.Clear();
-            TxtNumSerie.Clear();
-            TxtUsage.Clear();
-
             if (rank == 1)
             {
+                TxtDesignCategPiece.Clear();
+                TxtCodeCategPiece.Clear();
                 TxtDesignCategPiece.Focus();
                 BtnDeleteCategP.Enabled = false;
             }
             else
             {
+                TxtCodePiece.Clear();
+                TxtDesignPiece.Clear();
+                TxtLieuFab.Clear();
+                TxtNumSerie.Clear();
+                TxtUsage.Clear();
+
+                _initCmbState = false;
+                CmbCategPiece.SelectedIndex = -1;
+                _initCmbState = true;
                 TxtDesignPiece.Focus();
                 BtnDeletePiece.Enabled = false;
             }
@@ -94,7 +104,9 @@ namespace StockBonBerger
             }
             else if (rank == 2)
             {
-                if (!string.IsNullOrEmpty(TxtDesignPiece.Text) && !string.IsNullOrEmpty(TxtLieuFab.Text) && !string.IsNullOrEmpty(TxtNumSerie.Text) && !string.IsNullOrEmpty(TxtUsage.Text))
+                if (!string.IsNullOrEmpty(TxtDesignPiece.Text) && !string.IsNullOrEmpty(TxtLieuFab.Text) && 
+                    !string.IsNullOrEmpty(TxtNumSerie.Text) && !string.IsNullOrEmpty(TxtUsage.Text) &&
+                    string.IsNullOrEmpty(TxtCodePiece.Text) && !string.IsNullOrEmpty(CmbCategPiece.Text))
                     return true;
                 else
                     return false;
@@ -210,6 +222,8 @@ namespace StockBonBerger
 
         #endregion
 
+        #region Pièce
+
         private void ControlePiece(bool save)
         {
             try
@@ -235,7 +249,7 @@ namespace StockBonBerger
                         piece = new Piece
                         {
                             Code = TxtCodePiece.Text,
-                            Designation = TxtCodePiece.Text.ToUpper().Trim(),
+                            Designation = TxtDesignPiece.Text.ToUpper().Trim(),
                             CodeCategoriePiece = _idCategPiece.ToString(),
                             LieuFabrication = TxtLieuFab.Text.ToUpper().Trim(),
                             NumeroSerie = TxtNumSerie.Text.ToUpper().Trim(),
@@ -250,7 +264,7 @@ namespace StockBonBerger
                     piece = new Piece
                     {
                         Code = TxtCodePiece.Text,
-                        Designation = TxtCodePiece.Text.ToUpper().Trim(),
+                        Designation = TxtDesignPiece.Text.ToUpper().Trim(),
                         CodeCategoriePiece = _idCategPiece.ToString(),
                         LieuFabrication = TxtLieuFab.Text.ToUpper().Trim(),
                         NumeroSerie = TxtNumSerie.Text.ToUpper().Trim(),
@@ -306,6 +320,27 @@ namespace StockBonBerger
             }
         }
 
-        
+        private void GvPiece_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                _initCmbState = true;
+
+                TxtCodePiece.Text = GvPiece.GetFocusedRowCellValue("idPiece").ToString();
+                CmbCategPiece.Text = GvPiece.GetFocusedRowCellValue("categorie").ToString();
+                TxtDesignPiece.Text = GvPiece.GetFocusedRowCellValue("designation").ToString();
+                TxtLieuFab.Text = GvPiece.GetFocusedRowCellValue("lieu_fabrication").ToString();
+                TxtNumSerie.Text = GvPiece.GetFocusedRowCellValue("numero_serie").ToString();
+                TxtUsage.Text = GvPiece.GetFocusedRowCellValue("usage").ToString();
+
+                BtnDeletePiece.Enabled = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        #endregion
     }
 }

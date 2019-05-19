@@ -32,6 +32,8 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.GcCategPiece = new DevExpress.XtraGrid.GridControl();
             this.GvCategPiece = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.GColId = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.GColDescription = new DevExpress.XtraGrid.Columns.GridColumn();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.BtnDeleteCategP = new DevExpress.XtraEditors.SimpleButton();
             this.BtnSaveCategP = new DevExpress.XtraEditors.SimpleButton();
@@ -44,6 +46,13 @@
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.GcPiece = new DevExpress.XtraGrid.GridControl();
             this.GvPiece = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.GColCodeP = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.GColDesign = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.GColCategPiece = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.GColNumSerie = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.GColUsage = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.GColLieuFab = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.GColCodeCategP = new DevExpress.XtraGrid.Columns.GridColumn();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.TxtLieuFab = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -52,7 +61,7 @@
             this.separatorControl1 = new DevExpress.XtraEditors.SeparatorControl();
             this.TxtNumSerie = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.CmbCateggPiece = new System.Windows.Forms.ComboBox();
+            this.CmbCategPiece = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.BtnDeletePiece = new DevExpress.XtraEditors.SimpleButton();
             this.BtnSavePiece = new DevExpress.XtraEditors.SimpleButton();
@@ -61,15 +70,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.TxtCodePiece = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.GColId = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.GColDescription = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.GColCodeP = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.GColDesign = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.GColCategPiece = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.GColNumSerie = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.GColUsage = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.GColLieuFab = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.GColCodeCategP = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.GColEnStock = new DevExpress.XtraGrid.Columns.GridColumn();
             this.groupBox1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GcCategPiece)).BeginInit();
@@ -125,6 +126,22 @@
             this.GvCategPiece.OptionsSelection.MultiSelect = true;
             this.GvCategPiece.OptionsView.ShowGroupPanel = false;
             this.GvCategPiece.DoubleClick += new System.EventHandler(this.GvCategPiece_DoubleClick);
+            // 
+            // GColId
+            // 
+            this.GColId.Caption = "Code";
+            this.GColId.FieldName = "id";
+            this.GColId.Name = "GColId";
+            this.GColId.Visible = true;
+            this.GColId.VisibleIndex = 0;
+            // 
+            // GColDescription
+            // 
+            this.GColDescription.Caption = "Désignation";
+            this.GColDescription.FieldName = "designation";
+            this.GColDescription.Name = "GColDescription";
+            this.GColDescription.Visible = true;
+            this.GColDescription.VisibleIndex = 1;
             // 
             // groupBox3
             // 
@@ -264,12 +281,68 @@
             this.GColNumSerie,
             this.GColUsage,
             this.GColLieuFab,
+            this.GColEnStock,
             this.GColCodeCategP});
             this.GvPiece.GridControl = this.GcPiece;
             this.GvPiece.Name = "GvPiece";
             this.GvPiece.OptionsBehavior.Editable = false;
             this.GvPiece.OptionsSelection.MultiSelect = true;
             this.GvPiece.OptionsView.ShowGroupPanel = false;
+            this.GvPiece.DoubleClick += new System.EventHandler(this.GvPiece_DoubleClick);
+            // 
+            // GColCodeP
+            // 
+            this.GColCodeP.Caption = "Code";
+            this.GColCodeP.FieldName = "idPiece";
+            this.GColCodeP.Name = "GColCodeP";
+            this.GColCodeP.Visible = true;
+            this.GColCodeP.VisibleIndex = 0;
+            // 
+            // GColDesign
+            // 
+            this.GColDesign.Caption = "Désignation";
+            this.GColDesign.FieldName = "designation";
+            this.GColDesign.Name = "GColDesign";
+            this.GColDesign.Visible = true;
+            this.GColDesign.VisibleIndex = 1;
+            // 
+            // GColCategPiece
+            // 
+            this.GColCategPiece.Caption = "Catégorie";
+            this.GColCategPiece.FieldName = "categorie";
+            this.GColCategPiece.Name = "GColCategPiece";
+            this.GColCategPiece.Visible = true;
+            this.GColCategPiece.VisibleIndex = 2;
+            // 
+            // GColNumSerie
+            // 
+            this.GColNumSerie.Caption = "N° Série";
+            this.GColNumSerie.FieldName = "numero_serie";
+            this.GColNumSerie.Name = "GColNumSerie";
+            this.GColNumSerie.Visible = true;
+            this.GColNumSerie.VisibleIndex = 3;
+            // 
+            // GColUsage
+            // 
+            this.GColUsage.Caption = "Usage";
+            this.GColUsage.FieldName = "usage";
+            this.GColUsage.Name = "GColUsage";
+            this.GColUsage.Visible = true;
+            this.GColUsage.VisibleIndex = 4;
+            // 
+            // GColLieuFab
+            // 
+            this.GColLieuFab.Caption = "Lieu de Fab.";
+            this.GColLieuFab.FieldName = "lieu_fabrication";
+            this.GColLieuFab.Name = "GColLieuFab";
+            this.GColLieuFab.Visible = true;
+            this.GColLieuFab.VisibleIndex = 5;
+            // 
+            // GColCodeCategP
+            // 
+            this.GColCodeCategP.Caption = "CodeCategPiece";
+            this.GColCodeCategP.FieldName = "idCategP";
+            this.GColCodeCategP.Name = "GColCodeCategP";
             // 
             // groupBox5
             // 
@@ -280,7 +353,7 @@
             this.groupBox5.Controls.Add(this.separatorControl1);
             this.groupBox5.Controls.Add(this.TxtNumSerie);
             this.groupBox5.Controls.Add(this.label6);
-            this.groupBox5.Controls.Add(this.CmbCateggPiece);
+            this.groupBox5.Controls.Add(this.CmbCategPiece);
             this.groupBox5.Controls.Add(this.label5);
             this.groupBox5.Controls.Add(this.BtnDeletePiece);
             this.groupBox5.Controls.Add(this.BtnSavePiece);
@@ -358,16 +431,16 @@
             this.label6.TabIndex = 10;
             this.label6.Text = "N° de série : ";
             // 
-            // CmbCateggPiece
+            // CmbCategPiece
             // 
-            this.CmbCateggPiece.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CmbCateggPiece.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CmbCateggPiece.FormattingEnabled = true;
-            this.CmbCateggPiece.Location = new System.Drawing.Point(120, 73);
-            this.CmbCateggPiece.Name = "CmbCateggPiece";
-            this.CmbCateggPiece.Size = new System.Drawing.Size(213, 24);
-            this.CmbCateggPiece.TabIndex = 8;
-            this.CmbCateggPiece.SelectedIndexChanged += new System.EventHandler(this.CmbCateggPiece_SelectedIndexChanged);
+            this.CmbCategPiece.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CmbCategPiece.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CmbCategPiece.FormattingEnabled = true;
+            this.CmbCategPiece.Location = new System.Drawing.Point(120, 73);
+            this.CmbCategPiece.Name = "CmbCategPiece";
+            this.CmbCategPiece.Size = new System.Drawing.Size(213, 24);
+            this.CmbCategPiece.TabIndex = 8;
+            this.CmbCategPiece.SelectedIndexChanged += new System.EventHandler(this.CmbCateggPiece_SelectedIndexChanged);
             // 
             // label5
             // 
@@ -456,75 +529,13 @@
             this.label4.TabIndex = 0;
             this.label4.Text = "Code : ";
             // 
-            // GColId
+            // GColEnStock
             // 
-            this.GColId.Caption = "Code";
-            this.GColId.FieldName = "id";
-            this.GColId.Name = "GColId";
-            this.GColId.Visible = true;
-            this.GColId.VisibleIndex = 0;
-            // 
-            // GColDescription
-            // 
-            this.GColDescription.Caption = "Désignation";
-            this.GColDescription.FieldName = "designation";
-            this.GColDescription.Name = "GColDescription";
-            this.GColDescription.Visible = true;
-            this.GColDescription.VisibleIndex = 1;
-            // 
-            // GColCodeP
-            // 
-            this.GColCodeP.Caption = "Code";
-            this.GColCodeP.FieldName = "idPiece";
-            this.GColCodeP.Name = "GColCodeP";
-            this.GColCodeP.Visible = true;
-            this.GColCodeP.VisibleIndex = 0;
-            // 
-            // GColDesign
-            // 
-            this.GColDesign.Caption = "Désignation";
-            this.GColDesign.FieldName = "designation";
-            this.GColDesign.Name = "GColDesign";
-            this.GColDesign.Visible = true;
-            this.GColDesign.VisibleIndex = 1;
-            // 
-            // GColCategPiece
-            // 
-            this.GColCategPiece.Caption = "Catégorie";
-            this.GColCategPiece.FieldName = "categorie";
-            this.GColCategPiece.Name = "GColCategPiece";
-            this.GColCategPiece.Visible = true;
-            this.GColCategPiece.VisibleIndex = 2;
-            // 
-            // GColNumSerie
-            // 
-            this.GColNumSerie.Caption = "N° Série";
-            this.GColNumSerie.FieldName = "nunmero_serie";
-            this.GColNumSerie.Name = "GColNumSerie";
-            this.GColNumSerie.Visible = true;
-            this.GColNumSerie.VisibleIndex = 3;
-            // 
-            // GColUsage
-            // 
-            this.GColUsage.Caption = "Usage";
-            this.GColUsage.FieldName = "usage";
-            this.GColUsage.Name = "GColUsage";
-            this.GColUsage.Visible = true;
-            this.GColUsage.VisibleIndex = 4;
-            // 
-            // GColLieuFab
-            // 
-            this.GColLieuFab.Caption = "Lieu de Fab.";
-            this.GColLieuFab.FieldName = "lieu_fabrication";
-            this.GColLieuFab.Name = "GColLieuFab";
-            this.GColLieuFab.Visible = true;
-            this.GColLieuFab.VisibleIndex = 5;
-            // 
-            // GColCodeCategP
-            // 
-            this.GColCodeCategP.Caption = "CodeCategPiece";
-            this.GColCodeCategP.FieldName = "idCategP";
-            this.GColCodeCategP.Name = "GColCodeCategP";
+            this.GColEnStock.Caption = "Stock";
+            this.GColEnStock.FieldName = "quantite";
+            this.GColEnStock.Name = "GColEnStock";
+            this.GColEnStock.Visible = true;
+            this.GColEnStock.VisibleIndex = 6;
             // 
             // FormPiece
             // 
@@ -584,7 +595,7 @@
         private DevExpress.XtraEditors.SeparatorControl separatorControl1;
         private System.Windows.Forms.TextBox TxtNumSerie;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ComboBox CmbCateggPiece;
+        private System.Windows.Forms.ComboBox CmbCategPiece;
         private System.Windows.Forms.GroupBox groupBox6;
         private DevExpress.XtraGrid.GridControl GcPiece;
         private DevExpress.XtraGrid.Views.Grid.GridView GvPiece;
@@ -597,5 +608,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn GColUsage;
         private DevExpress.XtraGrid.Columns.GridColumn GColLieuFab;
         private DevExpress.XtraGrid.Columns.GridColumn GColCodeCategP;
+        private DevExpress.XtraGrid.Columns.GridColumn GColEnStock;
     }
 }
