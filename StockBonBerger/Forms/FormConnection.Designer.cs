@@ -171,6 +171,7 @@
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(461, 261);
             this.Name = "FormConnection";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Authentification";
             this.groupBox1.ResumeLayout(false);

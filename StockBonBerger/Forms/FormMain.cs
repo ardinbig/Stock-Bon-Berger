@@ -86,7 +86,8 @@ namespace StockBonBerger.Forms
         {
             form = new FormPiece();
             form.Icon = this.Icon;
-            form.ShowDialog();
+            form.MdiParent = this;
+            form.Show();
         }
     }
 }

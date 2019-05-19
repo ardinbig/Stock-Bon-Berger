@@ -1,4 +1,5 @@
-﻿using ManageUtilities;
+﻿using DevExpress.XtraGrid;
+using ManageUtilities;
 using StockBonBerger_Data.Models;
 using System;
 using System.Collections.Generic;
@@ -12,19 +13,22 @@ namespace StockBonBerger_Data
         const string DirectoryLog = "Log";
         private static string _connectionString, _host, _db, _user, _pwd;
         private static Glossaire glos;
-        private IDataAdapter dt; 
+        private SqlDataAdapter adapter; 
         private SqlConnection sqlCon;
         public static string currentDB;
 
         #region Prerequisite
 
-        public static Glossaire GetInstance()
+        public static Glossaire Instance
         {
-            if (glos == null)
+            get
             {
-                glos = new Glossaire();
+                if (glos == null)
+                {
+                    glos = new Glossaire();
+                }
+                return glos;
             }
-            return glos;
         }
 
         private static void SetParameter(IDbCommand cmd, string name, DbType type, int length, object paramValue)
@@ -176,7 +180,68 @@ namespace StockBonBerger_Data
             {
                 
             }
-        }                                                              
+        }   
+        
+        public List<string> LoadString(string field, string table)
+        {
+            InitializeConnexion();
+
+            List<string> list = new List<string>();
+
+            using (IDbCommand cmd = ImplementeConnexion.Instance.Con.CreateCommand())
+            {
+                cmd.CommandText = "SELECT " + field + " FROM " + table + " ORDER BY " + field + " ";
+
+                IDataReader dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    list.Add(dr[field].ToString());
+                }
+
+                dr.Dispose();
+            }
+
+            return list;
+        }                                                           
+
+        public int SelectId(string table, string field)
+        {
+            InitializeConnexion();
+
+            int id = 0;
+
+            using (IDbCommand cmd = ImplementeConnexion.Instance.Con.CreateCommand())
+            {
+                cmd.CommandText = "SELECT id FROM " + table + " WHERE designation = '" + field + "'";
+
+                IDataReader dr = cmd.ExecuteReader();
+
+                if (dr.Read())
+                {
+                    id = Convert.ToInt32(dr["id"].ToString());
+                }
+
+                dr.Dispose();
+            }
+
+            return id;
+        }
+
+        public DataTable LoadGrid(string table)
+        {
+            InitializeConnexion();
+
+            using (IDbCommand cmd = ImplementeConnexion.Instance.Con.CreateCommand())
+            {
+                cmd.CommandText = "SELECT * FROM " + table + " ORDER BY id DESC";
+                DataTable dt = new DataTable();
+                adapter = new SqlDataAdapter((SqlCommand)cmd);               
+                adapter.Fill(dt);
+
+                return dt;
+            }
+        }
 
         #endregion
 
@@ -470,8 +535,8 @@ namespace StockBonBerger_Data
                 cmd.CommandText = "sp_merge_categorie_piece";
                 cmd.CommandType = CommandType.StoredProcedure;
 
-                SetParameter(cmd, "@code", DbType.Int32, 4, categ.Code);
-                SetParameter(cmd, "@noms", DbType.String, 100, categ.Designation);
+                SetParameter(cmd, "@code", DbType.Int32, 4, Convert.ToInt32(categ.Code));
+                SetParameter(cmd, "@designation", DbType.String, 100, categ.Designation);
                 SetParameter(cmd, "@action", DbType.Int32, 4, action);
 
                 cmd.ExecuteNonQuery();
@@ -507,7 +572,7 @@ namespace StockBonBerger_Data
 
         #region Piece
 
-        public void ControlePiece(Piece piece, int action)
+        public void ControlePiece(Piece piece, int action = 1)
         {
             InitializeConnexion();
 

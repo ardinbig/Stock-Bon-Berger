@@ -41,7 +41,19 @@
             this.TxtCodeCategPiece = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.GcPiece = new DevExpress.XtraGrid.GridControl();
+            this.GvPiece = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.TxtLieuFab = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.TxtUsage = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.separatorControl1 = new DevExpress.XtraEditors.SeparatorControl();
+            this.TxtNumSerie = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.CmbCateggPiece = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.BtnDeletePiece = new DevExpress.XtraEditors.SimpleButton();
             this.BtnSavePiece = new DevExpress.XtraEditors.SimpleButton();
             this.BtnNewPiece = new DevExpress.XtraEditors.SimpleButton();
@@ -49,35 +61,30 @@
             this.label3 = new System.Windows.Forms.Label();
             this.TxtCodePiece = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.CmbCateggPiece = new System.Windows.Forms.ComboBox();
-            this.TxtNumSerie = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.separatorControl1 = new DevExpress.XtraEditors.SeparatorControl();
-            this.TxtUsage = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.TxtLieuFab = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.GcPiece = new DevExpress.XtraGrid.GridControl();
-            this.GvPiece = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.GColId = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.GColDescription = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.GColCodeP = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.GColDesign = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.GColCategPiece = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.GColNumSerie = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.GColUsage = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.GColLieuFab = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.GColCodeCategP = new DevExpress.XtraGrid.Columns.GridColumn();
             this.groupBox1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GcCategPiece)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GvCategPiece)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.groupBox5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.separatorControl1)).BeginInit();
             this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GcPiece)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GvPiece)).BeginInit();
+            this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.separatorControl1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
             this.groupBox1.Controls.Add(this.groupBox4);
             this.groupBox1.Controls.Add(this.groupBox3);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
@@ -109,11 +116,15 @@
             // 
             // GvCategPiece
             // 
+            this.GvCategPiece.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.GColId,
+            this.GColDescription});
             this.GvCategPiece.GridControl = this.GcCategPiece;
             this.GvCategPiece.Name = "GvCategPiece";
             this.GvCategPiece.OptionsBehavior.Editable = false;
             this.GvCategPiece.OptionsSelection.MultiSelect = true;
             this.GvCategPiece.OptionsView.ShowGroupPanel = false;
+            this.GvCategPiece.DoubleClick += new System.EventHandler(this.GvCategPiece_DoubleClick);
             // 
             // groupBox3
             // 
@@ -134,34 +145,40 @@
             // 
             this.BtnDeleteCategP.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnDeleteCategP.Appearance.Options.UseFont = true;
+            this.BtnDeleteCategP.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnDeleteCategP.Image = global::StockBonBerger.Properties.Resources.cancel_16x16;
             this.BtnDeleteCategP.Location = new System.Drawing.Point(263, 83);
             this.BtnDeleteCategP.Name = "BtnDeleteCategP";
             this.BtnDeleteCategP.Size = new System.Drawing.Size(108, 27);
             this.BtnDeleteCategP.TabIndex = 5;
             this.BtnDeleteCategP.Text = "Supprimer";
+            this.BtnDeleteCategP.Click += new System.EventHandler(this.ControleCategPiece_Click);
             // 
             // BtnSaveCategP
             // 
             this.BtnSaveCategP.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnSaveCategP.Appearance.Options.UseFont = true;
+            this.BtnSaveCategP.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnSaveCategP.Image = global::StockBonBerger.Properties.Resources.apply_16x16;
-            this.BtnSaveCategP.Location = new System.Drawing.Point(142, 83);
+            this.BtnSaveCategP.Location = new System.Drawing.Point(143, 83);
             this.BtnSaveCategP.Name = "BtnSaveCategP";
             this.BtnSaveCategP.Size = new System.Drawing.Size(108, 27);
             this.BtnSaveCategP.TabIndex = 3;
             this.BtnSaveCategP.Text = "Enregistrer";
+            this.BtnSaveCategP.Click += new System.EventHandler(this.ControleCategPiece_Click);
             // 
             // BtnNewCategP
             // 
             this.BtnNewCategP.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnNewCategP.Appearance.Options.UseFont = true;
+            this.BtnNewCategP.Cursor = System.Windows.Forms.Cursors.Hand;
             this.BtnNewCategP.Image = global::StockBonBerger.Properties.Resources.add_16x16;
             this.BtnNewCategP.Location = new System.Drawing.Point(24, 83);
             this.BtnNewCategP.Name = "BtnNewCategP";
             this.BtnNewCategP.Size = new System.Drawing.Size(108, 27);
             this.BtnNewCategP.TabIndex = 4;
             this.BtnNewCategP.Text = "Nouveau";
+            this.BtnNewCategP.Click += new System.EventHandler(this.ControleCategPiece_Click);
             // 
             // TxtDesignCategPiece
             // 
@@ -183,6 +200,7 @@
             // 
             // TxtCodeCategPiece
             // 
+            this.TxtCodeCategPiece.Enabled = false;
             this.TxtCodeCategPiece.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtCodeCategPiece.Location = new System.Drawing.Point(131, 19);
             this.TxtCodeCategPiece.Name = "TxtCodeCategPiece";
@@ -214,183 +232,6 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Pièce";
             // 
-            // groupBox5
-            // 
-            this.groupBox5.Controls.Add(this.TxtLieuFab);
-            this.groupBox5.Controls.Add(this.label8);
-            this.groupBox5.Controls.Add(this.TxtUsage);
-            this.groupBox5.Controls.Add(this.label7);
-            this.groupBox5.Controls.Add(this.separatorControl1);
-            this.groupBox5.Controls.Add(this.TxtNumSerie);
-            this.groupBox5.Controls.Add(this.label6);
-            this.groupBox5.Controls.Add(this.CmbCateggPiece);
-            this.groupBox5.Controls.Add(this.label5);
-            this.groupBox5.Controls.Add(this.BtnDeletePiece);
-            this.groupBox5.Controls.Add(this.BtnSavePiece);
-            this.groupBox5.Controls.Add(this.BtnNewPiece);
-            this.groupBox5.Controls.Add(this.TxtDesignPiece);
-            this.groupBox5.Controls.Add(this.label3);
-            this.groupBox5.Controls.Add(this.TxtCodePiece);
-            this.groupBox5.Controls.Add(this.label4);
-            this.groupBox5.Location = new System.Drawing.Point(13, 19);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(732, 160);
-            this.groupBox5.TabIndex = 1;
-            this.groupBox5.TabStop = false;
-            // 
-            // BtnDeletePiece
-            // 
-            this.BtnDeletePiece.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnDeletePiece.Appearance.Options.UseFont = true;
-            this.BtnDeletePiece.Image = global::StockBonBerger.Properties.Resources.cancel_16x16;
-            this.BtnDeletePiece.Location = new System.Drawing.Point(406, 118);
-            this.BtnDeletePiece.Name = "BtnDeletePiece";
-            this.BtnDeletePiece.Size = new System.Drawing.Size(108, 27);
-            this.BtnDeletePiece.TabIndex = 5;
-            this.BtnDeletePiece.Text = "Supprimer";
-            // 
-            // BtnSavePiece
-            // 
-            this.BtnSavePiece.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnSavePiece.Appearance.Options.UseFont = true;
-            this.BtnSavePiece.Image = global::StockBonBerger.Properties.Resources.apply_16x16;
-            this.BtnSavePiece.Location = new System.Drawing.Point(286, 118);
-            this.BtnSavePiece.Name = "BtnSavePiece";
-            this.BtnSavePiece.Size = new System.Drawing.Size(108, 27);
-            this.BtnSavePiece.TabIndex = 3;
-            this.BtnSavePiece.Text = "Enregistrer";
-            // 
-            // BtnNewPiece
-            // 
-            this.BtnNewPiece.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnNewPiece.Appearance.Options.UseFont = true;
-            this.BtnNewPiece.Image = global::StockBonBerger.Properties.Resources.add_16x16;
-            this.BtnNewPiece.Location = new System.Drawing.Point(168, 118);
-            this.BtnNewPiece.Name = "BtnNewPiece";
-            this.BtnNewPiece.Size = new System.Drawing.Size(108, 27);
-            this.BtnNewPiece.TabIndex = 4;
-            this.BtnNewPiece.Text = "Nouveau";
-            // 
-            // TxtDesignPiece
-            // 
-            this.TxtDesignPiece.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtDesignPiece.Location = new System.Drawing.Point(120, 46);
-            this.TxtDesignPiece.Name = "TxtDesignPiece";
-            this.TxtDesignPiece.Size = new System.Drawing.Size(213, 22);
-            this.TxtDesignPiece.TabIndex = 2;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(21, 49);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(89, 16);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Désignation : ";
-            // 
-            // TxtCodePiece
-            // 
-            this.TxtCodePiece.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtCodePiece.Location = new System.Drawing.Point(120, 19);
-            this.TxtCodePiece.Name = "TxtCodePiece";
-            this.TxtCodePiece.ReadOnly = true;
-            this.TxtCodePiece.Size = new System.Drawing.Size(213, 22);
-            this.TxtCodePiece.TabIndex = 1;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(21, 22);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(50, 16);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "Code : ";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(21, 76);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(76, 16);
-            this.label5.TabIndex = 7;
-            this.label5.Text = "Catégorie : ";
-            // 
-            // CmbCateggPiece
-            // 
-            this.CmbCateggPiece.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CmbCateggPiece.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CmbCateggPiece.FormattingEnabled = true;
-            this.CmbCateggPiece.Location = new System.Drawing.Point(120, 73);
-            this.CmbCateggPiece.Name = "CmbCateggPiece";
-            this.CmbCateggPiece.Size = new System.Drawing.Size(213, 24);
-            this.CmbCateggPiece.TabIndex = 8;
-            // 
-            // TxtNumSerie
-            // 
-            this.TxtNumSerie.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtNumSerie.Location = new System.Drawing.Point(482, 19);
-            this.TxtNumSerie.Name = "TxtNumSerie";
-            this.TxtNumSerie.Size = new System.Drawing.Size(213, 22);
-            this.TxtNumSerie.TabIndex = 9;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(377, 22);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(83, 16);
-            this.label6.TabIndex = 10;
-            this.label6.Text = "N° de série : ";
-            // 
-            // separatorControl1
-            // 
-            this.separatorControl1.AutoSizeMode = true;
-            this.separatorControl1.LineOrientation = System.Windows.Forms.Orientation.Vertical;
-            this.separatorControl1.Location = new System.Drawing.Point(345, 22);
-            this.separatorControl1.Name = "separatorControl1";
-            this.separatorControl1.Size = new System.Drawing.Size(20, 75);
-            this.separatorControl1.TabIndex = 11;
-            // 
-            // TxtUsage
-            // 
-            this.TxtUsage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtUsage.Location = new System.Drawing.Point(482, 46);
-            this.TxtUsage.Name = "TxtUsage";
-            this.TxtUsage.Size = new System.Drawing.Size(213, 22);
-            this.TxtUsage.TabIndex = 12;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(377, 49);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(58, 16);
-            this.label7.TabIndex = 13;
-            this.label7.Text = "Usage : ";
-            // 
-            // TxtLieuFab
-            // 
-            this.TxtLieuFab.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtLieuFab.Location = new System.Drawing.Point(482, 73);
-            this.TxtLieuFab.Name = "TxtLieuFab";
-            this.TxtLieuFab.Size = new System.Drawing.Size(213, 22);
-            this.TxtLieuFab.TabIndex = 14;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(377, 76);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(88, 16);
-            this.label8.TabIndex = 15;
-            this.label8.Text = "Lieu de Fab : ";
-            // 
             // groupBox6
             // 
             this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -416,11 +257,274 @@
             // 
             // GvPiece
             // 
+            this.GvPiece.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.GColCodeP,
+            this.GColDesign,
+            this.GColCategPiece,
+            this.GColNumSerie,
+            this.GColUsage,
+            this.GColLieuFab,
+            this.GColCodeCategP});
             this.GvPiece.GridControl = this.GcPiece;
             this.GvPiece.Name = "GvPiece";
             this.GvPiece.OptionsBehavior.Editable = false;
             this.GvPiece.OptionsSelection.MultiSelect = true;
             this.GvPiece.OptionsView.ShowGroupPanel = false;
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.TxtLieuFab);
+            this.groupBox5.Controls.Add(this.label8);
+            this.groupBox5.Controls.Add(this.TxtUsage);
+            this.groupBox5.Controls.Add(this.label7);
+            this.groupBox5.Controls.Add(this.separatorControl1);
+            this.groupBox5.Controls.Add(this.TxtNumSerie);
+            this.groupBox5.Controls.Add(this.label6);
+            this.groupBox5.Controls.Add(this.CmbCateggPiece);
+            this.groupBox5.Controls.Add(this.label5);
+            this.groupBox5.Controls.Add(this.BtnDeletePiece);
+            this.groupBox5.Controls.Add(this.BtnSavePiece);
+            this.groupBox5.Controls.Add(this.BtnNewPiece);
+            this.groupBox5.Controls.Add(this.TxtDesignPiece);
+            this.groupBox5.Controls.Add(this.label3);
+            this.groupBox5.Controls.Add(this.TxtCodePiece);
+            this.groupBox5.Controls.Add(this.label4);
+            this.groupBox5.Location = new System.Drawing.Point(13, 19);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(747, 160);
+            this.groupBox5.TabIndex = 1;
+            this.groupBox5.TabStop = false;
+            // 
+            // TxtLieuFab
+            // 
+            this.TxtLieuFab.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtLieuFab.Location = new System.Drawing.Point(519, 73);
+            this.TxtLieuFab.Name = "TxtLieuFab";
+            this.TxtLieuFab.Size = new System.Drawing.Size(213, 22);
+            this.TxtLieuFab.TabIndex = 14;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(414, 76);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(88, 16);
+            this.label8.TabIndex = 15;
+            this.label8.Text = "Lieu de Fab : ";
+            // 
+            // TxtUsage
+            // 
+            this.TxtUsage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtUsage.Location = new System.Drawing.Point(519, 46);
+            this.TxtUsage.Name = "TxtUsage";
+            this.TxtUsage.Size = new System.Drawing.Size(213, 22);
+            this.TxtUsage.TabIndex = 12;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(414, 49);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(58, 16);
+            this.label7.TabIndex = 13;
+            this.label7.Text = "Usage : ";
+            // 
+            // separatorControl1
+            // 
+            this.separatorControl1.AutoSizeMode = true;
+            this.separatorControl1.LineOrientation = System.Windows.Forms.Orientation.Vertical;
+            this.separatorControl1.Location = new System.Drawing.Point(365, 20);
+            this.separatorControl1.Name = "separatorControl1";
+            this.separatorControl1.Size = new System.Drawing.Size(20, 75);
+            this.separatorControl1.TabIndex = 11;
+            // 
+            // TxtNumSerie
+            // 
+            this.TxtNumSerie.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtNumSerie.Location = new System.Drawing.Point(519, 19);
+            this.TxtNumSerie.Name = "TxtNumSerie";
+            this.TxtNumSerie.Size = new System.Drawing.Size(213, 22);
+            this.TxtNumSerie.TabIndex = 9;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(414, 22);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(83, 16);
+            this.label6.TabIndex = 10;
+            this.label6.Text = "N° de série : ";
+            // 
+            // CmbCateggPiece
+            // 
+            this.CmbCateggPiece.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CmbCateggPiece.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CmbCateggPiece.FormattingEnabled = true;
+            this.CmbCateggPiece.Location = new System.Drawing.Point(120, 73);
+            this.CmbCateggPiece.Name = "CmbCateggPiece";
+            this.CmbCateggPiece.Size = new System.Drawing.Size(213, 24);
+            this.CmbCateggPiece.TabIndex = 8;
+            this.CmbCateggPiece.SelectedIndexChanged += new System.EventHandler(this.CmbCateggPiece_SelectedIndexChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(21, 76);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(76, 16);
+            this.label5.TabIndex = 7;
+            this.label5.Text = "Catégorie : ";
+            // 
+            // BtnDeletePiece
+            // 
+            this.BtnDeletePiece.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnDeletePiece.Appearance.Options.UseFont = true;
+            this.BtnDeletePiece.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnDeletePiece.Image = global::StockBonBerger.Properties.Resources.cancel_16x16;
+            this.BtnDeletePiece.Location = new System.Drawing.Point(426, 118);
+            this.BtnDeletePiece.Name = "BtnDeletePiece";
+            this.BtnDeletePiece.Size = new System.Drawing.Size(108, 27);
+            this.BtnDeletePiece.TabIndex = 5;
+            this.BtnDeletePiece.Text = "Supprimer";
+            this.BtnDeletePiece.Click += new System.EventHandler(this.ControlePiece_Click);
+            // 
+            // BtnSavePiece
+            // 
+            this.BtnSavePiece.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnSavePiece.Appearance.Options.UseFont = true;
+            this.BtnSavePiece.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnSavePiece.Image = global::StockBonBerger.Properties.Resources.apply_16x16;
+            this.BtnSavePiece.Location = new System.Drawing.Point(307, 118);
+            this.BtnSavePiece.Name = "BtnSavePiece";
+            this.BtnSavePiece.Size = new System.Drawing.Size(108, 27);
+            this.BtnSavePiece.TabIndex = 3;
+            this.BtnSavePiece.Text = "Enregistrer";
+            this.BtnSavePiece.Click += new System.EventHandler(this.ControlePiece_Click);
+            // 
+            // BtnNewPiece
+            // 
+            this.BtnNewPiece.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnNewPiece.Appearance.Options.UseFont = true;
+            this.BtnNewPiece.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnNewPiece.Image = global::StockBonBerger.Properties.Resources.add_16x16;
+            this.BtnNewPiece.Location = new System.Drawing.Point(188, 118);
+            this.BtnNewPiece.Name = "BtnNewPiece";
+            this.BtnNewPiece.Size = new System.Drawing.Size(108, 27);
+            this.BtnNewPiece.TabIndex = 4;
+            this.BtnNewPiece.Text = "Nouveau";
+            this.BtnNewPiece.Click += new System.EventHandler(this.ControlePiece_Click);
+            // 
+            // TxtDesignPiece
+            // 
+            this.TxtDesignPiece.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtDesignPiece.Location = new System.Drawing.Point(120, 46);
+            this.TxtDesignPiece.Name = "TxtDesignPiece";
+            this.TxtDesignPiece.Size = new System.Drawing.Size(213, 22);
+            this.TxtDesignPiece.TabIndex = 2;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(21, 49);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(89, 16);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "Désignation : ";
+            // 
+            // TxtCodePiece
+            // 
+            this.TxtCodePiece.Enabled = false;
+            this.TxtCodePiece.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtCodePiece.Location = new System.Drawing.Point(120, 19);
+            this.TxtCodePiece.Name = "TxtCodePiece";
+            this.TxtCodePiece.ReadOnly = true;
+            this.TxtCodePiece.Size = new System.Drawing.Size(213, 22);
+            this.TxtCodePiece.TabIndex = 1;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(21, 22);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(50, 16);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "Code : ";
+            // 
+            // GColId
+            // 
+            this.GColId.Caption = "Code";
+            this.GColId.FieldName = "id";
+            this.GColId.Name = "GColId";
+            this.GColId.Visible = true;
+            this.GColId.VisibleIndex = 0;
+            // 
+            // GColDescription
+            // 
+            this.GColDescription.Caption = "Désignation";
+            this.GColDescription.FieldName = "designation";
+            this.GColDescription.Name = "GColDescription";
+            this.GColDescription.Visible = true;
+            this.GColDescription.VisibleIndex = 1;
+            // 
+            // GColCodeP
+            // 
+            this.GColCodeP.Caption = "Code";
+            this.GColCodeP.FieldName = "idPiece";
+            this.GColCodeP.Name = "GColCodeP";
+            this.GColCodeP.Visible = true;
+            this.GColCodeP.VisibleIndex = 0;
+            // 
+            // GColDesign
+            // 
+            this.GColDesign.Caption = "Désignation";
+            this.GColDesign.FieldName = "designation";
+            this.GColDesign.Name = "GColDesign";
+            this.GColDesign.Visible = true;
+            this.GColDesign.VisibleIndex = 1;
+            // 
+            // GColCategPiece
+            // 
+            this.GColCategPiece.Caption = "Catégorie";
+            this.GColCategPiece.FieldName = "categorie";
+            this.GColCategPiece.Name = "GColCategPiece";
+            this.GColCategPiece.Visible = true;
+            this.GColCategPiece.VisibleIndex = 2;
+            // 
+            // GColNumSerie
+            // 
+            this.GColNumSerie.Caption = "N° Série";
+            this.GColNumSerie.FieldName = "nunmero_serie";
+            this.GColNumSerie.Name = "GColNumSerie";
+            this.GColNumSerie.Visible = true;
+            this.GColNumSerie.VisibleIndex = 3;
+            // 
+            // GColUsage
+            // 
+            this.GColUsage.Caption = "Usage";
+            this.GColUsage.FieldName = "usage";
+            this.GColUsage.Name = "GColUsage";
+            this.GColUsage.Visible = true;
+            this.GColUsage.VisibleIndex = 4;
+            // 
+            // GColLieuFab
+            // 
+            this.GColLieuFab.Caption = "Lieu de Fab.";
+            this.GColLieuFab.FieldName = "lieu_fabrication";
+            this.GColLieuFab.Name = "GColLieuFab";
+            this.GColLieuFab.Visible = true;
+            this.GColLieuFab.VisibleIndex = 5;
+            // 
+            // GColCodeCategP
+            // 
+            this.GColCodeCategP.Caption = "CodeCategPiece";
+            this.GColCodeCategP.FieldName = "idCategP";
+            this.GColCodeCategP.Name = "GColCodeCategP";
             // 
             // FormPiece
             // 
@@ -431,6 +535,7 @@
             this.Controls.Add(this.groupBox1);
             this.Name = "FormPiece";
             this.Text = "Pièce";
+            this.Load += new System.EventHandler(this.FormPiece_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.GcCategPiece)).EndInit();
@@ -438,12 +543,12 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.separatorControl1)).EndInit();
             this.groupBox6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.GcPiece)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.GvPiece)).EndInit();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.separatorControl1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -483,5 +588,14 @@
         private System.Windows.Forms.GroupBox groupBox6;
         private DevExpress.XtraGrid.GridControl GcPiece;
         private DevExpress.XtraGrid.Views.Grid.GridView GvPiece;
+        private DevExpress.XtraGrid.Columns.GridColumn GColId;
+        private DevExpress.XtraGrid.Columns.GridColumn GColDescription;
+        private DevExpress.XtraGrid.Columns.GridColumn GColCodeP;
+        private DevExpress.XtraGrid.Columns.GridColumn GColDesign;
+        private DevExpress.XtraGrid.Columns.GridColumn GColCategPiece;
+        private DevExpress.XtraGrid.Columns.GridColumn GColNumSerie;
+        private DevExpress.XtraGrid.Columns.GridColumn GColUsage;
+        private DevExpress.XtraGrid.Columns.GridColumn GColLieuFab;
+        private DevExpress.XtraGrid.Columns.GridColumn GColCodeCategP;
     }
 }

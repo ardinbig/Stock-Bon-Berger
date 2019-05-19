@@ -5,7 +5,7 @@ using System.Text;
 
 namespace StockBonBerger_Data
 {
-    class Constants
+    public class Constants
     {
         public class Table
         {
@@ -22,6 +22,7 @@ namespace StockBonBerger_Data
             public const string MODE_PAIEMENT = "tModePaiement";
             public const string PAIEMENT = "tPaiement";
             public const string VENTE = "tVente";
+            public const string PIECE = "tPiece";
         }
 
         public class View
