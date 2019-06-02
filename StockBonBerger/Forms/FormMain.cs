@@ -89,5 +89,18 @@ namespace StockBonBerger.Forms
             form.MdiParent = this;
             form.Show();
         }
+
+        private void SmClient_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SmFss_Click(object sender, EventArgs e)
+        {
+            form = new FormFournisseur();
+            form.Icon = this.Icon;
+            form.MdiParent = this;
+            form.Show();
+        }
     }
 }

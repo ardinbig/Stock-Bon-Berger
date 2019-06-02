@@ -33,6 +33,7 @@
             this.MenuStrip = new System.Windows.Forms.MenuStrip();
             this.MenuFichier = new System.Windows.Forms.ToolStripMenuItem();
             this.SmConnection = new System.Windows.Forms.ToolStripMenuItem();
+            this.SmDisconnection = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.SmCloseAll = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
@@ -72,7 +73,6 @@
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.TabbedMdiManager = new DevExpress.XtraTabbedMdi.XtraTabbedMdiManager(this.components);
-            this.SmDisconnection = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
@@ -118,6 +118,14 @@
             this.SmConnection.Text = "&Connexion";
             this.SmConnection.Click += new System.EventHandler(this.SmConnection_Click);
             // 
+            // SmDisconnection
+            // 
+            this.SmDisconnection.ImageTransparentColor = System.Drawing.Color.Black;
+            this.SmDisconnection.Name = "SmDisconnection";
+            this.SmDisconnection.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D)));
+            this.SmDisconnection.Size = new System.Drawing.Size(185, 22);
+            this.SmDisconnection.Text = "&Déconnexion";
+            // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
@@ -156,7 +164,7 @@
             this.toolBarToolStripMenuItem.CheckOnClick = true;
             this.toolBarToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.toolBarToolStripMenuItem.Name = "toolBarToolStripMenuItem";
-            this.toolBarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.toolBarToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.toolBarToolStripMenuItem.Text = "&Bar d\'outils";
             this.toolBarToolStripMenuItem.Click += new System.EventHandler(this.ToolBarToolStripMenuItem_Click);
             // 
@@ -166,7 +174,7 @@
             this.statusBarToolStripMenuItem.CheckOnClick = true;
             this.statusBarToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.statusBarToolStripMenuItem.Name = "statusBarToolStripMenuItem";
-            this.statusBarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.statusBarToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.statusBarToolStripMenuItem.Text = "&Bar de status";
             this.statusBarToolStripMenuItem.Click += new System.EventHandler(this.StatusBarToolStripMenuItem_Click);
             // 
@@ -194,7 +202,7 @@
             // SmPiece
             // 
             this.SmPiece.Name = "SmPiece";
-            this.SmPiece.Size = new System.Drawing.Size(152, 22);
+            this.SmPiece.Size = new System.Drawing.Size(135, 22);
             this.SmPiece.Text = "&Pièce";
             this.SmPiece.Click += new System.EventHandler(this.SmPiece_Click);
             // 
@@ -203,12 +211,14 @@
             this.SmClient.Name = "SmClient";
             this.SmClient.Size = new System.Drawing.Size(152, 22);
             this.SmClient.Text = "&Client";
+            this.SmClient.Click += new System.EventHandler(this.SmClient_Click);
             // 
             // SmFss
             // 
             this.SmFss.Name = "SmFss";
             this.SmFss.Size = new System.Drawing.Size(152, 22);
             this.SmFss.Text = "&Fournisseur";
+            this.SmFss.Click += new System.EventHandler(this.SmFss_Click);
             // 
             // SmApprov
             // 
@@ -236,6 +246,7 @@
             this.tileHorizontalToolStripMenuItem,
             this.arrangeIconsToolStripMenuItem});
             this.MenuWindow.Name = "MenuWindow";
+            this.MenuWindow.ShowShortcutKeys = false;
             this.MenuWindow.Size = new System.Drawing.Size(58, 20);
             this.MenuWindow.Text = "&Fenêtre";
             // 
@@ -278,7 +289,7 @@
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.optionsToolStripMenuItem.Text = "&Options";
             // 
             // MenuHelp
@@ -409,14 +420,6 @@
             // TabbedMdiManager
             // 
             this.TabbedMdiManager.MdiParent = this;
-            // 
-            // SmDisconnection
-            // 
-            this.SmDisconnection.ImageTransparentColor = System.Drawing.Color.Black;
-            this.SmDisconnection.Name = "SmDisconnection";
-            this.SmDisconnection.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D)));
-            this.SmDisconnection.Size = new System.Drawing.Size(185, 22);
-            this.SmDisconnection.Text = "&Déconnexion";
             // 
             // FormMain
             // 
