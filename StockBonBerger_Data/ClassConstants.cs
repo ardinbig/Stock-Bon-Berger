@@ -28,6 +28,7 @@ namespace StockBonBerger_Data
         public class View
         {
             public const string LIST_PIECES = "v_list_pieces";
+            public const string LIST_CLIENTS = "v_list_clients";
         }
 
         public class Procedure

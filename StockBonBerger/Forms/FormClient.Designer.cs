@@ -531,6 +531,7 @@
             this.MinimumSize = new System.Drawing.Size(800, 500);
             this.Name = "FormClient";
             this.Text = "Client";
+            this.Load += new System.EventHandler(this.FormClient_Load);
             this.groupBox2.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.GcClient)).EndInit();
