@@ -34,13 +34,13 @@
             this.BtnSaveFss = new DevExpress.XtraEditors.SimpleButton();
             this.BtnNewFss = new DevExpress.XtraEditors.SimpleButton();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.TxtTelephoneFss = new System.Windows.Forms.MaskedTextBox();
             this.TxtAdresseFss = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.TxtEmailFss = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.TxtNomsFss = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.TxtTelephoneFss = new System.Windows.Forms.TextBox();
             this.TxtCodeFss = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -62,11 +62,13 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Controls.Add(this.groupBox3);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(760, 207);
+            this.groupBox1.Size = new System.Drawing.Size(760, 203);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Fournisseur";
@@ -123,13 +125,13 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.TxtTelephoneFss);
             this.groupBox3.Controls.Add(this.TxtAdresseFss);
             this.groupBox3.Controls.Add(this.label5);
             this.groupBox3.Controls.Add(this.TxtEmailFss);
             this.groupBox3.Controls.Add(this.label4);
             this.groupBox3.Controls.Add(this.TxtNomsFss);
             this.groupBox3.Controls.Add(this.label2);
-            this.groupBox3.Controls.Add(this.TxtTelephoneFss);
             this.groupBox3.Controls.Add(this.TxtCodeFss);
             this.groupBox3.Controls.Add(this.label3);
             this.groupBox3.Controls.Add(this.label1);
@@ -139,12 +141,21 @@
             this.groupBox3.TabIndex = 0;
             this.groupBox3.TabStop = false;
             // 
+            // TxtTelephoneFss
+            // 
+            this.TxtTelephoneFss.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.TxtTelephoneFss.Location = new System.Drawing.Point(137, 73);
+            this.TxtTelephoneFss.Mask = "0000000000";
+            this.TxtTelephoneFss.Name = "TxtTelephoneFss";
+            this.TxtTelephoneFss.Size = new System.Drawing.Size(253, 22);
+            this.TxtTelephoneFss.TabIndex = 7;
+            // 
             // TxtAdresseFss
             // 
             this.TxtAdresseFss.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtAdresseFss.Location = new System.Drawing.Point(137, 127);
             this.TxtAdresseFss.Name = "TxtAdresseFss";
-            this.TxtAdresseFss.Size = new System.Drawing.Size(251, 22);
+            this.TxtAdresseFss.Size = new System.Drawing.Size(253, 22);
             this.TxtAdresseFss.TabIndex = 5;
             // 
             // label5
@@ -162,7 +173,7 @@
             this.TxtEmailFss.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtEmailFss.Location = new System.Drawing.Point(137, 100);
             this.TxtEmailFss.Name = "TxtEmailFss";
-            this.TxtEmailFss.Size = new System.Drawing.Size(251, 22);
+            this.TxtEmailFss.Size = new System.Drawing.Size(253, 22);
             this.TxtEmailFss.TabIndex = 3;
             // 
             // label4
@@ -180,7 +191,7 @@
             this.TxtNomsFss.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtNomsFss.Location = new System.Drawing.Point(137, 46);
             this.TxtNomsFss.Name = "TxtNomsFss";
-            this.TxtNomsFss.Size = new System.Drawing.Size(251, 22);
+            this.TxtNomsFss.Size = new System.Drawing.Size(253, 22);
             this.TxtNomsFss.TabIndex = 2;
             // 
             // label2
@@ -193,14 +204,6 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "Noms : ";
             // 
-            // TxtTelephoneFss
-            // 
-            this.TxtTelephoneFss.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtTelephoneFss.Location = new System.Drawing.Point(137, 73);
-            this.TxtTelephoneFss.Name = "TxtTelephoneFss";
-            this.TxtTelephoneFss.Size = new System.Drawing.Size(251, 22);
-            this.TxtTelephoneFss.TabIndex = 2;
-            // 
             // TxtCodeFss
             // 
             this.TxtCodeFss.Enabled = false;
@@ -208,7 +211,7 @@
             this.TxtCodeFss.Location = new System.Drawing.Point(137, 19);
             this.TxtCodeFss.Name = "TxtCodeFss";
             this.TxtCodeFss.ReadOnly = true;
-            this.TxtCodeFss.Size = new System.Drawing.Size(251, 22);
+            this.TxtCodeFss.Size = new System.Drawing.Size(253, 22);
             this.TxtCodeFss.TabIndex = 1;
             // 
             // label3
@@ -233,25 +236,27 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox4.Controls.Add(this.GcFss);
-            this.groupBox4.Location = new System.Drawing.Point(12, 240);
+            this.groupBox4.Location = new System.Drawing.Point(12, 221);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(760, 209);
+            this.groupBox4.Size = new System.Drawing.Size(760, 228);
             this.groupBox4.TabIndex = 1;
             this.groupBox4.TabStop = false;
             // 
             // GcFss
             // 
-            this.GcFss.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.GcFss.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GcFss.Location = new System.Drawing.Point(3, 16);
             this.GcFss.MainView = this.GvFss;
             this.GcFss.Name = "GcFss";
-            this.GcFss.Size = new System.Drawing.Size(754, 190);
+            this.GcFss.Size = new System.Drawing.Size(754, 209);
             this.GcFss.TabIndex = 6;
             this.GcFss.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.GvFss});
+            this.GcFss.DoubleClick += new System.EventHandler(this.GcFss_DoubleClick);
             // 
             // GvFss
             // 
@@ -353,10 +358,10 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox TxtEmailFss;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox TxtTelephoneFss;
         private System.Windows.Forms.Label label3;
         private DevExpress.XtraGrid.Columns.GridColumn GColPhone;
         private DevExpress.XtraGrid.Columns.GridColumn GColEmail;
         private DevExpress.XtraGrid.Columns.GridColumn GColAdresse;
+        private System.Windows.Forms.MaskedTextBox TxtTelephoneFss;
     }
 }

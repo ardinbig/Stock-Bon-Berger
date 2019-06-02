@@ -498,7 +498,7 @@ namespace StockBonBerger_Data
                 SetParameter(cmd, "@noms", DbType.String, 100, fss.Noms);
                 SetParameter(cmd, "@phone", DbType.String, 30, fss.Phone);
                 SetParameter(cmd, "@email", DbType.String, 30, fss.Email);
-                SetParameter(cmd, "@code", DbType.String, 100, fss.Adresse);
+                SetParameter(cmd, "@adresse", DbType.String, 100, fss.Adresse);
                 SetParameter(cmd, "@action", DbType.Int32, 4, action);
 
                 cmd.ExecuteNonQuery();

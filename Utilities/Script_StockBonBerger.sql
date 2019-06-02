@@ -23,7 +23,7 @@ CREATE TABLE tFournisseur
 	email NVARCHAR(30),
 	adresse NVARCHAR(100),
 	date_maj DATETIME DEFAULT GETDATE(),
-		CONSTRAINT unique_fss UNIQUE (noms)
+		CONSTRAINT unique_fss UNIQUE (noms, adresse, phone, email)
 )
 GO
 

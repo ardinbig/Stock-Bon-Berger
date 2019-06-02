@@ -33,7 +33,7 @@ namespace StockBonBerger.Forms
 
         private bool IsNotEmpty()
         {
-            if (!string.IsNullOrEmpty(TxtNomsFss.Text))
+            if (!string.IsNullOrEmpty(TxtNomsFss.Text) && string.IsNullOrEmpty(TxtCodeFss.Text))
             {
                 return true;
             }
@@ -49,6 +49,8 @@ namespace StockBonBerger.Forms
             TxtNomsFss.Clear();
             TxtTelephoneFss.Clear();
             TxtNomsFss.Focus();
+
+            BtnDeleteFss.Enabled = false;
         }
 
         private void ControleFss(bool save)
@@ -64,20 +66,20 @@ namespace StockBonBerger.Forms
                             Code = "0",
                             Noms = TxtNomsFss.Text.ToUpper().Trim(),
                             Email = TxtEmailFss.Text.ToUpper().Trim(),
-                            Phone = TxtNomsFss.Text.ToUpper().Trim(),
+                            Phone = TxtTelephoneFss.Text.ToUpper().Trim(),
                             Adresse = TxtAdresseFss.Text.ToUpper().Trim()
                         };
 
                         Glossaire.Instance.ControleFournisseur(fss);
                     }
-                    else
+                    else if(!string.IsNullOrEmpty(TxtCodeFss.Text))
                     {
                         fss = new Fournisseur
                         {
                             Code = TxtCodeFss.Text,
                             Noms = TxtNomsFss.Text.ToUpper().Trim(),
                             Email = TxtEmailFss.Text.ToUpper().Trim(),
-                            Phone = TxtNomsFss.Text.ToUpper().Trim(),
+                            Phone = TxtTelephoneFss.Text.ToUpper().Trim(),
                             Adresse = TxtAdresseFss.Text.ToUpper().Trim()
                         };
 
@@ -91,7 +93,7 @@ namespace StockBonBerger.Forms
                         Code = TxtCodeFss.Text,
                         Noms = TxtNomsFss.Text.ToUpper().Trim(),
                         Email = TxtEmailFss.Text.ToUpper().Trim(),
-                        Phone = TxtNomsFss.Text.ToUpper().Trim(),
+                        Phone = TxtTelephoneFss.Text.ToUpper().Trim(),
                         Adresse = TxtAdresseFss.Text.ToUpper().Trim()
                     };
 
@@ -127,20 +129,37 @@ namespace StockBonBerger.Forms
         {
             switch (((Control)sender).Name)
             {
-                case "BtnNewCategP":
+                case "BtnNewFss":
                     ClearFields();
                     break;
 
-                case "BtnSaveCategP":
+                case "BtnSaveFss":
                     ControleFss(true);
                     break;
 
-                case "BtnDeleteCategP":
+                case "BtnDeleteFss":
                     ControleFss(false);
                     break;
 
                 default:
                     break;
+            }
+        }
+
+        private void GcFss_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                TxtAdresseFss.Text = GvFss.GetFocusedRowCellValue("adresse").ToString();
+                TxtCodeFss.Text = GvFss.GetFocusedRowCellValue("id").ToString();
+                TxtEmailFss.Text = GvFss.GetFocusedRowCellValue("email").ToString();
+                TxtNomsFss.Text = GvFss.GetFocusedRowCellValue("noms").ToString();
+                TxtTelephoneFss.Text = GvFss.GetFocusedRowCellValue("phone").ToString();
+                BtnDeleteFss.Enabled = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
     }
