@@ -228,6 +228,29 @@ namespace StockBonBerger_Data
             return id;
         }
 
+        public int SelectId(string table, string db_field, string field)
+        {
+            InitializeConnexion();
+
+            int id = 0;
+
+            using (IDbCommand cmd = ImplementeConnexion.Instance.Con.CreateCommand())
+            {
+                cmd.CommandText = "SELECT id FROM " + table + " WHERE " + db_field +" = '" + field + "'";
+
+                IDataReader dr = cmd.ExecuteReader();
+
+                if (dr.Read())
+                {
+                    id = Convert.ToInt32(dr["id"].ToString());
+                }
+
+                dr.Dispose();
+            }
+
+            return id;
+        }
+
         public DataTable LoadGrid(string table, string orderBy)
         {
             InitializeConnexion();

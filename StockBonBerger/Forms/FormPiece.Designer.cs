@@ -440,7 +440,7 @@
             this.CmbCategPiece.Name = "CmbCategPiece";
             this.CmbCategPiece.Size = new System.Drawing.Size(213, 24);
             this.CmbCategPiece.TabIndex = 8;
-            this.CmbCategPiece.SelectedIndexChanged += new System.EventHandler(this.CmbCateggPiece_SelectedIndexChanged);
+            this.CmbCategPiece.SelectedIndexChanged += new System.EventHandler(this.CmbCategPiece_SelectedIndexChanged);
             // 
             // label5
             // 

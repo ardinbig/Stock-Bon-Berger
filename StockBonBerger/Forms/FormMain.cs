@@ -105,5 +105,13 @@ namespace StockBonBerger.Forms
             form.MdiParent = this;
             form.Show();
         }
+
+        private void SmApprov_Click(object sender, EventArgs e)
+        {
+            form = new FormApprov();
+            form.Icon = this.Icon;
+            form.MdiParent = this;
+            form.Show();
+        }
     }
 }

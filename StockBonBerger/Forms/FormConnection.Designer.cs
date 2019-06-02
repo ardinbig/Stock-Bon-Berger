@@ -140,7 +140,7 @@
             this.BtnConnection.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnConnection.Appearance.Options.UseFont = true;
             this.BtnConnection.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BtnConnection.Location = new System.Drawing.Point(46, 171);
+            this.BtnConnection.Location = new System.Drawing.Point(53, 171);
             this.BtnConnection.Name = "BtnConnection";
             this.BtnConnection.Size = new System.Drawing.Size(149, 35);
             this.BtnConnection.TabIndex = 5;

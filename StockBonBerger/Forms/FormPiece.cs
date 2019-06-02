@@ -34,7 +34,7 @@ namespace StockBonBerger
             _initCmbState = true;
         }
 
-        private void CmbCateggPiece_SelectedIndexChanged(object sender, EventArgs e)
+        private void CmbCategPiece_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (_initCmbState)
             {

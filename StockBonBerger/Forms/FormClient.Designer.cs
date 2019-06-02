@@ -211,14 +211,14 @@
             this.groupBox5.Controls.Add(this.label4);
             this.groupBox5.Location = new System.Drawing.Point(13, 19);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(732, 160);
+            this.groupBox5.Size = new System.Drawing.Size(747, 160);
             this.groupBox5.TabIndex = 1;
             this.groupBox5.TabStop = false;
             // 
             // TxtPhoneClient
             // 
             this.TxtPhoneClient.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.TxtPhoneClient.Location = new System.Drawing.Point(491, 19);
+            this.TxtPhoneClient.Location = new System.Drawing.Point(511, 19);
             this.TxtPhoneClient.Mask = "0000000000";
             this.TxtPhoneClient.Name = "TxtPhoneClient";
             this.TxtPhoneClient.Size = new System.Drawing.Size(213, 22);
@@ -227,7 +227,7 @@
             // TxtAdresseClient
             // 
             this.TxtAdresseClient.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtAdresseClient.Location = new System.Drawing.Point(491, 73);
+            this.TxtAdresseClient.Location = new System.Drawing.Point(511, 73);
             this.TxtAdresseClient.Name = "TxtAdresseClient";
             this.TxtAdresseClient.Size = new System.Drawing.Size(213, 22);
             this.TxtAdresseClient.TabIndex = 14;
@@ -236,7 +236,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(386, 76);
+            this.label8.Location = new System.Drawing.Point(406, 76);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(68, 16);
             this.label8.TabIndex = 15;
@@ -245,7 +245,7 @@
             // TxtEmailClient
             // 
             this.TxtEmailClient.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtEmailClient.Location = new System.Drawing.Point(491, 46);
+            this.TxtEmailClient.Location = new System.Drawing.Point(511, 46);
             this.TxtEmailClient.Name = "TxtEmailClient";
             this.TxtEmailClient.Size = new System.Drawing.Size(213, 22);
             this.TxtEmailClient.TabIndex = 12;
@@ -254,7 +254,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(386, 49);
+            this.label7.Location = new System.Drawing.Point(406, 49);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(51, 16);
             this.label7.TabIndex = 13;
@@ -264,7 +264,7 @@
             // 
             this.separatorControl1.AutoSizeMode = true;
             this.separatorControl1.LineOrientation = System.Windows.Forms.Orientation.Vertical;
-            this.separatorControl1.Location = new System.Drawing.Point(351, 20);
+            this.separatorControl1.Location = new System.Drawing.Point(360, 20);
             this.separatorControl1.Name = "separatorControl1";
             this.separatorControl1.Size = new System.Drawing.Size(20, 75);
             this.separatorControl1.TabIndex = 11;
@@ -273,7 +273,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(386, 22);
+            this.label6.Location = new System.Drawing.Point(406, 22);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(83, 16);
             this.label6.TabIndex = 10;

@@ -39,7 +39,8 @@
             this.GColEmail = new DevExpress.XtraGrid.Columns.GridColumn();
             this.GColAdresse = new DevExpress.XtraGrid.Columns.GridColumn();
             this.GColCodeCategC = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.GbControlDApprov = new System.Windows.Forms.GroupBox();
+            this.TxtPrixApprov = new System.Windows.Forms.MaskedTextBox();
             this.TxtQteApprov = new System.Windows.Forms.MaskedTextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.separatorControl1 = new DevExpress.XtraEditors.SeparatorControl();
@@ -58,19 +59,18 @@
             this.GColId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.GColDate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.CmbFss = new System.Windows.Forms.ComboBox();
             this.BtnDeleteApprov = new DevExpress.XtraEditors.SimpleButton();
             this.BtnSaveApprov = new DevExpress.XtraEditors.SimpleButton();
             this.BtnNewApprov = new DevExpress.XtraEditors.SimpleButton();
             this.label2 = new System.Windows.Forms.Label();
             this.TxtCodeApprov = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.CmbApprovFss = new System.Windows.Forms.ComboBox();
-            this.TxtPrixApprov = new System.Windows.Forms.MaskedTextBox();
             this.GbDeatilApprov.SuspendLayout();
             this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GcDApprov)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GvDApprov)).BeginInit();
-            this.groupBox5.SuspendLayout();
+            this.GbControlDApprov.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.separatorControl1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -85,7 +85,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.GbDeatilApprov.Controls.Add(this.groupBox6);
-            this.GbDeatilApprov.Controls.Add(this.groupBox5);
+            this.GbDeatilApprov.Controls.Add(this.GbControlDApprov);
             this.GbDeatilApprov.Location = new System.Drawing.Point(12, 171);
             this.GbDeatilApprov.Name = "GbDeatilApprov";
             this.GbDeatilApprov.Size = new System.Drawing.Size(760, 278);
@@ -186,30 +186,39 @@
             this.GColCodeCategC.FieldName = "idCategC";
             this.GColCodeCategC.Name = "GColCodeCategC";
             // 
-            // groupBox5
+            // GbControlDApprov
             // 
-            this.groupBox5.Controls.Add(this.TxtPrixApprov);
-            this.groupBox5.Controls.Add(this.TxtQteApprov);
-            this.groupBox5.Controls.Add(this.label7);
-            this.groupBox5.Controls.Add(this.separatorControl1);
-            this.groupBox5.Controls.Add(this.label6);
-            this.groupBox5.Controls.Add(this.CmbPiece);
-            this.groupBox5.Controls.Add(this.label5);
-            this.groupBox5.Controls.Add(this.BtnDeleteDApprov);
-            this.groupBox5.Controls.Add(this.BtnSaveDApprov);
-            this.groupBox5.Controls.Add(this.BtnNewDApprov);
-            this.groupBox5.Controls.Add(this.TxtCodeDetailApprov);
-            this.groupBox5.Controls.Add(this.label4);
-            this.groupBox5.Location = new System.Drawing.Point(13, 19);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(732, 134);
-            this.groupBox5.TabIndex = 1;
-            this.groupBox5.TabStop = false;
+            this.GbControlDApprov.Controls.Add(this.TxtPrixApprov);
+            this.GbControlDApprov.Controls.Add(this.TxtQteApprov);
+            this.GbControlDApprov.Controls.Add(this.label7);
+            this.GbControlDApprov.Controls.Add(this.separatorControl1);
+            this.GbControlDApprov.Controls.Add(this.label6);
+            this.GbControlDApprov.Controls.Add(this.CmbPiece);
+            this.GbControlDApprov.Controls.Add(this.label5);
+            this.GbControlDApprov.Controls.Add(this.BtnDeleteDApprov);
+            this.GbControlDApprov.Controls.Add(this.BtnSaveDApprov);
+            this.GbControlDApprov.Controls.Add(this.BtnNewDApprov);
+            this.GbControlDApprov.Controls.Add(this.TxtCodeDetailApprov);
+            this.GbControlDApprov.Controls.Add(this.label4);
+            this.GbControlDApprov.Location = new System.Drawing.Point(13, 19);
+            this.GbControlDApprov.Name = "GbControlDApprov";
+            this.GbControlDApprov.Size = new System.Drawing.Size(747, 134);
+            this.GbControlDApprov.TabIndex = 1;
+            this.GbControlDApprov.TabStop = false;
+            // 
+            // TxtPrixApprov
+            // 
+            this.TxtPrixApprov.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.TxtPrixApprov.Location = new System.Drawing.Point(512, 43);
+            this.TxtPrixApprov.Mask = "00000000.00";
+            this.TxtPrixApprov.Name = "TxtPrixApprov";
+            this.TxtPrixApprov.Size = new System.Drawing.Size(213, 22);
+            this.TxtPrixApprov.TabIndex = 17;
             // 
             // TxtQteApprov
             // 
             this.TxtQteApprov.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.TxtQteApprov.Location = new System.Drawing.Point(498, 16);
+            this.TxtQteApprov.Location = new System.Drawing.Point(512, 16);
             this.TxtQteApprov.Mask = "0000000000";
             this.TxtQteApprov.Name = "TxtQteApprov";
             this.TxtQteApprov.Size = new System.Drawing.Size(213, 22);
@@ -219,7 +228,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(393, 46);
+            this.label7.Location = new System.Drawing.Point(407, 46);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(39, 16);
             this.label7.TabIndex = 13;
@@ -229,7 +238,7 @@
             // 
             this.separatorControl1.AutoSizeMode = true;
             this.separatorControl1.LineOrientation = System.Windows.Forms.Orientation.Vertical;
-            this.separatorControl1.Location = new System.Drawing.Point(351, 20);
+            this.separatorControl1.Location = new System.Drawing.Point(361, 20);
             this.separatorControl1.Name = "separatorControl1";
             this.separatorControl1.Size = new System.Drawing.Size(20, 51);
             this.separatorControl1.TabIndex = 11;
@@ -238,7 +247,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(393, 19);
+            this.label6.Location = new System.Drawing.Point(407, 19);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(66, 16);
             this.label6.TabIndex = 10;
@@ -373,6 +382,8 @@
             // GColDate
             // 
             this.GColDate.Caption = "Date";
+            this.GColDate.DisplayFormat.FormatString = "d";
+            this.GColDate.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
             this.GColDate.FieldName = "date_approv";
             this.GColDate.Name = "GColDate";
             this.GColDate.Visible = true;
@@ -380,7 +391,7 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.CmbApprovFss);
+            this.groupBox3.Controls.Add(this.CmbFss);
             this.groupBox3.Controls.Add(this.BtnDeleteApprov);
             this.groupBox3.Controls.Add(this.BtnSaveApprov);
             this.groupBox3.Controls.Add(this.BtnNewApprov);
@@ -392,6 +403,17 @@
             this.groupBox3.Size = new System.Drawing.Size(390, 124);
             this.groupBox3.TabIndex = 0;
             this.groupBox3.TabStop = false;
+            // 
+            // CmbFss
+            // 
+            this.CmbFss.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CmbFss.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CmbFss.FormattingEnabled = true;
+            this.CmbFss.Location = new System.Drawing.Point(131, 46);
+            this.CmbFss.Name = "CmbFss";
+            this.CmbFss.Size = new System.Drawing.Size(239, 24);
+            this.CmbFss.TabIndex = 9;
+            this.CmbFss.SelectedIndexChanged += new System.EventHandler(this.CmbFss_SelectedIndexChanged);
             // 
             // BtnDeleteApprov
             // 
@@ -459,25 +481,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Code : ";
             // 
-            // CmbApprovFss
-            // 
-            this.CmbApprovFss.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CmbApprovFss.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CmbApprovFss.FormattingEnabled = true;
-            this.CmbApprovFss.Location = new System.Drawing.Point(131, 46);
-            this.CmbApprovFss.Name = "CmbApprovFss";
-            this.CmbApprovFss.Size = new System.Drawing.Size(239, 24);
-            this.CmbApprovFss.TabIndex = 9;
-            // 
-            // TxtPrixApprov
-            // 
-            this.TxtPrixApprov.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.TxtPrixApprov.Location = new System.Drawing.Point(498, 43);
-            this.TxtPrixApprov.Mask = "00000000.00";
-            this.TxtPrixApprov.Name = "TxtPrixApprov";
-            this.TxtPrixApprov.Size = new System.Drawing.Size(213, 22);
-            this.TxtPrixApprov.TabIndex = 17;
-            // 
             // FormApprov
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -491,12 +494,13 @@
             this.MinimumSize = new System.Drawing.Size(800, 500);
             this.Name = "FormApprov";
             this.Text = "Approvisionnement";
+            this.Load += new System.EventHandler(this.FormApprov_Load);
             this.GbDeatilApprov.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.GcDApprov)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.GvDApprov)).EndInit();
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
+            this.GbControlDApprov.ResumeLayout(false);
+            this.GbControlDApprov.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.separatorControl1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
@@ -521,7 +525,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn GColEmail;
         private DevExpress.XtraGrid.Columns.GridColumn GColAdresse;
         private DevExpress.XtraGrid.Columns.GridColumn GColCodeCategC;
-        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.GroupBox GbControlDApprov;
         private System.Windows.Forms.MaskedTextBox TxtQteApprov;
         private System.Windows.Forms.Label label7;
         private DevExpress.XtraEditors.SeparatorControl separatorControl1;
@@ -546,7 +550,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox TxtCodeApprov;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox CmbApprovFss;
+        private System.Windows.Forms.ComboBox CmbFss;
         private System.Windows.Forms.MaskedTextBox TxtPrixApprov;
     }
 }
