@@ -53,6 +53,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\FormApprov.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormApprov.Designer.cs">
+      <DependentUpon>FormApprov.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FormClient.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -85,6 +91,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\FormApprov.resx">
+      <DependentUpon>FormApprov.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormClient.resx">
       <DependentUpon>FormClient.cs</DependentUpon>
     </EmbeddedResource>
