@@ -547,7 +547,7 @@ namespace StockBonBerger_Data
 
         #region Client
 
-        public void ControleClient(Client client, int action)
+        public void ControleClient(Client client, int action = 1)
         {
             InitializeConnexion();
 
@@ -556,7 +556,7 @@ namespace StockBonBerger_Data
                 cmd.CommandText = "sp_merge_client";
                 cmd.CommandType = CommandType.StoredProcedure;
 
-                SetParameter(cmd, "@code", DbType.Int32, 4, client.CodeCategorieClient);
+                SetParameter(cmd, "@code_categ", DbType.Int32, 4, client.CodeCategorieClient);
                 SetParameter(cmd, "@code", DbType.Int32, 4, client.Code);
                 SetParameter(cmd, "@noms", DbType.String, 100, client.Noms);
                 SetParameter(cmd, "@phone", DbType.String, 100, client.Phone);

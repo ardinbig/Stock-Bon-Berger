@@ -119,6 +119,7 @@
             this.GcClient.TabIndex = 6;
             this.GcClient.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.GvClient});
+            this.GcClient.DoubleClick += new System.EventHandler(this.GvClient_DoubleClick);
             // 
             // GvClient
             // 
@@ -286,6 +287,7 @@
             this.CmbCategClient.Name = "CmbCategClient";
             this.CmbCategClient.Size = new System.Drawing.Size(213, 24);
             this.CmbCategClient.TabIndex = 8;
+            this.CmbCategClient.SelectedIndexChanged += new System.EventHandler(this.CmbCategClient_SelectedIndexChanged);
             // 
             // label5
             // 
@@ -308,6 +310,7 @@
             this.BtnDeleteClient.Size = new System.Drawing.Size(108, 27);
             this.BtnDeleteClient.TabIndex = 5;
             this.BtnDeleteClient.Text = "Supprimer";
+            this.BtnDeleteClient.Click += new System.EventHandler(this.ControleClient_Click);
             // 
             // BtnSaveClient
             // 
@@ -320,6 +323,7 @@
             this.BtnSaveClient.Size = new System.Drawing.Size(108, 27);
             this.BtnSaveClient.TabIndex = 3;
             this.BtnSaveClient.Text = "Enregistrer";
+            this.BtnSaveClient.Click += new System.EventHandler(this.ControleClient_Click);
             // 
             // BtnNewClient
             // 
@@ -332,6 +336,7 @@
             this.BtnNewClient.Size = new System.Drawing.Size(108, 27);
             this.BtnNewClient.TabIndex = 4;
             this.BtnNewClient.Text = "Nouveau";
+            this.BtnNewClient.Click += new System.EventHandler(this.ControleClient_Click);
             // 
             // TxtNomsClient
             // 

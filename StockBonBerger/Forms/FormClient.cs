@@ -34,7 +34,7 @@ namespace StockBonBerger.Forms
             _initCmbState = true;
         }
 
-        private void CmbCateggClient_SelectedIndexChanged(object sender, EventArgs e)
+        private void CmbCategClient_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (_initCmbState)
             {
@@ -104,7 +104,7 @@ namespace StockBonBerger.Forms
             }
             else if (rank == 2)
             {
-                if (!string.IsNullOrEmpty(TxtNomsClient.Text) && !string.IsNullOrEmpty(CmbCategClient.Text))
+                if (!string.IsNullOrEmpty(TxtNomsClient.Text) && !string.IsNullOrEmpty(CmbCategClient.Text) && string.IsNullOrEmpty(TxtCodeClient.Text))
                     return true;
                 else
                     return false;
@@ -211,6 +211,127 @@ namespace StockBonBerger.Forms
                 TxtDesignCategClient.Text = GvCategClient.GetFocusedRowCellValue("designation").ToString();
                 TxtCodeCategClient.Text = GvCategClient.GetFocusedRowCellValue("id").ToString();
                 BtnDeleteCategC.Enabled = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        #endregion
+
+        #region Client
+
+        private void ControleClient(bool save)
+        {
+            try
+            {
+                if (save)
+                {
+                    if (IsNotEmpty(2))
+                    {
+                        client = new Client
+                        {
+                            Code = "0",
+                            Noms = TxtNomsClient.Text.ToUpper().Trim(),
+                            CodeCategorieClient = _idCategClient.ToString(),
+                            Phone = TxtPhoneClient.Text.ToUpper().Trim(),
+                            Email = TxtEmailClient.Text.Trim(),
+                            Adresse = TxtAdresseClient.Text.ToUpper().Trim()
+                        };
+
+                        Glossaire.Instance.ControleClient(client);
+                    }
+                    else
+                    {
+                        client = new Client
+                        {
+                            Code = TxtCodeClient.Text,
+                            Noms = TxtNomsClient.Text.ToUpper().Trim(),
+                            CodeCategorieClient = _idCategClient.ToString(),
+                            Phone = TxtPhoneClient.Text.ToUpper().Trim(),
+                            Email = TxtEmailClient.Text.Trim(),
+                            Adresse = TxtAdresseClient.Text.ToUpper().Trim()
+                        };
+
+                        Glossaire.Instance.ControleClient(client, 2);
+                    }
+                }
+                else
+                {
+                    client = new Client
+                    {
+                        Code = TxtCodeClient.Text,
+                        Noms = TxtNomsClient.Text.ToUpper().Trim(),
+                        CodeCategorieClient = _idCategClient.ToString(),
+                        Phone = TxtPhoneClient.Text.ToUpper().Trim(),
+                        Email = TxtEmailClient.Text.Trim(),
+                        Adresse = TxtAdresseClient.Text.ToUpper().Trim()
+                    };
+
+                    Glossaire.Instance.ControleClient(client, 3);
+                }
+
+                ClearFields(2);
+                LoadGridControle(2);
+            }
+            catch (InvalidOperationException ex)
+            {
+                MessageBox.Show("Une erreur est survenue pendant l'opération ! " + ex.Message, "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            catch (System.Data.SqlClient.SqlException ex)
+            {
+                MessageBox.Show("Une erreur est survenue pendant l'opération ! " + ex.Message, "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Une erreur est survenue pendant l'opération ! " + ex.Message, "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            finally
+            {
+                if (ImplementeConnexion.Instance.Con != null)
+                {
+                    if (ImplementeConnexion.Instance.Con.State == System.Data.ConnectionState.Open)
+                        ImplementeConnexion.Instance.Con.Close();
+                }
+            }
+        }
+
+        private void ControleClient_Click(object sender, EventArgs e)
+        {
+            switch (((Control)sender).Name)
+            {
+                case "BtnNewClient":
+                    ClearFields(2);
+                    break;
+
+                case "BtnSaveClient":
+                    ControleClient(true);
+                    break;
+
+                case "BtnDeleteClient":
+                    ControleClient(false);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        private void GvClient_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                _initCmbState = true;
+
+                TxtCodeClient.Text = GvClient.GetFocusedRowCellValue("idClient").ToString();
+                CmbCategClient.Text = GvClient.GetFocusedRowCellValue("categorie").ToString();
+                TxtNomsClient.Text = GvClient.GetFocusedRowCellValue("noms").ToString();
+                TxtPhoneClient.Text = GvClient.GetFocusedRowCellValue("phone").ToString();
+                TxtAdresseClient.Text = GvClient.GetFocusedRowCellValue("adresse").ToString();
+                TxtEmailClient.Text = GvClient.GetFocusedRowCellValue("email").ToString();
+
+                BtnDeleteClient.Enabled = true;
             }
             catch (Exception ex)
             {

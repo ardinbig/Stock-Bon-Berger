@@ -47,7 +47,7 @@ CREATE TABLE tClient
 	email NVARCHAR(30),
 	adresse NVARCHAR(100),
 	date_maj DATETIME DEFAULT GETDATE(),
-		CONSTRAINT unique_client UNIQUE (noms),
+		CONSTRAINT unique_client UNIQUE (noms, phone, email, adresse),
 		CONSTRAINT fk_client_categClient FOREIGN KEY (code_categorie)
 			REFERENCES tCategClient(code_guid)
 )

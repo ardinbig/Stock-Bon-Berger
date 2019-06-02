@@ -65,7 +65,7 @@ namespace StockBonBerger.Forms
                         {
                             Code = "0",
                             Noms = TxtNomsFss.Text.ToUpper().Trim(),
-                            Email = TxtEmailFss.Text.ToUpper().Trim(),
+                            Email = TxtEmailFss.Text.Trim(),
                             Phone = TxtTelephoneFss.Text.ToUpper().Trim(),
                             Adresse = TxtAdresseFss.Text.ToUpper().Trim()
                         };
@@ -78,7 +78,7 @@ namespace StockBonBerger.Forms
                         {
                             Code = TxtCodeFss.Text,
                             Noms = TxtNomsFss.Text.ToUpper().Trim(),
-                            Email = TxtEmailFss.Text.ToUpper().Trim(),
+                            Email = TxtEmailFss.Text.Trim(),
                             Phone = TxtTelephoneFss.Text.ToUpper().Trim(),
                             Adresse = TxtAdresseFss.Text.ToUpper().Trim()
                         };
@@ -92,7 +92,7 @@ namespace StockBonBerger.Forms
                     {
                         Code = TxtCodeFss.Text,
                         Noms = TxtNomsFss.Text.ToUpper().Trim(),
-                        Email = TxtEmailFss.Text.ToUpper().Trim(),
+                        Email = TxtEmailFss.Text.Trim(),
                         Phone = TxtTelephoneFss.Text.ToUpper().Trim(),
                         Adresse = TxtAdresseFss.Text.ToUpper().Trim()
                     };
