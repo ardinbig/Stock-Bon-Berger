@@ -401,6 +401,7 @@
             this.GcCategClient.TabIndex = 6;
             this.GcCategClient.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.GvCategClient});
+            this.GcCategClient.DoubleClick += new System.EventHandler(this.GvCategClient_DoubleClick);
             // 
             // GvCategClient
             // 
@@ -455,6 +456,7 @@
             this.BtnDeleteCategC.Size = new System.Drawing.Size(108, 27);
             this.BtnDeleteCategC.TabIndex = 5;
             this.BtnDeleteCategC.Text = "Supprimer";
+            this.BtnDeleteCategC.Click += new System.EventHandler(this.ControleCategClient_Click);
             // 
             // BtnSaveCategC
             // 
@@ -467,6 +469,7 @@
             this.BtnSaveCategC.Size = new System.Drawing.Size(108, 27);
             this.BtnSaveCategC.TabIndex = 3;
             this.BtnSaveCategC.Text = "Enregistrer";
+            this.BtnSaveCategC.Click += new System.EventHandler(this.ControleCategClient_Click);
             // 
             // BtnNewCategC
             // 
@@ -479,6 +482,7 @@
             this.BtnNewCategC.Size = new System.Drawing.Size(108, 27);
             this.BtnNewCategC.TabIndex = 4;
             this.BtnNewCategC.Text = "Nouveau";
+            this.BtnNewCategC.Click += new System.EventHandler(this.ControleCategClient_Click);
             // 
             // TxtDesignCategClient
             // 

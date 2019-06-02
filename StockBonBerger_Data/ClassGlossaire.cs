@@ -519,7 +519,7 @@ namespace StockBonBerger_Data
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 SetParameter(cmd, "@code", DbType.Int32, 4, categ.Code);
-                SetParameter(cmd, "@noms", DbType.String, 100, categ.Designation);
+                SetParameter(cmd, "@designation", DbType.String, 100, categ.Designation);
                 SetParameter(cmd, "@action", DbType.Int32, 4, action);
 
                 cmd.ExecuteNonQuery();

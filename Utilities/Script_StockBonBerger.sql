@@ -798,12 +798,12 @@ SELECT name FROM sys.tables
 --- VIEWS ---
 
 CREATE VIEW v_list_clients AS
-SELECT tClient.code_guid as code_client, noms, designation as categorie, phone, email, adresse FROM tClient
+SELECT tClient.code_guid as code_client, tClient.id as idClient, noms, designation as categorie, phone, email, adresse FROM tClient
 INNER JOIN tCategClient ON tCategClient.code_guid = tClient.code_categorie
 GO
 
 CREATE VIEW v_list_pieces AS
-SELECT tPiece.code_guid, tPiece.designation, tCategPiece.designation as categorie, numero_serie, lieu_fabrication, usage, en_stock as quantite FROM tPiece
+SELECT tPiece.code_guid as code_piece, tPiece.designation, tCategPiece.designation as categorie, numero_serie, lieu_fabrication, usage, en_stock as quantite FROM tPiece
 INNER JOIN tCategPiece ON tCategPiece.code_guid = tPiece.code_categorie
 GO
 
@@ -924,4 +924,7 @@ SELECT sum(quantite) FROM tDetailApprov WHERE code_approv = 'B50D10A3-4CA4-4362-
 
 USE master
 SELECT SYSTEM_USER
+
+
+select * from v_list_clients
 

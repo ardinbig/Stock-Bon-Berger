@@ -92,7 +92,10 @@ namespace StockBonBerger.Forms
 
         private void SmClient_Click(object sender, EventArgs e)
         {
-
+            form = new FormClient();
+            form.Icon = this.Icon;
+            form.MdiParent = this;
+            form.Show();
         }
 
         private void SmFss_Click(object sender, EventArgs e)

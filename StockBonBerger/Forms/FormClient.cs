@@ -34,7 +34,7 @@ namespace StockBonBerger.Forms
             _initCmbState = true;
         }
 
-        private void CmbCateggPiece_SelectedIndexChanged(object sender, EventArgs e)
+        private void CmbCateggClient_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (_initCmbState)
             {
@@ -117,6 +117,108 @@ namespace StockBonBerger.Forms
 
         #endregion
 
-        
+        #region Catégorie Client
+
+        private void ControleCategorieClient(bool save)
+        {
+            try
+            {
+                if (save)
+                {
+                    if (IsNotEmpty(1))
+                    {
+                        categClient = new CategorieClient
+                        {
+                            Code = "0",
+                            Designation = TxtDesignCategClient.Text.ToUpper().Trim()
+                        };
+
+                        Glossaire.Instance.ControleCategorieClient(categClient);
+                    }
+                    else
+                    {
+                        categClient = new CategorieClient
+                        {
+                            Code = TxtCodeCategClient.Text.Trim(),
+                            Designation = TxtDesignCategClient.Text.ToUpper().Trim()
+                        };
+
+                        Glossaire.Instance.ControleCategorieClient(categClient, 2);
+                    }
+                }
+                else
+                {
+                    categClient = new CategorieClient
+                    {
+                        Code = TxtCodeCategClient.Text.Trim(),
+                        Designation = TxtDesignCategClient.Text.ToUpper().Trim()
+                    };
+
+                    Glossaire.Instance.ControleCategorieClient(categClient, 3);
+                }
+
+                ClearFields(1);
+                LoadCombo();
+                LoadGridControle(1);
+            }
+            catch (InvalidOperationException ex)
+            {
+                MessageBox.Show("Une erreur est survenue pendant l'opération ! " + ex.Message, "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            catch (System.Data.SqlClient.SqlException ex)
+            {
+                MessageBox.Show("Une erreur est survenue pendant l'opération ! " + ex.Message, "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Une erreur est survenue pendant l'opération ! " + ex.Message, "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            finally
+            {
+                if (ImplementeConnexion.Instance.Con != null)
+                {
+                    if (ImplementeConnexion.Instance.Con.State == System.Data.ConnectionState.Open)
+                        ImplementeConnexion.Instance.Con.Close();
+                }
+            }
+        }
+
+        private void ControleCategClient_Click(object sender, EventArgs e)
+        {
+            switch (((Control)sender).Name)
+            {
+                case "BtnNewCategC":
+                    ClearFields(1);
+                    break;
+
+                case "BtnSaveCategC":
+                    ControleCategorieClient(true);
+                    break;
+
+                case "BtnDeleteCategC":
+                    ControleCategorieClient(false);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        private void GvCategClient_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                TxtDesignCategClient.Text = GvCategClient.GetFocusedRowCellValue("designation").ToString();
+                TxtCodeCategClient.Text = GvCategClient.GetFocusedRowCellValue("id").ToString();
+                BtnDeleteCategC.Enabled = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        #endregion
+
     }
 }
