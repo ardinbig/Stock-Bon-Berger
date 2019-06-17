@@ -58,7 +58,7 @@ namespace StockBonBerger.Forms
         {
             if (rank == 1)
             {
-                GcApprov.DataSource = Glossaire.Instance.LoadGrid(Constants.Table.APPROVISIONNEMENT, "id");
+                GcApprov.DataSource = Glossaire.Instance.LoadGrid(Constants.View.LIST_APPROV, "id");
             }
             else if (rank == 2)
             {
@@ -66,7 +66,7 @@ namespace StockBonBerger.Forms
             }
             else
             {
-                GcApprov.DataSource = Glossaire.Instance.LoadGrid(Constants.Table.APPROVISIONNEMENT, "id");
+                GcApprov.DataSource = Glossaire.Instance.LoadGrid(Constants.View.LIST_APPROV, "id");
             }
         }
 
@@ -92,6 +92,8 @@ namespace StockBonBerger.Forms
                 CmbPiece.Focus();
                 BtnDeleteDApprov.Enabled = false;
             }
+
+            GbControlDApprov.Enabled = false;
         }
 
         private bool IsNotEmpty(int rank)
@@ -118,5 +120,152 @@ namespace StockBonBerger.Forms
         }
 
         #endregion
+
+        #region Approvisionnement
+
+        private void ControleApprovisionnement(bool save)
+        {
+            try
+            {
+                if (save)
+                {
+                    if (IsNotEmpty(1))
+                    {
+                        approv = new Approvisionnement
+                        {
+                            Code = "0",
+                            CodeFournisseur = _idFss.ToString(),
+                            Agent = "Admin"    
+                            
+                            /// TODO: Add current username here ! 
+                        };
+
+                        Glossaire.Instance.ControleApprov(approv);
+                    }
+                    else
+                    {
+                        approv = new Approvisionnement
+                        {
+                            Code = TxtCodeApprov.Text.Trim(),
+                            CodeFournisseur = _idFss.ToString(),
+                            Agent = "Admin"
+                        };
+
+                        Glossaire.Instance.ControleApprov(approv, 2);
+                    }
+                }
+                else
+                {
+                    approv = new Approvisionnement
+                    {
+                        Code = TxtCodeApprov.Text.Trim(),
+                        CodeFournisseur = _idFss.ToString(),
+                        Agent = "Admin"
+                    };
+
+                    Glossaire.Instance.ControleApprov(approv, 3);
+                }
+
+                ClearFields(1);
+                LoadCombo();
+                LoadGridControle(1);
+            }
+            catch (InvalidOperationException ex)
+            {
+                MessageBox.Show("Une erreur est survenue pendant l'opération ! " + ex.Message, "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            catch (System.Data.SqlClient.SqlException ex)
+            {
+                MessageBox.Show("Une erreur est survenue pendant l'opération ! " + ex.Message, "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Une erreur est survenue pendant l'opération ! " + ex.Message, "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            finally
+            {
+                if (ImplementeConnexion.Instance.Con != null)
+                {
+                    if (ImplementeConnexion.Instance.Con.State == System.Data.ConnectionState.Open)
+                        ImplementeConnexion.Instance.Con.Close();
+                }
+            }
+        }
+
+        private void ControleApprov_Click(object sender, EventArgs e)
+        {
+            switch (((Control)sender).Name)
+            {
+                case "BtnNewApprov":
+                    ClearFields(1);
+                    break;
+
+                case "BtnSaveApprov":
+                    ControleApprovisionnement(true);
+                    break;
+
+                case "BtnDeleteApprov":
+                    ControleApprovisionnement(false);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        private void GvApprov_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                TxtCodeApprov.Text = GvApprov.GetFocusedRowCellValue("id").ToString();
+                CmbFss.Text = GvApprov.GetFocusedRowCellValue("fournisseur").ToString();
+                BtnDeleteApprov.Enabled = true;                
+
+                if (!string.IsNullOrEmpty(TxtCodeApprov.Text) && !string.IsNullOrEmpty(CmbFss.Text))
+                {
+                    LoadGridControleApprov(Convert.ToInt32(TxtCodeApprov.Text));
+                    GbControlDApprov.Enabled = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void LoadGridControleApprov(int id)
+        {
+            GcDApprov.DataSource = Glossaire.Instance.LoadGrid(Constants.View.LIST_DETAIL_APPROV, id.ToString(), "idDApv");
+        }
+
+        private void GcDApprov_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                TxtCodeDetailApprov.Text = GvApprov.GetFocusedRowCellValue("idDApv").ToString();
+                CmbPiece.Text = GvApprov.GetFocusedRowCellValue("designation").ToString();
+                TxtPrixApprov.Text = GvDApprov.GetFocusedRowCellValue("prix").ToString();
+                TxtQteApprov.Text = GvDApprov.GetFocusedRowCellValue("quantite").ToString();
+
+                BtnDeleteDApprov.Enabled = true;
+
+                if (!string.IsNullOrEmpty(TxtCodeApprov.Text) && !string.IsNullOrEmpty(CmbFss.Text))
+                {
+                    LoadGridControleApprov(Convert.ToInt32(TxtCodeApprov.Text));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+
+        #endregion
+
+        private void CmbPiece_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

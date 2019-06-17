@@ -827,6 +827,16 @@ INNER JOIN tVente on tVente.code_guid = tPaiement.code_vente
 GROUP BY tVente.code_guid
 GO
 
+CREATE VIEW v_list_approv AS
+SELECT tApprov.id, tApprov.code_guid as code, date_approv, code_fss, fss.noms as fournisseur, agent FROM tApprov
+INNER JOIN tFournisseur as fss ON fss.code_guid = tApprov.code_fss 
+GO
+
+CREATE VIEW v_list_detail_approv AS
+SELECT dapv.id as idDApv, apv.id, pc.designation, quantite, prix FROM tDetailApprov as dapv
+INNER JOIN tApprov as apv ON apv.code_guid = dapv.code_approv
+INNER JOIN tPiece as pc ON pc.code_guid = dapv.code_piece
+
 --- GESTION DES UTILISATEURS ---
 
 CREATE TABLE tUtilisateur

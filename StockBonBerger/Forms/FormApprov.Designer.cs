@@ -33,11 +33,9 @@
             this.GcDApprov = new DevExpress.XtraGrid.GridControl();
             this.GvDApprov = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.GColCodeC = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.GColNoms = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.GColCategClient = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.GColPhone = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.GColEmail = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.GColAdresse = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.GColDesignPiece = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.GColQte = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.GColPrix = new DevExpress.XtraGrid.Columns.GridColumn();
             this.GColCodeCategC = new DevExpress.XtraGrid.Columns.GridColumn();
             this.GbControlDApprov = new System.Windows.Forms.GroupBox();
             this.TxtPrixApprov = new System.Windows.Forms.MaskedTextBox();
@@ -58,6 +56,7 @@
             this.GvApprov = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.GColId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.GColDate = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.GColFss = new DevExpress.XtraGrid.Columns.GridColumn();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.CmbFss = new System.Windows.Forms.ComboBox();
             this.BtnDeleteApprov = new DevExpress.XtraEditors.SimpleButton();
@@ -120,11 +119,9 @@
             // 
             this.GvDApprov.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.GColCodeC,
-            this.GColNoms,
-            this.GColCategClient,
-            this.GColPhone,
-            this.GColEmail,
-            this.GColAdresse,
+            this.GColDesignPiece,
+            this.GColQte,
+            this.GColPrix,
             this.GColCodeCategC});
             this.GvDApprov.GridControl = this.GcDApprov;
             this.GvDApprov.Name = "GvDApprov";
@@ -135,50 +132,38 @@
             // GColCodeC
             // 
             this.GColCodeC.Caption = "Code";
-            this.GColCodeC.FieldName = "idClient";
+            this.GColCodeC.FieldName = "idDApv";
             this.GColCodeC.Name = "GColCodeC";
             this.GColCodeC.Visible = true;
             this.GColCodeC.VisibleIndex = 0;
             // 
-            // GColNoms
+            // GColDesignPiece
             // 
-            this.GColNoms.Caption = "Noms";
-            this.GColNoms.FieldName = "noms";
-            this.GColNoms.Name = "GColNoms";
-            this.GColNoms.Visible = true;
-            this.GColNoms.VisibleIndex = 1;
+            this.GColDesignPiece.Caption = "Pièce";
+            this.GColDesignPiece.FieldName = "designation";
+            this.GColDesignPiece.Name = "GColDesignPiece";
+            this.GColDesignPiece.Visible = true;
+            this.GColDesignPiece.VisibleIndex = 1;
             // 
-            // GColCategClient
+            // GColQte
             // 
-            this.GColCategClient.Caption = "Catégorie";
-            this.GColCategClient.FieldName = "categorie";
-            this.GColCategClient.Name = "GColCategClient";
-            this.GColCategClient.Visible = true;
-            this.GColCategClient.VisibleIndex = 2;
+            this.GColQte.AppearanceCell.Options.UseTextOptions = true;
+            this.GColQte.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
+            this.GColQte.Caption = "Quantité";
+            this.GColQte.FieldName = "quantite";
+            this.GColQte.Name = "GColQte";
+            this.GColQte.Visible = true;
+            this.GColQte.VisibleIndex = 2;
             // 
-            // GColPhone
+            // GColPrix
             // 
-            this.GColPhone.Caption = "Téléphone";
-            this.GColPhone.FieldName = "phone";
-            this.GColPhone.Name = "GColPhone";
-            this.GColPhone.Visible = true;
-            this.GColPhone.VisibleIndex = 3;
-            // 
-            // GColEmail
-            // 
-            this.GColEmail.Caption = "Email";
-            this.GColEmail.FieldName = "email";
-            this.GColEmail.Name = "GColEmail";
-            this.GColEmail.Visible = true;
-            this.GColEmail.VisibleIndex = 4;
-            // 
-            // GColAdresse
-            // 
-            this.GColAdresse.Caption = "Adresse";
-            this.GColAdresse.FieldName = "adresse";
-            this.GColAdresse.Name = "GColAdresse";
-            this.GColAdresse.Visible = true;
-            this.GColAdresse.VisibleIndex = 5;
+            this.GColPrix.AppearanceCell.Options.UseTextOptions = true;
+            this.GColPrix.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
+            this.GColPrix.Caption = "P.U.";
+            this.GColPrix.FieldName = "prix";
+            this.GColPrix.Name = "GColPrix";
+            this.GColPrix.Visible = true;
+            this.GColPrix.VisibleIndex = 3;
             // 
             // GColCodeCategC
             // 
@@ -262,6 +247,7 @@
             this.CmbPiece.Name = "CmbPiece";
             this.CmbPiece.Size = new System.Drawing.Size(213, 24);
             this.CmbPiece.TabIndex = 8;
+            this.CmbPiece.SelectedIndexChanged += new System.EventHandler(this.CmbPiece_SelectedIndexChanged);
             // 
             // label5
             // 
@@ -359,12 +345,14 @@
             this.GcApprov.TabIndex = 6;
             this.GcApprov.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.GvApprov});
+            this.GcApprov.DoubleClick += new System.EventHandler(this.GvApprov_DoubleClick);
             // 
             // GvApprov
             // 
             this.GvApprov.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.GColId,
-            this.GColDate});
+            this.GColDate,
+            this.GColFss});
             this.GvApprov.GridControl = this.GcApprov;
             this.GvApprov.Name = "GvApprov";
             this.GvApprov.OptionsBehavior.Editable = false;
@@ -388,6 +376,14 @@
             this.GColDate.Name = "GColDate";
             this.GColDate.Visible = true;
             this.GColDate.VisibleIndex = 1;
+            // 
+            // GColFss
+            // 
+            this.GColFss.Caption = "Fournisseur";
+            this.GColFss.FieldName = "fournisseur";
+            this.GColFss.Name = "GColFss";
+            this.GColFss.Visible = true;
+            this.GColFss.VisibleIndex = 2;
             // 
             // groupBox3
             // 
@@ -426,6 +422,7 @@
             this.BtnDeleteApprov.Size = new System.Drawing.Size(108, 27);
             this.BtnDeleteApprov.TabIndex = 5;
             this.BtnDeleteApprov.Text = "Supprimer";
+            this.BtnDeleteApprov.Click += new System.EventHandler(this.ControleApprov_Click);
             // 
             // BtnSaveApprov
             // 
@@ -438,6 +435,7 @@
             this.BtnSaveApprov.Size = new System.Drawing.Size(108, 27);
             this.BtnSaveApprov.TabIndex = 3;
             this.BtnSaveApprov.Text = "Enregistrer";
+            this.BtnSaveApprov.Click += new System.EventHandler(this.ControleApprov_Click);
             // 
             // BtnNewApprov
             // 
@@ -450,6 +448,7 @@
             this.BtnNewApprov.Size = new System.Drawing.Size(108, 27);
             this.BtnNewApprov.TabIndex = 4;
             this.BtnNewApprov.Text = "Nouveau";
+            this.BtnNewApprov.Click += new System.EventHandler(this.ControleApprov_Click);
             // 
             // label2
             // 
@@ -519,11 +518,8 @@
         private DevExpress.XtraGrid.GridControl GcDApprov;
         private DevExpress.XtraGrid.Views.Grid.GridView GvDApprov;
         private DevExpress.XtraGrid.Columns.GridColumn GColCodeC;
-        private DevExpress.XtraGrid.Columns.GridColumn GColNoms;
-        private DevExpress.XtraGrid.Columns.GridColumn GColCategClient;
-        private DevExpress.XtraGrid.Columns.GridColumn GColPhone;
-        private DevExpress.XtraGrid.Columns.GridColumn GColEmail;
-        private DevExpress.XtraGrid.Columns.GridColumn GColAdresse;
+        private DevExpress.XtraGrid.Columns.GridColumn GColDesignPiece;
+        private DevExpress.XtraGrid.Columns.GridColumn GColQte;
         private DevExpress.XtraGrid.Columns.GridColumn GColCodeCategC;
         private System.Windows.Forms.GroupBox GbControlDApprov;
         private System.Windows.Forms.MaskedTextBox TxtQteApprov;
@@ -552,5 +548,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox CmbFss;
         private System.Windows.Forms.MaskedTextBox TxtPrixApprov;
+        private DevExpress.XtraGrid.Columns.GridColumn GColFss;
+        private DevExpress.XtraGrid.Columns.GridColumn GColPrix;
     }
 }

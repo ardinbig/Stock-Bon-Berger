@@ -266,6 +266,21 @@ namespace StockBonBerger_Data
             }
         }
 
+        public DataTable LoadGrid(string table, string where, string orderBy)
+        {
+            InitializeConnexion();
+
+            using (IDbCommand cmd = ImplementeConnexion.Instance.Con.CreateCommand())
+            {
+                cmd.CommandText = "SELECT * FROM " + table + " WHERE id = " + where + " ORDER BY '" + orderBy + "' DESC";
+                DataTable dt = new DataTable();
+                adapter = new SqlDataAdapter((SqlCommand)cmd);
+                adapter.Fill(dt);
+
+                return dt;
+            }
+        }
+
         #endregion
 
         #region Gestion des droits d'accès sur les tables
@@ -620,7 +635,7 @@ namespace StockBonBerger_Data
 
         #region Approvisionnement
 
-        public void ControleApprov(Approvisionnement approv, int action)
+        public void ControleApprov(Approvisionnement approv, int action = 1)
         {
             InitializeConnexion();
 
@@ -629,7 +644,7 @@ namespace StockBonBerger_Data
                 cmd.CommandText = "sp_merge_approv";
                 cmd.CommandType = CommandType.StoredProcedure;
 
-                SetParameter(cmd, "@code_categ", DbType.Int32, 4, approv.CodeFournisseur);
+                SetParameter(cmd, "@code_fss", DbType.Int32, 4, approv.CodeFournisseur);
                 SetParameter(cmd, "@code", DbType.Int32, 4, approv.Code);
                 SetParameter(cmd, "@agent", DbType.String, 100, approv.Agent);
                 SetParameter(cmd, "@action", DbType.Int32, 4, action);
@@ -638,7 +653,7 @@ namespace StockBonBerger_Data
             }
         }
 
-        public void ControleApprovDetail(DetailApprovisionnement approv, int action)
+        public void ControleApprovDetail(DetailApprovisionnement approv, int action = 1)
         {
             InitializeConnexion();
 
