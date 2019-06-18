@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace StockBonBerger_Data.Models
+﻿namespace StockBonBerger_Data.Models
 {
     public class DetailApprovisionnement : Base
     {
-        public string CodeApprov { get; set; }
+        public int CodeApprov { get; set; }
 
-        public string CodePiece { get; set; }
+        public int CodePiece { get; set; }
 
         public int Quantite { get; set; }
 

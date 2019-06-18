@@ -833,8 +833,9 @@ INNER JOIN tFournisseur as fss ON fss.code_guid = tApprov.code_fss
 GO
 
 CREATE VIEW v_list_detail_approv AS
-SELECT dapv.id as idDApv, apv.id, pc.designation, quantite, prix FROM tDetailApprov as dapv
+SELECT dapv.id as idDApv, apv.id, pc.designation, quantite, prix, fss.noms as fournisseur FROM tDetailApprov as dapv
 INNER JOIN tApprov as apv ON apv.code_guid = dapv.code_approv
+INNER JOIN tFournisseur as fss ON fss.code_guid = apv.code_fss
 INNER JOIN tPiece as pc ON pc.code_guid = dapv.code_piece
 
 --- GESTION DES UTILISATEURS ---

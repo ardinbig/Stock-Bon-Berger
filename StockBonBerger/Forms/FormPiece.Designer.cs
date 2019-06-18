@@ -52,6 +52,7 @@
             this.GColNumSerie = new DevExpress.XtraGrid.Columns.GridColumn();
             this.GColUsage = new DevExpress.XtraGrid.Columns.GridColumn();
             this.GColLieuFab = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.GColEnStock = new DevExpress.XtraGrid.Columns.GridColumn();
             this.GColCodeCategP = new DevExpress.XtraGrid.Columns.GridColumn();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.TxtLieuFab = new System.Windows.Forms.TextBox();
@@ -70,7 +71,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.TxtCodePiece = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.GColEnStock = new DevExpress.XtraGrid.Columns.GridColumn();
             this.groupBox1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GcCategPiece)).BeginInit();
@@ -338,6 +338,14 @@
             this.GColLieuFab.Visible = true;
             this.GColLieuFab.VisibleIndex = 5;
             // 
+            // GColEnStock
+            // 
+            this.GColEnStock.Caption = "Stock";
+            this.GColEnStock.FieldName = "quantite";
+            this.GColEnStock.Name = "GColEnStock";
+            this.GColEnStock.Visible = true;
+            this.GColEnStock.VisibleIndex = 6;
+            // 
             // GColCodeCategP
             // 
             this.GColCodeCategP.Caption = "CodeCategPiece";
@@ -528,14 +536,6 @@
             this.label4.Size = new System.Drawing.Size(50, 16);
             this.label4.TabIndex = 0;
             this.label4.Text = "Code : ";
-            // 
-            // GColEnStock
-            // 
-            this.GColEnStock.Caption = "Stock";
-            this.GColEnStock.FieldName = "quantite";
-            this.GColEnStock.Name = "GColEnStock";
-            this.GColEnStock.Visible = true;
-            this.GColEnStock.VisibleIndex = 6;
             // 
             // FormPiece
             // 

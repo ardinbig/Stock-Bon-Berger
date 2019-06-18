@@ -33,6 +33,7 @@
             this.GcDApprov = new DevExpress.XtraGrid.GridControl();
             this.GvDApprov = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.GColCodeC = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.GColDFss = new DevExpress.XtraGrid.Columns.GridColumn();
             this.GColDesignPiece = new DevExpress.XtraGrid.Columns.GridColumn();
             this.GColQte = new DevExpress.XtraGrid.Columns.GridColumn();
             this.GColPrix = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -50,7 +51,7 @@
             this.BtnNewDApprov = new DevExpress.XtraEditors.SimpleButton();
             this.TxtCodeDetailApprov = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.GbApprov = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.GcApprov = new DevExpress.XtraGrid.GridControl();
             this.GvApprov = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -65,13 +66,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.TxtCodeApprov = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.GColCodeApprov = new DevExpress.XtraGrid.Columns.GridColumn();
             this.GbDeatilApprov.SuspendLayout();
             this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GcDApprov)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GvDApprov)).BeginInit();
             this.GbControlDApprov.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.separatorControl1)).BeginInit();
-            this.groupBox1.SuspendLayout();
+            this.GbApprov.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GcApprov)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GvApprov)).BeginInit();
@@ -114,15 +116,18 @@
             this.GcDApprov.TabIndex = 6;
             this.GcDApprov.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.GvDApprov});
+            this.GcDApprov.DoubleClick += new System.EventHandler(this.GcDApprov_DoubleClick);
             // 
             // GvDApprov
             // 
             this.GvDApprov.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.GColCodeC,
+            this.GColDFss,
             this.GColDesignPiece,
             this.GColQte,
             this.GColPrix,
-            this.GColCodeCategC});
+            this.GColCodeCategC,
+            this.GColCodeApprov});
             this.GvDApprov.GridControl = this.GcDApprov;
             this.GvDApprov.Name = "GvDApprov";
             this.GvDApprov.OptionsBehavior.Editable = false;
@@ -137,13 +142,21 @@
             this.GColCodeC.Visible = true;
             this.GColCodeC.VisibleIndex = 0;
             // 
+            // GColDFss
+            // 
+            this.GColDFss.Caption = "Fournisseur";
+            this.GColDFss.FieldName = "fournisseur";
+            this.GColDFss.Name = "GColDFss";
+            this.GColDFss.Visible = true;
+            this.GColDFss.VisibleIndex = 1;
+            // 
             // GColDesignPiece
             // 
             this.GColDesignPiece.Caption = "Pièce";
             this.GColDesignPiece.FieldName = "designation";
             this.GColDesignPiece.Name = "GColDesignPiece";
             this.GColDesignPiece.Visible = true;
-            this.GColDesignPiece.VisibleIndex = 1;
+            this.GColDesignPiece.VisibleIndex = 2;
             // 
             // GColQte
             // 
@@ -153,7 +166,7 @@
             this.GColQte.FieldName = "quantite";
             this.GColQte.Name = "GColQte";
             this.GColQte.Visible = true;
-            this.GColQte.VisibleIndex = 2;
+            this.GColQte.VisibleIndex = 3;
             // 
             // GColPrix
             // 
@@ -163,7 +176,7 @@
             this.GColPrix.FieldName = "prix";
             this.GColPrix.Name = "GColPrix";
             this.GColPrix.Visible = true;
-            this.GColPrix.VisibleIndex = 3;
+            this.GColPrix.VisibleIndex = 4;
             // 
             // GColCodeCategC
             // 
@@ -195,7 +208,7 @@
             // 
             this.TxtPrixApprov.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.TxtPrixApprov.Location = new System.Drawing.Point(512, 43);
-            this.TxtPrixApprov.Mask = "00000000.00";
+            this.TxtPrixApprov.Mask = "0000000000";
             this.TxtPrixApprov.Name = "TxtPrixApprov";
             this.TxtPrixApprov.Size = new System.Drawing.Size(213, 22);
             this.TxtPrixApprov.TabIndex = 17;
@@ -247,7 +260,7 @@
             this.CmbPiece.Name = "CmbPiece";
             this.CmbPiece.Size = new System.Drawing.Size(213, 24);
             this.CmbPiece.TabIndex = 8;
-            this.CmbPiece.SelectedIndexChanged += new System.EventHandler(this.CmbPiece_SelectedIndexChanged);
+            this.CmbPiece.SelectedIndexChanged += new System.EventHandler(this.CmbApprov_SelectedIndexChanged);
             // 
             // label5
             // 
@@ -270,6 +283,7 @@
             this.BtnDeleteDApprov.Size = new System.Drawing.Size(108, 27);
             this.BtnDeleteDApprov.TabIndex = 5;
             this.BtnDeleteDApprov.Text = "Supprimer";
+            this.BtnDeleteDApprov.Click += new System.EventHandler(this.ControleDetailApprov_Click);
             // 
             // BtnSaveDApprov
             // 
@@ -282,6 +296,7 @@
             this.BtnSaveDApprov.Size = new System.Drawing.Size(108, 27);
             this.BtnSaveDApprov.TabIndex = 3;
             this.BtnSaveDApprov.Text = "Enregistrer";
+            this.BtnSaveDApprov.Click += new System.EventHandler(this.ControleDetailApprov_Click);
             // 
             // BtnNewDApprov
             // 
@@ -294,6 +309,7 @@
             this.BtnNewDApprov.Size = new System.Drawing.Size(108, 27);
             this.BtnNewDApprov.TabIndex = 4;
             this.BtnNewDApprov.Text = "Nouveau";
+            this.BtnNewDApprov.Click += new System.EventHandler(this.ControleDetailApprov_Click);
             // 
             // TxtCodeDetailApprov
             // 
@@ -315,16 +331,16 @@
             this.label4.TabIndex = 0;
             this.label4.Text = "Code : ";
             // 
-            // groupBox1
+            // GbApprov
             // 
-            this.groupBox1.Controls.Add(this.groupBox4);
-            this.groupBox1.Controls.Add(this.groupBox3);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(760, 153);
-            this.groupBox1.TabIndex = 4;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Approvisionnement";
+            this.GbApprov.Controls.Add(this.groupBox4);
+            this.GbApprov.Controls.Add(this.groupBox3);
+            this.GbApprov.Location = new System.Drawing.Point(12, 12);
+            this.GbApprov.Name = "GbApprov";
+            this.GbApprov.Size = new System.Drawing.Size(760, 153);
+            this.GbApprov.TabIndex = 4;
+            this.GbApprov.TabStop = false;
+            this.GbApprov.Text = "Approvisionnement";
             // 
             // groupBox4
             // 
@@ -345,7 +361,7 @@
             this.GcApprov.TabIndex = 6;
             this.GcApprov.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.GvApprov});
-            this.GcApprov.DoubleClick += new System.EventHandler(this.GvApprov_DoubleClick);
+            this.GcApprov.DoubleClick += new System.EventHandler(this.GcApprov_DoubleClick);
             // 
             // GvApprov
             // 
@@ -409,7 +425,7 @@
             this.CmbFss.Name = "CmbFss";
             this.CmbFss.Size = new System.Drawing.Size(239, 24);
             this.CmbFss.TabIndex = 9;
-            this.CmbFss.SelectedIndexChanged += new System.EventHandler(this.CmbFss_SelectedIndexChanged);
+            this.CmbFss.SelectedIndexChanged += new System.EventHandler(this.CmbApprov_SelectedIndexChanged);
             // 
             // BtnDeleteApprov
             // 
@@ -480,13 +496,19 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Code : ";
             // 
+            // GColCodeApprov
+            // 
+            this.GColCodeApprov.Caption = "Code Approv";
+            this.GColCodeApprov.FieldName = "idDApv";
+            this.GColCodeApprov.Name = "GColCodeApprov";
+            // 
             // FormApprov
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 461);
             this.Controls.Add(this.GbDeatilApprov);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.GbApprov);
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(800, 500);
             this.MinimizeBox = false;
@@ -501,7 +523,7 @@
             this.GbControlDApprov.ResumeLayout(false);
             this.GbControlDApprov.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.separatorControl1)).EndInit();
-            this.groupBox1.ResumeLayout(false);
+            this.GbApprov.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.GcApprov)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.GvApprov)).EndInit();
@@ -533,7 +555,7 @@
         private DevExpress.XtraEditors.SimpleButton BtnNewDApprov;
         private System.Windows.Forms.TextBox TxtCodeDetailApprov;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox GbApprov;
         private System.Windows.Forms.GroupBox groupBox4;
         private DevExpress.XtraGrid.GridControl GcApprov;
         private DevExpress.XtraGrid.Views.Grid.GridView GvApprov;
@@ -550,5 +572,7 @@
         private System.Windows.Forms.MaskedTextBox TxtPrixApprov;
         private DevExpress.XtraGrid.Columns.GridColumn GColFss;
         private DevExpress.XtraGrid.Columns.GridColumn GColPrix;
+        private DevExpress.XtraGrid.Columns.GridColumn GColDFss;
+        private DevExpress.XtraGrid.Columns.GridColumn GColCodeApprov;
     }
 }

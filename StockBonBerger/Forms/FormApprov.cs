@@ -36,15 +36,26 @@ namespace StockBonBerger.Forms
             _initCmbState = true;
         }
 
-        private void CmbFss_SelectedIndexChanged(object sender, EventArgs e)
+        private void CmbApprov_SelectedIndexChanged(object sender, EventArgs e)
         {
+   
             if (_initCmbState)
             {
-                _idFss = Glossaire.Instance.SelectId(Constants.Table.FOURNISSEUR, "noms", CmbFss.Text);
+                switch (((Control)sender).Name)
+                {
+                    case "CmbFss":
+                        _idFss = Glossaire.Instance.SelectId(Constants.Table.FOURNISSEUR, "noms", CmbFss.Text);
+                        break;
+
+                    case "CmbPiece":
+                        _idPiece = Glossaire.Instance.SelectId(Constants.Table.PIECE, "designation", CmbPiece.Text);
+                        break;
+                }
             }
             else
             {
                 CmbFss.SelectedIndex = -1;
+                CmbPiece.SelectedIndex = -1;
             }
         }
 
@@ -62,7 +73,7 @@ namespace StockBonBerger.Forms
             }
             else if (rank == 2)
             {
-                GcDApprov.DataSource = Glossaire.Instance.LoadGrid(Constants.View.LIST_DETAIL_APPROV, "idApprov");
+                GcDApprov.DataSource = Glossaire.Instance.LoadGrid(Constants.View.LIST_DETAIL_APPROV, "id");
             }
             else
             {
@@ -79,10 +90,12 @@ namespace StockBonBerger.Forms
                 CmbFss.SelectedIndex = -1;
                 _initCmbState = true;
                 BtnDeleteApprov.Enabled = false;
+                GbControlDApprov.Enabled = false;
             }
             else
             {
                 TxtCodeDetailApprov.Clear();
+                TxtCodeApprov.Clear();
                 TxtPrixApprov.Clear();
                 TxtQteApprov.Clear();
 
@@ -91,9 +104,8 @@ namespace StockBonBerger.Forms
                 _initCmbState = true;
                 CmbPiece.Focus();
                 BtnDeleteDApprov.Enabled = false;
-            }
-
-            GbControlDApprov.Enabled = false;
+                GbApprov.Enabled = true;
+            }                      
         }
 
         private bool IsNotEmpty(int rank)
@@ -213,7 +225,7 @@ namespace StockBonBerger.Forms
             }
         }
 
-        private void GvApprov_DoubleClick(object sender, EventArgs e)
+        private void GcApprov_DoubleClick(object sender, EventArgs e)
         {
             try
             {
@@ -238,21 +250,121 @@ namespace StockBonBerger.Forms
             GcDApprov.DataSource = Glossaire.Instance.LoadGrid(Constants.View.LIST_DETAIL_APPROV, id.ToString(), "idDApv");
         }
 
+        #endregion
+
+        #region Détail approvisionnement
+
+        private void ControleDetailApprovisionnement(bool save)
+        {
+            try
+            {
+                if (save)
+                {
+                    if (IsNotEmpty(2))
+                    {
+                        detailApprov = new DetailApprovisionnement
+                        {
+                            Code = "0",
+                            CodeApprov = Convert.ToInt32(TxtCodeApprov.Text),
+                            CodePiece = _idPiece,
+                            Prix = double.Parse(TxtPrixApprov.Text),
+                            Quantite = Convert.ToInt32(TxtQteApprov.Text)
+                        };
+
+                        Glossaire.Instance.ControleApprovDetail(detailApprov);
+                    }
+                    else
+                    {
+                        detailApprov = new DetailApprovisionnement
+                        {
+                            Code = TxtCodeDetailApprov.Text,
+                            CodeApprov = Convert.ToInt32(TxtCodeApprov.Text),
+                            CodePiece = _idPiece,
+                            Prix = Convert.ToDouble(TxtPrixApprov.Text),
+                            Quantite = Convert.ToInt32(TxtQteApprov.Text)
+                        };
+
+                        Glossaire.Instance.ControleApprovDetail(detailApprov, 2);
+                    }
+                }
+                else
+                {
+                    detailApprov = new DetailApprovisionnement
+                    {
+                        Code = TxtCodeDetailApprov.Text,
+                        CodeApprov = Convert.ToInt32(TxtCodeApprov.Text),
+                        CodePiece = _idPiece,
+                        Prix = Convert.ToDouble(TxtPrixApprov.Text),
+                        Quantite = Convert.ToInt32(TxtQteApprov.Text)
+                    };
+
+                    Glossaire.Instance.ControleApprovDetail(detailApprov, 2);
+                }
+
+                ClearFields(2);
+                LoadCombo();
+                LoadGridControle(2);
+            }
+            catch (InvalidOperationException ex)
+            {
+                MessageBox.Show("Une erreur est survenue pendant l'opération ! " + ex.Message, "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            catch (System.Data.SqlClient.SqlException ex)
+            {
+                MessageBox.Show("Une erreur est survenue pendant l'opération ! " + ex.Message, "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Une erreur est survenue pendant l'opération ! " + ex.Message, "Information", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            finally
+            {
+                if (ImplementeConnexion.Instance.Con != null)
+                {
+                    if (ImplementeConnexion.Instance.Con.State == System.Data.ConnectionState.Open)
+                        ImplementeConnexion.Instance.Con.Close();
+                }
+            }
+        }
+
+        private void ControleDetailApprov_Click(object sender, EventArgs e)
+        {
+            switch (((Control)sender).Name)
+            {
+                case "BtnNewDApprov":
+                    ClearFields(2);
+                    break;
+
+                case "BtnSaveDApprov":
+                    ControleDetailApprovisionnement(true);
+                    break;
+
+                case "BtnDeleteDApprov":
+                    ControleDetailApprovisionnement(false);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
         private void GcDApprov_DoubleClick(object sender, EventArgs e)
         {
             try
             {
-                TxtCodeDetailApprov.Text = GvApprov.GetFocusedRowCellValue("idDApv").ToString();
-                CmbPiece.Text = GvApprov.GetFocusedRowCellValue("designation").ToString();
+                TxtCodeDetailApprov.Text = GvDApprov.GetFocusedRowCellValue("idDApv").ToString();
                 TxtPrixApprov.Text = GvDApprov.GetFocusedRowCellValue("prix").ToString();
                 TxtQteApprov.Text = GvDApprov.GetFocusedRowCellValue("quantite").ToString();
+                CmbPiece.Text = GvDApprov.GetFocusedRowCellValue("designation").ToString();
+
+                _initCmbState = false;
+                CmbFss.Text = GvDApprov.GetFocusedRowCellValue("fournisseur").ToString();
+                TxtCodeApprov.Text = GvDApprov.GetFocusedRowCellValue("id").ToString();
+                _initCmbState = true;
 
                 BtnDeleteDApprov.Enabled = true;
+                GbApprov.Enabled = false;
 
-                if (!string.IsNullOrEmpty(TxtCodeApprov.Text) && !string.IsNullOrEmpty(CmbFss.Text))
-                {
-                    LoadGridControleApprov(Convert.ToInt32(TxtCodeApprov.Text));
-                }
             }
             catch (Exception ex)
             {
@@ -260,12 +372,6 @@ namespace StockBonBerger.Forms
             }
         }
 
-
         #endregion
-
-        private void CmbPiece_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }
