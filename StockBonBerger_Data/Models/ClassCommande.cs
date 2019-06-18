@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace StockBonBerger_Data.Models
 {
-    class Commande : Base
+    public class Commande : Base
     {
         public DateTime DateCommande { get; set; }
 

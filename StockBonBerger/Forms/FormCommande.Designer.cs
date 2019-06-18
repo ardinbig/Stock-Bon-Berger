@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.GbApprov = new System.Windows.Forms.GroupBox();
+            this.GbCmd = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.GcCmd = new DevExpress.XtraGrid.GridControl();
             this.GvCmd = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -43,7 +43,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.TxtCodeCmd = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.GbDeatilApprov = new System.Windows.Forms.GroupBox();
+            this.GbDeatilCmd = new System.Windows.Forms.GroupBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.GcDCmd = new DevExpress.XtraGrid.GridControl();
             this.GvDCmd = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -54,7 +54,7 @@
             this.GColPrix = new DevExpress.XtraGrid.Columns.GridColumn();
             this.GColCodeCategC = new DevExpress.XtraGrid.Columns.GridColumn();
             this.GColCodeCmd = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.GbControlDApprov = new System.Windows.Forms.GroupBox();
+            this.GbControlDCmd = new System.Windows.Forms.GroupBox();
             this.TxtPrixCmd = new System.Windows.Forms.MaskedTextBox();
             this.TxtQteCmd = new System.Windows.Forms.MaskedTextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -67,29 +67,29 @@
             this.BtnNewDCmd = new DevExpress.XtraEditors.SimpleButton();
             this.TxtCodeDetailCmd = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.GbApprov.SuspendLayout();
+            this.GbCmd.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GcCmd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GvCmd)).BeginInit();
             this.groupBox3.SuspendLayout();
-            this.GbDeatilApprov.SuspendLayout();
+            this.GbDeatilCmd.SuspendLayout();
             this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GcDCmd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GvDCmd)).BeginInit();
-            this.GbControlDApprov.SuspendLayout();
+            this.GbControlDCmd.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.separatorControl1)).BeginInit();
             this.SuspendLayout();
             // 
-            // GbApprov
+            // GbCmd
             // 
-            this.GbApprov.Controls.Add(this.groupBox4);
-            this.GbApprov.Controls.Add(this.groupBox3);
-            this.GbApprov.Location = new System.Drawing.Point(12, 12);
-            this.GbApprov.Name = "GbApprov";
-            this.GbApprov.Size = new System.Drawing.Size(760, 153);
-            this.GbApprov.TabIndex = 5;
-            this.GbApprov.TabStop = false;
-            this.GbApprov.Text = "Commande";
+            this.GbCmd.Controls.Add(this.groupBox4);
+            this.GbCmd.Controls.Add(this.groupBox3);
+            this.GbCmd.Location = new System.Drawing.Point(12, 12);
+            this.GbCmd.Name = "GbCmd";
+            this.GbCmd.Size = new System.Drawing.Size(760, 153);
+            this.GbCmd.TabIndex = 5;
+            this.GbCmd.TabStop = false;
+            this.GbCmd.Text = "Commande";
             // 
             // groupBox4
             // 
@@ -240,19 +240,19 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Code : ";
             // 
-            // GbDeatilApprov
+            // GbDeatilCmd
             // 
-            this.GbDeatilApprov.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.GbDeatilCmd.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.GbDeatilApprov.Controls.Add(this.groupBox6);
-            this.GbDeatilApprov.Controls.Add(this.GbControlDApprov);
-            this.GbDeatilApprov.Location = new System.Drawing.Point(12, 171);
-            this.GbDeatilApprov.Name = "GbDeatilApprov";
-            this.GbDeatilApprov.Size = new System.Drawing.Size(760, 278);
-            this.GbDeatilApprov.TabIndex = 6;
-            this.GbDeatilApprov.TabStop = false;
-            this.GbDeatilApprov.Text = "Détail commande";
+            this.GbDeatilCmd.Controls.Add(this.groupBox6);
+            this.GbDeatilCmd.Controls.Add(this.GbControlDCmd);
+            this.GbDeatilCmd.Location = new System.Drawing.Point(12, 171);
+            this.GbDeatilCmd.Name = "GbDeatilCmd";
+            this.GbDeatilCmd.Size = new System.Drawing.Size(760, 278);
+            this.GbDeatilCmd.TabIndex = 6;
+            this.GbDeatilCmd.TabStop = false;
+            this.GbDeatilCmd.Text = "Détail commande";
             // 
             // groupBox6
             // 
@@ -349,25 +349,25 @@
             this.GColCodeCmd.FieldName = "idDApv";
             this.GColCodeCmd.Name = "GColCodeCmd";
             // 
-            // GbControlDApprov
+            // GbControlDCmd
             // 
-            this.GbControlDApprov.Controls.Add(this.TxtPrixCmd);
-            this.GbControlDApprov.Controls.Add(this.TxtQteCmd);
-            this.GbControlDApprov.Controls.Add(this.label7);
-            this.GbControlDApprov.Controls.Add(this.separatorControl1);
-            this.GbControlDApprov.Controls.Add(this.label6);
-            this.GbControlDApprov.Controls.Add(this.CmbPiece);
-            this.GbControlDApprov.Controls.Add(this.label5);
-            this.GbControlDApprov.Controls.Add(this.BtnDeleteDCmd);
-            this.GbControlDApprov.Controls.Add(this.BtnSaveDCmd);
-            this.GbControlDApprov.Controls.Add(this.BtnNewDCmd);
-            this.GbControlDApprov.Controls.Add(this.TxtCodeDetailCmd);
-            this.GbControlDApprov.Controls.Add(this.label4);
-            this.GbControlDApprov.Location = new System.Drawing.Point(13, 19);
-            this.GbControlDApprov.Name = "GbControlDApprov";
-            this.GbControlDApprov.Size = new System.Drawing.Size(747, 134);
-            this.GbControlDApprov.TabIndex = 1;
-            this.GbControlDApprov.TabStop = false;
+            this.GbControlDCmd.Controls.Add(this.TxtPrixCmd);
+            this.GbControlDCmd.Controls.Add(this.TxtQteCmd);
+            this.GbControlDCmd.Controls.Add(this.label7);
+            this.GbControlDCmd.Controls.Add(this.separatorControl1);
+            this.GbControlDCmd.Controls.Add(this.label6);
+            this.GbControlDCmd.Controls.Add(this.CmbPiece);
+            this.GbControlDCmd.Controls.Add(this.label5);
+            this.GbControlDCmd.Controls.Add(this.BtnDeleteDCmd);
+            this.GbControlDCmd.Controls.Add(this.BtnSaveDCmd);
+            this.GbControlDCmd.Controls.Add(this.BtnNewDCmd);
+            this.GbControlDCmd.Controls.Add(this.TxtCodeDetailCmd);
+            this.GbControlDCmd.Controls.Add(this.label4);
+            this.GbControlDCmd.Location = new System.Drawing.Point(13, 19);
+            this.GbControlDCmd.Name = "GbControlDCmd";
+            this.GbControlDCmd.Size = new System.Drawing.Size(747, 134);
+            this.GbControlDCmd.TabIndex = 1;
+            this.GbControlDCmd.TabStop = false;
             // 
             // TxtPrixCmd
             // 
@@ -497,22 +497,23 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 461);
-            this.Controls.Add(this.GbDeatilApprov);
-            this.Controls.Add(this.GbApprov);
+            this.Controls.Add(this.GbDeatilCmd);
+            this.Controls.Add(this.GbCmd);
             this.Name = "FormCommande";
             this.Text = "Commande";
-            this.GbApprov.ResumeLayout(false);
+            this.Load += new System.EventHandler(this.FormCommande_Load);
+            this.GbCmd.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.GcCmd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.GvCmd)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            this.GbDeatilApprov.ResumeLayout(false);
+            this.GbDeatilCmd.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.GcDCmd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.GvDCmd)).EndInit();
-            this.GbControlDApprov.ResumeLayout(false);
-            this.GbControlDApprov.PerformLayout();
+            this.GbControlDCmd.ResumeLayout(false);
+            this.GbControlDCmd.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.separatorControl1)).EndInit();
             this.ResumeLayout(false);
 
@@ -520,7 +521,7 @@
 
         #endregion
 
-        private System.Windows.Forms.GroupBox GbApprov;
+        private System.Windows.Forms.GroupBox GbCmd;
         private System.Windows.Forms.GroupBox groupBox4;
         private DevExpress.XtraGrid.GridControl GcCmd;
         private DevExpress.XtraGrid.Views.Grid.GridView GvCmd;
@@ -535,7 +536,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox TxtCodeCmd;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.GroupBox GbDeatilApprov;
+        private System.Windows.Forms.GroupBox GbDeatilCmd;
         private System.Windows.Forms.GroupBox groupBox6;
         private DevExpress.XtraGrid.GridControl GcDCmd;
         private DevExpress.XtraGrid.Views.Grid.GridView GvDCmd;
@@ -546,7 +547,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn GColPrix;
         private DevExpress.XtraGrid.Columns.GridColumn GColCodeCategC;
         private DevExpress.XtraGrid.Columns.GridColumn GColCodeCmd;
-        private System.Windows.Forms.GroupBox GbControlDApprov;
+        private System.Windows.Forms.GroupBox GbControlDCmd;
         private System.Windows.Forms.MaskedTextBox TxtPrixCmd;
         private System.Windows.Forms.MaskedTextBox TxtQteCmd;
         private System.Windows.Forms.Label label7;

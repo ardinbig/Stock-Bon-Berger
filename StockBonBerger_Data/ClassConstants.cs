@@ -31,6 +31,8 @@ namespace StockBonBerger_Data
             public const string LIST_CLIENTS = "v_list_clients";
             public const string LIST_DETAIL_APPROV = "v_list_detail_approv";
             public const string LIST_APPROV = "v_list_approv";
+            public const string LIST_CMD = "v_list_cmd";
+            public const string LIST_DETAIL_CMD = "v_list_detail_cmd";
         }
 
         public class Procedure
